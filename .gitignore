@@ -1,0 +1,11 @@
+*.iml
+.gradle
+.idea
+/captures
+/build
+/release
+/local.properties
+module-common/build
+module-wan/build
+module-gan/build
+module-github/build
