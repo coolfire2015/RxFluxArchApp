@@ -42,8 +42,6 @@ class LoginActionCreatorTest : BaseSubscriberTest() {
         loginActionCreator?.login("asdf", "pwd")
         //验证方法失败，发送RxError
         verify(rxDispatcher).postRxError(any())
-        //验证view接收异常
-        verify(loginActivity)?.onRxError(any())
         //调用错误登录方法
         loginActionCreator?.login(BuildConfig.GIT_NAME, BuildConfig.GIT_PWD)
         //验证方法调用成功，发送RxAction

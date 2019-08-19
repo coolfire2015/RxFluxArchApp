@@ -1,6 +1,5 @@
 apply plugin: isModuleAsApp.toBoolean() ? 'com.android.application' : 'com.android.library'
-apply plugin: 'com.jakewharton.butterknife'
-apply from: rootProject.file('depend_java.gradle')
+apply from: rootProject.file('depend_kotlin.gradle')
 
 //获取local.Properties
 File localPropFile = project.rootProject.file("local.properties")
@@ -37,13 +36,6 @@ android {
         buildConfigField 'String', 'BRANCH', '"' + rootProject.getGitBranch() + '"'
         //当前模块名字
         buildConfigField 'String', 'MODULE_NAME', '"' + project.getName() + '"'
-        //注解编译参数设置
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName(),
-                             eventBusIndex      : 'com.huyingbao.module.gan.GanEventBusIndex']
-            }
-        }
     }
     //构建过程
     buildTypes {
@@ -70,6 +62,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             //签名配置
             signingConfig signingConfigs.release
+        }
+    }
+    //注解编译参数设置
+    kapt {
+        arguments {
+            arg("AROUTER_MODULE_NAME", project.getName())
+            arg('eventBusIndex', 'com.huyingbao.module.gan.GanEventBusIndex')
         }
     }
     //代码目录设置

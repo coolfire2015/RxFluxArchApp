@@ -12,7 +12,7 @@ import com.huyingbao.module.common.widget.CommonInfoCardView
 import com.huyingbao.module.github.R
 import com.huyingbao.module.github.app.GithubAppStore
 import com.huyingbao.module.github.databinding.GithubFragmentUserBinding
-import com.huyingbao.module.github.ui.start.action.StartActionCreator
+import com.huyingbao.module.github.ui.login.action.LoginActionCreator
 import com.huyingbao.module.github.ui.user.action.UserActionCreator
 import com.huyingbao.module.github.ui.user.model.UserInfoRequest
 import com.huyingbao.module.github.ui.user.store.UserStore
@@ -28,7 +28,7 @@ class UserFragment : BaseFluxBindFragment<UserStore, GithubFragmentUserBinding>(
     @Inject
     lateinit var userActionCreator: UserActionCreator
     @Inject
-    lateinit var startActionCreator: StartActionCreator
+    lateinit var loginActionCreator: LoginActionCreator
     @Inject
     lateinit var githubAppStore: GithubAppStore
 
@@ -66,7 +66,7 @@ class UserFragment : BaseFluxBindFragment<UserStore, GithubFragmentUserBinding>(
 
     private fun initRefreshView() {
         rfl_content.setOnRefreshListener {
-            startActionCreator.getLoginUserInfo()
+            loginActionCreator.getLoginUserInfo()
         }
     }
 

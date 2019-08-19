@@ -9,8 +9,8 @@ import com.huyingbao.core.arch.store.RxAppStore
 import com.huyingbao.core.utils.LocalStorageUtils
 import com.huyingbao.module.common.app.CommonConstants
 import com.huyingbao.module.github.BuildConfig
+import com.huyingbao.module.github.ui.login.action.LoginAction
 import com.huyingbao.module.github.ui.login.model.User
-import com.huyingbao.module.github.ui.start.action.StartAction
 import com.huyingbao.module.github.ui.user.action.UserAction
 import org.greenrobot.eventbus.Subscribe
 import javax.inject.Inject
@@ -43,7 +43,7 @@ class GithubAppStore @Inject constructor(
      * 接收并维持当前登录用户信息
      */
     @Subscribe(tags = [
-        StartAction.GET_LOGIN_USER_INFO,
+        LoginAction.GET_LOGIN_USER_INFO,
         UserAction.UPDATE_USER_INFO])
     fun onReceiveUserInfo(rxAction: RxAction) {
         userLiveData.value = rxAction.getResponse()

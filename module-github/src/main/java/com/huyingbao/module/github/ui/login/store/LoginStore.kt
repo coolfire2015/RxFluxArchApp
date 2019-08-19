@@ -26,7 +26,6 @@ class LoginStore @Inject constructor(rxDispatcher: RxDispatcher) : RxActivitySto
     fun onLogin(rxAction: RxAction) {
         val userName: String? = rxAction.data[CommonConstants.Key.USER_NAME] as String?
         val password: String? = rxAction.data[CommonConstants.Key.PASSWORD] as String?
-        //TODO 非空判断
         localStorageUtils.setValue(CommonConstants.Key.ACCESS_TOKEN, rxAction.getResponse<AccessToken?>()?.token!!)
         localStorageUtils.setValue(CommonConstants.Key.USER_NAME, userName!!)
         localStorageUtils.setValue(CommonConstants.Key.PASSWORD, password!!)

@@ -31,11 +31,6 @@ class LoginActivityTest {
     }
 
     @Test
-    fun getGithubAppStore() {
-        scenarioRule.scenario.onActivity { Assert.assertNotNull(it.githubAppStore) }
-    }
-
-    @Test
     fun getLayoutId() {
         scenarioRule.scenario.onActivity { Assert.assertNotNull(it.getLayoutId()) }
     }

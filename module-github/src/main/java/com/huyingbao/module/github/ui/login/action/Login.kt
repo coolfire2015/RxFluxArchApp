@@ -2,12 +2,10 @@ package com.huyingbao.module.github.ui.login.action
 
 import com.huyingbao.module.github.ui.login.model.AccessToken
 import com.huyingbao.module.github.ui.login.model.LoginRequest
+import com.huyingbao.module.github.ui.login.model.User
 import io.reactivex.Observable
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.Header
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 /**
  * 登录模块
@@ -20,12 +18,22 @@ interface LoginAction {
          * 登录
          */
         const val LOGIN = "login"
+        /**
+         * 获取当前登录用户信息
+         */
+        const val GET_LOGIN_USER_INFO = "getLoginUserInfo"
     }
 
     /**
      * 登录
      */
     fun login(username: String, password: String)
+
+
+    /**
+     * 获取当前登录用户信息
+     */
+    fun getLoginUserInfo()
 }
 
 interface LoginApi {
@@ -40,4 +48,10 @@ interface LoginApi {
             @Header("Authorization") basicCode: String,
             @Body authRequest: LoginRequest
     ): Observable<Response<AccessToken>>
+
+    /**
+     * 获取当前登录用户信息
+     */
+    @GET("user")
+    fun getLoginUserInfo(): Observable<Response<User>>
 }

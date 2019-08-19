@@ -5,7 +5,6 @@ import com.huyingbao.module.github.app.GithubAppLifecycle
 import com.huyingbao.module.github.ui.login.view.LoginActivity
 import com.huyingbao.module.github.ui.main.view.MainActivity
 import com.huyingbao.module.github.ui.star.view.StarActivity
-import com.huyingbao.module.github.ui.start.view.StartActivity
 import com.huyingbao.module.github.ui.user.view.UserActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -20,10 +19,6 @@ abstract class GithubInjectActivityModule {
     @ActivityScope
     @ContributesAndroidInjector
     abstract fun injectGithubAppLifecycle(): GithubAppLifecycle
-
-    @ActivityScope
-    @ContributesAndroidInjector(modules = [GithubInjectFragmentModule::class])
-    abstract fun injectStartActivity(): StartActivity
 
     @ActivityScope
     @ContributesAndroidInjector(modules = [GithubInjectFragmentModule::class])

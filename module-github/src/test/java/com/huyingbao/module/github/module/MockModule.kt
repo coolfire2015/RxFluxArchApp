@@ -2,6 +2,7 @@ package com.huyingbao.module.github.module
 
 import android.text.TextUtils
 import com.huyingbao.module.common.app.CommonConstants
+import com.huyingbao.module.common.app.CommonModule
 import com.huyingbao.module.github.app.GithubContants
 import dagger.Component
 import dagger.Module
@@ -35,7 +36,7 @@ interface MockComponent {
  *
  * 2.提供测试代码需要的全局对象
  */
-@Module(includes = [GithubAppModule::class])
+@Module(includes = [CommonModule::class])
 class MockModule {
     /**
      * 初始化Retrofit
