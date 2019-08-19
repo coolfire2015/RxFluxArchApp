@@ -1,30 +1,37 @@
 package com.huyingbao.module.github.ui.main.action
 
 import com.huyingbao.module.github.app.GithubAppStore
-import com.huyingbao.module.github.module.BaseSubscriberTest
-import com.huyingbao.module.github.module.MockUtils
+import com.huyingbao.module.github.module.GithubMockUtils
+import com.huyingbao.module.github.module.githubMockDaggerRule
 import com.huyingbao.module.github.ui.main.store.MainStore
+import com.huyingbao.test.module.BaseSubscriberTest
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Before
 import org.junit.Ignore
+import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito
 
 class MainActionCreatorTest : BaseSubscriberTest() {
-    private var mainStore: MainStore? = null
-    private var githubAppStore: GithubAppStore? = null
+    /**
+     * 初始化DaggerMock
+     */
+    @get:Rule
+    var mockDaggerRule = githubMockDaggerRule()
+
+    private var mainStore: MainStore = Mockito.mock(MainStore::class.java)
+    private var githubAppStore: GithubAppStore = Mockito.mock(GithubAppStore::class.java)
+
     private var mainActionCreator: MainActionCreator? = null
 
     override fun getSubscriberList(): List<Any> {
-        mainStore = Mockito.mock(MainStore::class.java)
-        githubAppStore = Mockito.mock(GithubAppStore::class.java)
         return listOfNotNull(mainStore)
     }
 
     @Before
     fun setUp() {
-        mainActionCreator = MainActionCreator(rxDispatcher, rxActionManager, MockUtils.component!!.retrofit)
+        mainActionCreator = MainActionCreator(rxDispatcher, rxActionManager, GithubMockUtils.githubTestComponent!!.retrofit)
     }
 
     @Ignore("不需要向仓库中提交issue")

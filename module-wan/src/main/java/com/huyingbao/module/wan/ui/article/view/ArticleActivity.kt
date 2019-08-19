@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.huyingbao.core.arch.model.RxChange
+import com.huyingbao.core.base.FragmentOp
 import com.huyingbao.core.base.flux.activity.BaseFluxFragActivity
 import com.huyingbao.core.base.setFragment
 import com.huyingbao.module.common.app.CommonRouter
@@ -26,11 +27,11 @@ class ArticleActivity : BaseFluxFragActivity<ArticleStore>() {
 
     @Subscribe(tags = [ArticleAction.TO_FRIEND], sticky = true)
     fun toFriend(rxChange: RxChange) {
-        setFragment(R.id.fl_container, FriendFragment.newInstance(), true)
+        setFragment(R.id.fl_container, FriendFragment.newInstance(), FragmentOp.OP_HIDE)
     }
 
     @Subscribe(tags = [ArticleAction.TO_BANNER], sticky = true)
     fun toBanner(rxChange: RxChange) {
-        setFragment(R.id.fl_container, BannerFragment.newInstance(), true)
+        setFragment(R.id.fl_container, BannerFragment.newInstance(), FragmentOp.OP_HIDE)
     }
 }

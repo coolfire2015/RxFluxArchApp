@@ -7,14 +7,11 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.LargeTest
 import com.huyingbao.module.github.GithubApplication
 import com.huyingbao.module.github.R
-import com.huyingbao.module.github.module.BaseSubscriberTest
 import com.huyingbao.module.github.ui.login.store.LoginStore
+import com.huyingbao.test.module.BaseSubscriberTest
 import com.huyingbao.test.utils.FragmentScenarioRule
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.verify
 import org.hamcrest.core.AllOf
 import org.junit.*
 import org.junit.runner.RunWith
@@ -25,9 +22,8 @@ import org.robolectric.annotation.Config
 /**
  * Created by liujunfeng on 2019/3/28.
  */
-@LargeTest
 @RunWith(AndroidJUnit4::class)
-@Config(application = GithubApplication::class)
+@Config(application = GithubApplication::class, sdk = [28])
 class LoginFragmentTest : BaseSubscriberTest() {
     @get:Rule
     var scenarioRule = FragmentScenarioRule(
@@ -37,12 +33,10 @@ class LoginFragmentTest : BaseSubscriberTest() {
             null,
             R.id.fl_container)
 
-    private var loginStore: LoginStore? = null
-    private var loginActivity: LoginActivity? = null
+    private var loginStore: LoginStore = Mockito.mock(LoginStore::class.java)
+    private var loginActivity: LoginActivity = Mockito.mock(LoginActivity::class.java)
 
     override fun getSubscriberList(): List<Any> {
-        loginStore = Mockito.mock(LoginStore::class.java)
-        loginActivity = Mockito.mock(LoginActivity::class.java)
         return listOfNotNull(loginStore, loginActivity)
     }
 

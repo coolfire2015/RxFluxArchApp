@@ -5,8 +5,9 @@ import android.os.Bundle
 import android.text.TextUtils
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.huyingbao.core.arch.model.RxChange
+import com.huyingbao.core.base.FragmentOp
 import com.huyingbao.core.base.flux.activity.BaseFluxActivity
-import com.huyingbao.core.base.initFragment
+import com.huyingbao.core.base.setFragment
 import com.huyingbao.module.common.app.CommonRouter
 import com.huyingbao.module.github.R
 import com.huyingbao.module.github.app.GithubAppStore
@@ -36,7 +37,7 @@ class LoginActivity : BaseFluxActivity<LoginStore>() {
 
     override fun afterCreate(savedInstanceState: Bundle?) {
         if (TextUtils.isEmpty(githubAppStore.getAccessToken())) {//未登录，显示登录页面
-            initFragment(R.id.fl_container, LoginFragment.newInstance())
+            setFragment(R.id.fl_container, LoginFragment.newInstance(), FragmentOp.OP_NULL)
         } else {//已登录，获取当前登录用户信息，跳转主页面
             //获取当前登录用户信息
             loginActionCreator.getLoginUserInfo()

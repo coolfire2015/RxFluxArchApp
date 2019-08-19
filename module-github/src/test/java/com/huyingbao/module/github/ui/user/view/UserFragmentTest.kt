@@ -10,9 +10,8 @@ import org.junit.*
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
-@LargeTest
 @RunWith(AndroidJUnit4::class)
-@Config(application = GithubApplication::class)
+@Config(application = GithubApplication::class, sdk = [28])
 class UserFragmentTest {
     @get:Rule
     var scenarioRule = FragmentScenarioRule(

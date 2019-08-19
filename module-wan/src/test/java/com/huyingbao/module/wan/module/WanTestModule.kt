@@ -17,6 +17,7 @@ import io.appflate.restmock.JVMFileParser
 import io.appflate.restmock.RESTMockServer
 import io.appflate.restmock.RESTMockServerStarter
 import io.appflate.restmock.utils.RequestMatchers
+import it.cosenonjaviste.daggermock.DaggerMock
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -24,18 +25,24 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 /**
- * 依赖注入器,为测试代码提供方便测试的全局对象。
+ * 全局静态方法,提供依赖注入器实例对象。
  *
  * Created by liujunfeng on 2019/7/1.
  */
+object WanMockUtils {
+    var wanTestComponent: WanTestComponent? = null
+}
+
+/**
+ * 依赖注入器,为测试代码提供方便测试的全局对象。
+ */
 @Singleton
-@Component(modules = [MockModule::class])
-interface MockComponent {
+@Component(modules = [WanTestModule::class])
+interface WanTestComponent {
     /**
      * 提供实际创建的工具对象
      */
     val retrofit: Retrofit
-    val articleStore: ArticleStore
 }
 
 /**
@@ -46,10 +53,10 @@ interface MockComponent {
  * 2.提供测试代码需要的全局对象
  */
 @Module(includes = [WanAppModule::class])
-class MockModule {
+class WanTestModule {
     /**
-     * 返回实际创建的[ArticleStore]实例对象，但是DaggerMock会返回虚拟的Mock对象，参见[mockDaggerRule]方法。
-     * 如果[MockComponent]不定义该对象，该方法不会被调用。
+     * 返回实际创建的[ArticleStore]实例对象，但是DaggerMock会返回虚拟的Mock对象，参见[wanMockDaggerRule]方法。
+     * 如果[WanTestComponent]不定义该对象，该方法不会被调用。
      *
      * @param rxStoreFactory 来自[CommonModule]，[ArticleStore]对象来自[WanAppModule]
      */
@@ -68,7 +75,7 @@ class MockModule {
     @Provides
     fun provideRetrofit(builder: OkHttpClient.Builder): Retrofit {
         val retrofitBuilder = Retrofit.Builder()
-                .baseUrl(WanContants.Base.BASE_URL)
+                .baseUrl(if (BuildConfig.MOCK_URL) initMockServer() else WanContants.Base.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(GsonBuilder().serializeNulls().create()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(builder.build())
@@ -88,33 +95,44 @@ class MockModule {
                 .fallbackToDestructiveMigration()
         return databaseBuilder.build()
     }
+}
 
-    /**
-     * 初始化根Url
-     */
-    private fun initBaseUrl(): String {
-        return if (BuildConfig.MOCK_URL) initMockServer() else WanContants.Base.BASE_URL
+/**
+ * 动态创建 Module 子类的 JUnit 规则，初始化一个测试类里面的所有用@Mock field为mock对象。
+ *
+ * 完成的操作：要使用哪个Module、要build哪个Component、要把build好的Component放到哪
+ *
+ * 1.动态创建了一个[WanTestModule]的子类，返回在测试中定义并使用[org.mockito.Mock]和[org.mockito.Spy]标注的虚拟对象 ，而不是真实的对象。
+ *
+ * 2.Mock [WanTestModule]，通过反射的方式得到[WanTestModule]的所有[dagger.Provides]方法，如果有某个方法的返回值是[org.mockito.Mock]和[org.mockito.Spy]标注的虚拟对象，
+ * 那么就使用Mockito，让这个[dagger.Provides]方法被调用时，返回虚拟对象。
+ *
+ * 3.使用[WanTestModule]来构建一个[WanTestComponent]，并且放到[WanMockUtils]里面去。
+ */
+fun wanMockDaggerRule() = DaggerMock.rule<WanTestComponent>(WanTestModule()) {
+    set {
+        WanMockUtils.wanTestComponent = it
     }
+}
 
-    /**
-     * 使用RESTMockServer,为需要测试的接口提供mock数据
-     */
-    private fun initMockServer(): String {
-        //开启RestMockServer
-        RESTMockServerStarter.startSync(JVMFileParser())
-        //article/list
-        RESTMockServer.whenGET(RequestMatchers.pathContains("article/list"))
-                .thenReturnFile(200, "json/articleList.json")
-        //banner/json
-        RESTMockServer.whenGET(RequestMatchers.pathContains("banner/json"))
-                .thenReturnFile(200, "json/bannerList.json")
-        //login
-        RESTMockServer.whenPOST(RequestMatchers.pathContains("user/login"))
-                .thenReturnFile(200, "json/login.json")
-        //register
-        RESTMockServer.whenPOST(RequestMatchers.pathContains("user/register"))
-                .thenReturnFile(200, "json/register.json")
-        //返回Mock的Url
-        return RESTMockServer.getUrl()
-    }
+/**
+ * 使用RESTMockServer,为需要测试的接口提供mock数据
+ */
+fun initMockServer(): String {
+    //开启RestMockServer
+    RESTMockServerStarter.startSync(JVMFileParser())
+    //article/list
+    RESTMockServer.whenGET(RequestMatchers.pathContains("article/list"))
+            .thenReturnFile(200, "json/articleList.json")
+    //banner/json
+    RESTMockServer.whenGET(RequestMatchers.pathContains("banner/json"))
+            .thenReturnFile(200, "json/bannerList.json")
+    //login
+    RESTMockServer.whenPOST(RequestMatchers.pathContains("user/login"))
+            .thenReturnFile(200, "json/login.json")
+    //register
+    RESTMockServer.whenPOST(RequestMatchers.pathContains("user/register"))
+            .thenReturnFile(200, "json/register.json")
+    //返回Mock的Url
+    return RESTMockServer.getUrl()
 }

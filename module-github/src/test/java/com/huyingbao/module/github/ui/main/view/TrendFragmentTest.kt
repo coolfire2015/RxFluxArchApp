@@ -2,7 +2,6 @@ package com.huyingbao.module.github.ui.main.view
 
 import androidx.lifecycle.Lifecycle
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.LargeTest
 import com.huyingbao.module.github.GithubApplication
 import com.huyingbao.module.github.R
 import com.huyingbao.module.github.ui.login.view.LoginActivity
@@ -11,9 +10,8 @@ import org.junit.*
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
-@LargeTest
 @RunWith(AndroidJUnit4::class)
-@Config(application = GithubApplication::class)
+@Config(application = GithubApplication::class, sdk = [28])
 class TrendFragmentTest {
     @get:Rule
     var scenarioRule = FragmentScenarioRule(

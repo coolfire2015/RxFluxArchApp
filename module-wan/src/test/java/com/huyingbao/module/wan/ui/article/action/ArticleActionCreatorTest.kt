@@ -1,13 +1,15 @@
 package com.huyingbao.module.wan.ui.article.action
 
-import com.huyingbao.module.wan.module.BaseSubscriberTest
-import com.huyingbao.module.wan.module.MockUtils
+import com.huyingbao.module.wan.module.WanMockUtils
+import com.huyingbao.module.wan.module.wanMockDaggerRule
 import com.huyingbao.module.wan.ui.article.store.ArticleStore
+import com.huyingbao.test.module.BaseSubscriberTest
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
-import org.mockito.Mock
+import org.mockito.Mockito
 
 /**
  * 实际调用接口方法，Mock[com.huyingbao.core.arch.store.RxStore]和[com.huyingbao.core.arch.view.RxSubscriberView]，
@@ -16,8 +18,13 @@ import org.mockito.Mock
  * Created by liujunfeng on 2019/3/28.
  */
 class ArticleActionCreatorTest : BaseSubscriberTest() {
-    @Mock
-    lateinit var articleStore: ArticleStore
+    /**
+     * 初始化DaggerMock
+     */
+    @get:Rule
+    var mockDaggerRule = wanMockDaggerRule()
+
+    private var articleStore: ArticleStore = Mockito.mock(ArticleStore::class.java)
 
     private var articleActionCreator: ArticleActionCreator? = null
 
@@ -27,7 +34,7 @@ class ArticleActionCreatorTest : BaseSubscriberTest() {
 
     @Before
     fun setUp() {
-        articleActionCreator = ArticleActionCreator(rxDispatcher, rxActionManager, MockUtils.component!!.retrofit)
+        articleActionCreator = ArticleActionCreator(rxDispatcher, rxActionManager, WanMockUtils.wanTestComponent!!.retrofit)
     }
 
     @Test
