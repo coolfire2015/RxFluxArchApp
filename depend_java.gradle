@@ -17,8 +17,7 @@ android {
     }
     //Dex分包
     dexOptions {
-        jumboMode = true
-        javaMaxHeapSize "4g"//增加java堆内存大小
+        jumboMode = true//忽略方法数限制的检查
     }
     //Java1.8支持
     compileOptions {

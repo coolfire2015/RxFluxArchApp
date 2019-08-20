@@ -21,8 +21,7 @@ android {
     }
     //Dex分包
     dexOptions {
-        jumboMode = true
-        javaMaxHeapSize "4g"//增加java堆内存大小
+        jumboMode = true//忽略方法数限制的检查
     }
     //Java1.8支持
     compileOptions {
@@ -68,7 +67,10 @@ configurations.all {
 
 dependencies {
     //通用Base库
-    implementation "com.github.coolfire2015.RxFluxArchitecture:core-base:${RX_FLUX_ARCHITECTURE}"
+    implementation("com.github.coolfire2015.RxFluxArchitecture:core-base:${RX_FLUX_ARCHITECTURE}") {
+        //TODO android studio 3.6 canary 6 与 constraintlayout 2.0.0-alpha4以上不兼容
+        exclude group: 'androidx.constraintlayout', module: 'constraintlayout'
+    }
     //测试Android
     testImplementation "androidx.test:runner:${TEST_X_RUNNER}"
     testImplementation "androidx.test.ext:junit:${TEST_X_JUNIT}"

@@ -116,6 +116,8 @@ dependencies {
     api "androidx.paging:paging-rxjava2-ktx:${X_PAGING}"
     //X-WorkManager
     api "androidx.work:work-runtime-ktx:${X_WORK}"
+    //TODO android studio 3.6 canary 6 与 constraintlayout 2.0.0-alpha4以上不兼容
+    api 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
     //Kotlin Coroutines 支持
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:${KOTLIN_COROUTINES}"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:${KOTLIN_COROUTINES}"
