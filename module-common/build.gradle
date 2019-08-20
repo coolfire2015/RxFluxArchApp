@@ -7,6 +7,12 @@ Properties localProperties = new Properties()
 localProperties.load(localPropFile.newDataInputStream())
 
 android {
+    //构建过程中，Android Studio会传递devBuild给Gradle
+    if (project.hasProperty('devBuild')) {
+        splits.abi.enable = false//禁止根据Api的Multiple Apk构建
+        splits.density.enable = false//禁止根据像素密度的Multiple Apk构建
+        aaptOptions.cruncherEnabled = false//禁用PNG压缩
+    }
     //签名配置,自定义,用在defaultConfig中
     signingConfigs {
         debug {
@@ -25,7 +31,7 @@ android {
         multiDexEnabled true
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
-        versionCode rootProject.gitGitVersionCode()
+        versionCode project.hasProperty('devBuild') ? 20000 : rootProject.gitGitVersionCode()
         versionName rootProject.getGitVersionName()
         signingConfig signingConfigs.debug
         //使用vector图片
@@ -91,7 +97,7 @@ android {
             }
         }
     }
-    //修改生成的apk名字
+    //修改生成的apk文件名及路径
     if (isCommonAsApp.toBoolean()) {
         applicationVariants.all { variant ->
             if (variant.buildType.name != "debug") {

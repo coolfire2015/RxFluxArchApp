@@ -96,6 +96,7 @@ android {
         }
     }
 }
+
 dependencies {
     if (!isModuleAsApp.toBoolean()) {
         implementation project(':module-github')

@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/coolfire2015/RxFluxArchApp.svg?branch=master)](https://travis-ci.org/coolfire2015/RxFluxArchApp)
+
 ## License
 Copyright 2019 liujunfeng
 
