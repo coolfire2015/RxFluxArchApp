@@ -2,10 +2,9 @@ package com.huyingbao.module.github.ui.user.view
 
 import androidx.lifecycle.Lifecycle
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.LargeTest
 import com.huyingbao.module.github.GithubApplication
 import com.huyingbao.module.github.R
-import com.huyingbao.test.utils.FragmentScenarioRule
+import com.huyingbao.core.test.fragment.FragmentScenarioRule
 import org.junit.*
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config

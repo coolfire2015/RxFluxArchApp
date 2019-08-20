@@ -52,10 +52,20 @@ class CommonAppLifecycle(application: Application) : RxAppLifecycle(application)
                 .addIndex(CommonEventBusIndex())
                 .eventInheritance(false)
         commonAppStore.subscribe()
-        initBugly()
-        initTinker()
-        initDebug()
-        initX5()
+        //true：没有Robolectric类，代码在Android设备运行。
+        //false：有Robolectric类，代码在运行单元测试。
+        var android = try {
+            Class.forName("org.robolectric.Robolectric") == null
+        } catch (e: ClassNotFoundException) {
+            true
+        }
+        //在Android设备运行时，初始化相关SDK
+        if (android) {
+            initBugly()
+            initTinker()
+            initDebug()
+            initX5()
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
@@ -99,10 +109,13 @@ class CommonAppLifecycle(application: Application) : RxAppLifecycle(application)
                 }
             }
         })
-        //设置开发设备
-        CrashReport.setIsDevelopmentDevice(application, BuildConfig.DEBUG)
-        //初始化Bugly
-        CrashReport.initCrashReport(application, "6da8b7224c", BuildConfig.DEBUG, strategy)
+        try {//设置开发设备
+            CrashReport.setIsDevelopmentDevice(application, BuildConfig.DEBUG)
+            //初始化Bugly
+            CrashReport.initCrashReport(application, "6da8b7224c", BuildConfig.DEBUG, strategy)
+        } catch (e: Exception) {
+            Logger.e("init bugly error${e.toString()}")
+        }
     }
 
     /**

@@ -5,7 +5,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.huyingbao.module.github.GithubApplication
 import com.huyingbao.module.github.R
 import com.huyingbao.module.github.ui.login.view.LoginActivity
-import com.huyingbao.test.utils.FragmentScenarioRule
+import com.huyingbao.core.test.fragment.FragmentScenarioRule
 import org.junit.*
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config

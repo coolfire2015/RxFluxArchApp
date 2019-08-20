@@ -67,10 +67,7 @@ configurations.all {
 
 dependencies {
     //通用Base库
-    implementation("com.github.coolfire2015.RxFluxArchitecture:core-base:${RX_FLUX_ARCHITECTURE}") {
-        //TODO android studio 3.6 canary 6 与 constraintlayout 2.0.0-alpha4以上不兼容
-        exclude group: 'androidx.constraintlayout', module: 'constraintlayout'
-    }
+    implementation "com.github.coolfire2015.RxFluxArchitecture:core-base:${RX_FLUX_ARCHITECTURE}"
     //测试Android
     testImplementation "androidx.test:runner:${TEST_X_RUNNER}"
     testImplementation "androidx.test.ext:junit:${TEST_X_JUNIT}"
@@ -84,9 +81,10 @@ dependencies {
     testImplementation "org.mockito:mockito-core:${TEST_MOCKITO}"
     testImplementation "org.mockito:mockito-inline:${TEST_MOCKITO}"//解决Mockito无法mock final class的问题
     //解决Mockito any()等返回null的问题
+    //testImplementation "com.github.coolfire2015:RxFluxTestUtils:${RX_FLUX_TEST_UTILS}"
+    testImplementation project(':core-test')
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:${TEST_MOCKITO_KOTLIN}"
     testImplementation "org.robolectric:robolectric:${TEST_ROBOLECTRIC}"
-    testImplementation "com.github.coolfire2015:RxFluxTestUtils:${RX_FLUX_TEST_UTILS}"
     testImplementation "com.github.fabioCollini.daggermock:daggermock:${TEST_DEAAGE_MOCK}"
     testImplementation "com.github.fabioCollini.daggermock:daggermock-kotlin:${TEST_DEAAGE_MOCK}"
     //测试Api

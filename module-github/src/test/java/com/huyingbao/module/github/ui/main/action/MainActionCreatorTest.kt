@@ -4,7 +4,7 @@ import com.huyingbao.module.github.app.GithubAppStore
 import com.huyingbao.module.github.module.GithubMockUtils
 import com.huyingbao.module.github.module.githubMockDaggerRule
 import com.huyingbao.module.github.ui.main.store.MainStore
-import com.huyingbao.test.module.BaseSubscriberTest
+import com.huyingbao.core.test.subscriber.BaseSubscriberTest
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Before

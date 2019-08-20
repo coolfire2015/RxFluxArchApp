@@ -7,13 +7,13 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.huyingbao.module.wan.R
 import com.huyingbao.module.wan.WanApplication
-import com.huyingbao.test.utils.FragmentScenarioRule
+import com.huyingbao.core.test.fragment.FragmentScenarioRule
 import org.junit.*
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(application = WanApplication::class)
+@Config(application = WanApplication::class, sdk = [28])
 class ArticleListFragmentTest {
     @get:Rule
     var scenarioRule: FragmentScenarioRule<ArticleActivity, ArticleListFragment> = FragmentScenarioRule(

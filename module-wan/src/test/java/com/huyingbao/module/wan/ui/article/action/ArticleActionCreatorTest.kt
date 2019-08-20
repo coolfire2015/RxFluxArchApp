@@ -3,7 +3,7 @@ package com.huyingbao.module.wan.ui.article.action
 import com.huyingbao.module.wan.module.WanMockUtils
 import com.huyingbao.module.wan.module.wanMockDaggerRule
 import com.huyingbao.module.wan.ui.article.store.ArticleStore
-import com.huyingbao.test.module.BaseSubscriberTest
+import com.huyingbao.core.test.subscriber.BaseSubscriberTest
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Before

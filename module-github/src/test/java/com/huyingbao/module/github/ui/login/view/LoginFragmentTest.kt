@@ -10,8 +10,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.huyingbao.module.github.GithubApplication
 import com.huyingbao.module.github.R
 import com.huyingbao.module.github.ui.login.store.LoginStore
-import com.huyingbao.test.module.BaseSubscriberTest
-import com.huyingbao.test.utils.FragmentScenarioRule
+import com.huyingbao.core.test.subscriber.BaseSubscriberTest
+import com.huyingbao.core.test.fragment.FragmentScenarioRule
 import org.hamcrest.core.AllOf
 import org.junit.*
 import org.junit.runner.RunWith

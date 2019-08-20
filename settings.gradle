@@ -1,4 +1,4 @@
-include ':module-app'
+include ':module-app', ':core-test'
 include ':module-common'
 include ':module-github'
 include ':module-wan'
