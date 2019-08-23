@@ -57,6 +57,7 @@ before_install:
   - echo -e "STORE_PASSWORD=$STORE_PASSWORD" >> local.properties
   - echo -e "KEY_ALIAS=$KEY_ALIAS" >> local.properties
   - echo -e "KEY_PASSWORD=$KEY_PASSWORD" >> local.properties
+  - ls
 #脚本
 script:
   - ./gradlew clean --scan
