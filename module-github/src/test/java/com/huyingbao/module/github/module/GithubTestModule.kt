@@ -1,6 +1,8 @@
 package com.huyingbao.module.github.module
 
 import android.text.TextUtils
+import com.huyingbao.core.test.annotations.InTest
+import com.huyingbao.module.common.app.CommonAppStore
 import com.huyingbao.module.common.app.CommonConstants
 import com.huyingbao.module.common.app.CommonModule
 import com.huyingbao.module.github.app.GithubAppStore
@@ -37,7 +39,8 @@ interface GithubTestComponent {
     /**
      * 提供实际创建的工具对象
      */
-    val retrofit: Retrofit
+    @InTest
+    fun getRetrofit(): Retrofit
 }
 
 /**
@@ -47,7 +50,7 @@ interface GithubTestComponent {
  *
  * 2.提供测试代码需要的全局对象
  */
-@Module(includes = [CommonModule::class])
+@Module(includes = [GithubAppModule::class])
 class GithubTestModule {
     /**
      * 初始化Retrofit
@@ -56,6 +59,7 @@ class GithubTestModule {
      */
     @Singleton
     @Provides
+    @InTest
     fun provideRetrofit(builder: OkHttpClient.Builder): Retrofit {
         //Head拦截器
         val headInterceptor = Interceptor { chain ->
@@ -65,7 +69,7 @@ class GithubTestModule {
                 //Header中添加Authorization token数据
                 val url = request.url.toString()
                 val requestBuilder = request.newBuilder()
-                        .addHeader(CommonConstants.Header.AUTHORIZATION, "token 8006a8ae5ed083f2aa8eee59e478e09032bd1ece")
+                        .addHeader(CommonConstants.Header.AUTHORIZATION, "token 6776d3d22eba49f6b44f1e113814f4f628187411")
                         .url(url)
                 request = requestBuilder.build()
             }
@@ -87,6 +91,12 @@ class GithubTestModule {
     @Provides
     fun provideLoginStore(): LoginStore {
         return Mockito.mock(LoginStore::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideCommonAppStore(): CommonAppStore {
+        return Mockito.mock(CommonAppStore::class.java)
     }
 
     @Singleton

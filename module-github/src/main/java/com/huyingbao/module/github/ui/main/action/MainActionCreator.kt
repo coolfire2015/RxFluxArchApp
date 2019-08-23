@@ -5,6 +5,7 @@ import com.huyingbao.core.arch.dispatcher.RxDispatcher
 import com.huyingbao.core.arch.scope.ActivityScope
 import com.huyingbao.core.utils.FlatMapResponse2Result
 import com.huyingbao.core.utils.FlatMapResult2Response
+import com.huyingbao.module.github.BuildConfig
 import com.huyingbao.module.github.app.GithubActionCreator
 import com.huyingbao.module.github.ui.issue.model.Issue
 import com.huyingbao.module.github.ui.main.model.Repos
@@ -12,6 +13,7 @@ import com.huyingbao.module.github.ui.main.model.ReposConversion
 import com.huyingbao.module.github.ui.main.model.TrendConversion
 import retrofit2.Retrofit
 import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * 主页模块
@@ -22,7 +24,7 @@ import javax.inject.Inject
 class MainActionCreator @Inject constructor(
         rxDispatcher: RxDispatcher,
         rxActionManager: RxActionManager,
-        private val retrofit: Retrofit
+        @param:Named(BuildConfig.MODULE_NAME)  private val retrofit: Retrofit
 ) : GithubActionCreator(rxDispatcher, rxActionManager), MainAction {
     override fun feedback(editContent: String) {
         val rxAction = newRxAction(MainAction.FEED_BACK)

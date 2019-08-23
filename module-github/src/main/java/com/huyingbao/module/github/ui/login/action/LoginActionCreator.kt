@@ -5,10 +5,12 @@ import com.huyingbao.core.arch.action.RxActionManager
 import com.huyingbao.core.arch.dispatcher.RxDispatcher
 import com.huyingbao.core.arch.scope.ActivityScope
 import com.huyingbao.module.common.app.CommonConstants
+import com.huyingbao.module.github.BuildConfig
 import com.huyingbao.module.github.app.GithubActionCreator
 import com.huyingbao.module.github.ui.login.model.LoginRequest
 import retrofit2.Retrofit
 import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * 登录模块
@@ -19,7 +21,7 @@ import javax.inject.Inject
 class LoginActionCreator @Inject constructor(
         rxDispatcher: RxDispatcher,
         rxActionManager: RxActionManager,
-        private val retrofit: Retrofit
+        @param:Named(BuildConfig.MODULE_NAME) private val retrofit: Retrofit
 ) : GithubActionCreator(rxDispatcher, rxActionManager), LoginAction {
 
     override fun login(username: String, password: String) {

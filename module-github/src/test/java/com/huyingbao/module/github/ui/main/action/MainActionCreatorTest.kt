@@ -31,7 +31,7 @@ class MainActionCreatorTest : BaseSubscriberTest() {
 
     @Before
     fun setUp() {
-        mainActionCreator = MainActionCreator(rxDispatcher, rxActionManager, GithubMockUtils.githubTestComponent!!.retrofit)
+        mainActionCreator = MainActionCreator(rxDispatcher, rxActionManager, GithubMockUtils.githubTestComponent!!.getRetrofit())
     }
 
     @Ignore("不需要向仓库中提交issue")

@@ -8,6 +8,7 @@ import com.huyingbao.core.utils.LocalStorageUtils
 import com.huyingbao.core.utils.PageInfoInterceptor
 import com.huyingbao.module.common.app.CommonConstants
 import com.huyingbao.module.common.app.CommonModule
+import com.huyingbao.module.github.BuildConfig
 import com.huyingbao.module.github.app.GithubContants
 import com.huyingbao.module.github.database.GithubAppDatabase
 import dagger.Module
@@ -18,6 +19,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 /**
@@ -33,9 +35,12 @@ import javax.inject.Singleton
 class GithubAppModule {
     /**
      * 提供[Retrofit]单例对象
+     *
+     * 每个子模块的Module中都提供[Retrofit]单例对象，使用[Named]注解，子模块提供的单例对象。
      */
     @Singleton
     @Provides
+    @Named(BuildConfig.MODULE_NAME)
     fun provideRetrofit(localStorageUtils: LocalStorageUtils, builder: OkHttpClient.Builder): Retrofit {
         //Head拦截器
         val headInterceptor = Interceptor {
