@@ -59,7 +59,7 @@ before_install:
   - echo -e "KEY_PASSWORD=$KEY_PASSWORD" >> local.properties
 #脚本
 script:
-  - ./gradlew clean
+  - ./gradlew clean --info
   - ./gradlew assembleRelease
 #部署之前
 before_deploy:
