@@ -4,6 +4,7 @@ import android.app.Application
 import android.os.Build
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
+import com.alibaba.android.arouter.launcher.ARouter
 import com.huyingbao.core.annotations.RxAppObserver
 import com.huyingbao.core.arch.RxAppLifecycle
 import com.huyingbao.core.arch.utils.RxAndroidInjection
@@ -61,6 +62,7 @@ class CommonAppLifecycle(application: Application) : RxAppLifecycle(application)
         }
         //在Android设备运行时，初始化相关SDK
         if (android) {
+	    initARouter()
             initBugly()
             initTinker()
             initDebug()
@@ -76,6 +78,18 @@ class CommonAppLifecycle(application: Application) : RxAppLifecycle(application)
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     override fun onTerminate() {
         commonAppStore.unsubscribe()
+    }
+
+    /**
+     * 初始化ARouter
+     */
+    private fun initARouter() {
+        if (BuildConfig.DEBUG) {
+            ARouter.openLog()
+            ARouter.openDebug()
+        }
+        // 尽可能早，推荐在Application中初始化
+        ARouter.init(application)
     }
 
     /**
@@ -109,13 +123,10 @@ class CommonAppLifecycle(application: Application) : RxAppLifecycle(application)
                 }
             }
         })
-        try {//设置开发设备
-            CrashReport.setIsDevelopmentDevice(application, BuildConfig.DEBUG)
-            //初始化Bugly
-            CrashReport.initCrashReport(application, "6da8b7224c", BuildConfig.DEBUG, strategy)
-        } catch (e: Exception) {
-            Logger.e("init bugly error${e.toString()}")
-        }
+        //设置开发设备
+        CrashReport.setIsDevelopmentDevice(application, BuildConfig.DEBUG)
+        //初始化Bugly
+        CrashReport.initCrashReport(application, "6da8b7224c", BuildConfig.DEBUG, strategy)
     }
 
     /**
