@@ -7,11 +7,11 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.huyingbao.core.test.fragment.FragmentScenarioRule
+import com.huyingbao.core.test.subscriber.BaseSubscriberTest
 import com.huyingbao.module.github.GithubApplication
 import com.huyingbao.module.github.R
 import com.huyingbao.module.github.ui.login.store.LoginStore
-import com.huyingbao.core.test.subscriber.BaseSubscriberTest
-import com.huyingbao.core.test.fragment.FragmentScenarioRule
 import org.hamcrest.core.AllOf
 import org.junit.*
 import org.junit.runner.RunWith

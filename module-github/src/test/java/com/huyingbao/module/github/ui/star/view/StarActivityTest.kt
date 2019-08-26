@@ -3,7 +3,6 @@ package com.huyingbao.module.github.ui.star.view
 import androidx.lifecycle.Lifecycle
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.LargeTest
 import com.huyingbao.module.github.GithubApplication
 import com.huyingbao.module.github.R
 import org.junit.*

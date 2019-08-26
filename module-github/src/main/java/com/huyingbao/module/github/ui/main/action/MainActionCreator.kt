@@ -24,7 +24,7 @@ import javax.inject.Named
 class MainActionCreator @Inject constructor(
         rxDispatcher: RxDispatcher,
         rxActionManager: RxActionManager,
-        @param:Named(BuildConfig.MODULE_NAME)  private val retrofit: Retrofit
+        @param:Named(BuildConfig.MODULE_NAME) private val retrofit: Retrofit
 ) : GithubActionCreator(rxDispatcher, rxActionManager), MainAction {
     override fun feedback(editContent: String) {
         val rxAction = newRxAction(MainAction.FEED_BACK)

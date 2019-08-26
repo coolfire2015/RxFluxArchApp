@@ -62,7 +62,7 @@ class CommonAppLifecycle(application: Application) : RxAppLifecycle(application)
         }
         //在Android设备运行时，初始化相关SDK
         if (android) {
-	    initARouter()
+            initARouter()
             initBugly()
             initTinker()
             initDebug()

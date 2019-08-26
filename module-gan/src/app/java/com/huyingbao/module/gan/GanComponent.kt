@@ -1,14 +1,11 @@
 package com.huyingbao.module.gan
 
 import android.app.Application
-
 import com.huyingbao.module.gan.module.GanAppModule
-
-import javax.inject.Singleton
-
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
+import javax.inject.Singleton
 
 /**
  * Created by liujunfeng on 2019/1/1.

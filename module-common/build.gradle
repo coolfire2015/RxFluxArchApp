@@ -128,6 +128,8 @@ dependencies {
     api "androidx.paging:paging-rxjava2-ktx:${X_PAGING}"
     //X-WorkManager
     api "androidx.work:work-runtime-ktx:${X_WORK}"
+    //Kotlin支持
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${KOTLIN_VERSION}"
     //Kotlin Coroutines 支持
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:${KOTLIN_COROUTINES}"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:${KOTLIN_COROUTINES}"
