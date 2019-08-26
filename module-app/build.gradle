@@ -16,10 +16,10 @@ android {
     //签名配置,自定义,用在defaultConfig中
     signingConfigs {
         debug {
-            storeFile file(localProperties.getProperty("STORE_DEBUG_FILE"))
+            storeFile file('../KeyDebug.keystore')
         }
         release {
-            storeFile file(localProperties.getProperty("STORE_RELEASE_FILE"))
+            storeFile file('../KeyRelease.jks')
             storePassword localProperties.getProperty("STORE_PASSWORD")
             keyAlias localProperties.getProperty("KEY_ALIAS")
             keyPassword localProperties.getProperty("KEY_PASSWORD")
