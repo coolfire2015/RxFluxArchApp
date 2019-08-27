@@ -2,13 +2,23 @@ package com.huyingbao.module.common.app
 
 import com.huyingbao.core.arch.module.RxFluxModule
 import com.huyingbao.core.arch.scope.ActivityScope
+import com.huyingbao.core.utils.PageInfoInterceptor
 import com.huyingbao.module.common.BuildConfig
+import com.huyingbao.module.common.update.AppBean
 import dagger.Module
 import dagger.Provides
 import dagger.android.AndroidInjectionModule
 import dagger.android.ContributesAndroidInjector
+import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -38,6 +48,22 @@ class CommonModule {
                 .writeTimeout(CommonConstants.Config.HTTP_TIME_OUT, TimeUnit.SECONDS)
                 .addInterceptor(interceptor)
     }
+
+    @Singleton
+    @Provides
+    fun provideFirApi(builder: OkHttpClient.Builder): FirApi {
+        //初始化OkHttp
+        val client = builder
+                .addInterceptor(PageInfoInterceptor())
+                .build()
+        //初始化Retrofit
+        val retrofitBuilder = Retrofit.Builder()
+                .baseUrl("http://api.fir.im/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(client)
+        return retrofitBuilder.build().create(FirApi::class.java)
+    }
 }
 
 @Module
@@ -45,4 +71,15 @@ abstract class CommonInjectModule {
     @ActivityScope
     @ContributesAndroidInjector
     abstract fun injectCommonAppLifecycle(): CommonAppLifecycle
+}
+
+interface FirApi {
+    /**
+     * 获取App最新版本信息
+     */
+    @GET("apps/latest/{id}")
+    fun getAppLatest(
+            @Path("id") id: String,
+            @Query("api_token") token: String
+    ): Observable<Response<AppBean>>
 }

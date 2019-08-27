@@ -28,7 +28,6 @@ class GithubAppStore @Inject constructor(
 ) : RxAppStore(application, rxDispatcher) {
     @Inject
     lateinit var localStorageUtils: LocalStorageUtils
-
     /**
      * 用户信息
      */

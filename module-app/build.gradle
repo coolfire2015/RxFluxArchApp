@@ -31,7 +31,7 @@ android {
         multiDexEnabled true
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
-        versionCode project.hasProperty('devBuild') ? 20000 : rootProject.gitGitVersionCode()
+        versionCode project.hasProperty('devBuild') ? 2 : rootProject.gitGitVersionCode()
         versionName rootProject.getGitVersionName()
         signingConfig signingConfigs.debug
         //使用vector图片

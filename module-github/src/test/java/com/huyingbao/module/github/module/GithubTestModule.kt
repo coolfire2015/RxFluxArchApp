@@ -5,9 +5,11 @@ import com.huyingbao.core.test.annotations.InTest
 import com.huyingbao.module.common.app.CommonAppStore
 import com.huyingbao.module.common.app.CommonConstants
 import com.huyingbao.module.common.app.CommonModule
+import com.huyingbao.module.common.app.FirApi
 import com.huyingbao.module.github.app.GithubAppStore
 import com.huyingbao.module.github.app.GithubContants
 import com.huyingbao.module.github.ui.login.store.LoginStore
+import com.huyingbao.module.github.ui.main.store.MainStore
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -41,6 +43,8 @@ interface GithubTestComponent {
      */
     @InTest
     fun getRetrofit(): Retrofit
+
+    fun getFirApi(): FirApi
 }
 
 /**
@@ -89,12 +93,6 @@ class GithubTestModule {
 
     @Singleton
     @Provides
-    fun provideLoginStore(): LoginStore {
-        return Mockito.mock(LoginStore::class.java)
-    }
-
-    @Singleton
-    @Provides
     fun provideCommonAppStore(): CommonAppStore {
         return Mockito.mock(CommonAppStore::class.java)
     }
@@ -103,6 +101,18 @@ class GithubTestModule {
     @Provides
     fun provideGithubAppStore(): GithubAppStore {
         return Mockito.mock(GithubAppStore::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideLoginStore(): LoginStore {
+        return Mockito.mock(LoginStore::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideMainStore(): MainStore {
+        return Mockito.mock(MainStore::class.java)
     }
 }
 

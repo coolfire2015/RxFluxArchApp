@@ -25,6 +25,8 @@ import com.huyingbao.module.common.app.CommonRouter
 import com.huyingbao.module.common.dialog.CommonInfo
 import com.huyingbao.module.common.dialog.CommonInfoDialog
 import com.huyingbao.module.common.dialog.CommonInfoDialogClickListener
+import com.huyingbao.module.common.update.AppUpdateState
+import com.huyingbao.module.github.BuildConfig
 import com.huyingbao.module.github.R
 import com.huyingbao.module.github.app.GithubAppStore
 import com.huyingbao.module.github.ui.login.view.LoginActivity
@@ -34,6 +36,7 @@ import com.huyingbao.module.github.ui.user.view.UserActivity
 import kotlinx.android.synthetic.main.github_activity_main.*
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.clearTop
+import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 /**
@@ -157,6 +160,14 @@ class MainActivity : BaseFluxActivity<MainStore>() {
                 }
             }
         })
+        rxStore?.appLatestLiveData?.observe(this, Observer {
+            when (it.appState) {
+                AppUpdateState.DOWNLOAD -> this.toast("下载")
+                AppUpdateState.INSTALL -> this.toast("安装")
+                AppUpdateState.UPDATE -> this.toast("更新")
+                AppUpdateState.LATEST -> this.toast("最新")
+            }
+        })
     }
 
     /**
@@ -243,7 +254,7 @@ class MainActivity : BaseFluxActivity<MainStore>() {
      * 检查更新
      */
     private fun checkUpdate() {
-
+        mainActionCreator.getAppLatest(BuildConfig.FIR_ID, BuildConfig.FIR_TOKEN)
     }
 
     /**

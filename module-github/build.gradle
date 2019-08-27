@@ -44,8 +44,12 @@ android {
         buildConfigField 'String', 'MODULE_NAME', '"' + project.getName() + '"'
         //GitHub Id
         buildConfigField "String", "CLIENT_ID", localProperties.getProperty("CLIENT_ID")
-        //GitHub secret
+        //GitHub Secret
         buildConfigField "String", "CLIENT_SECRET", localProperties.getProperty("CLIENT_SECRET")
+        //Fir Id
+        buildConfigField "String", "FIR_ID", localProperties.getProperty("FIR_ID")
+        //Fir Token
+        buildConfigField "String", "FIR_TOKEN", localProperties.getProperty("FIR_TOKEN")
     }
     //构建过程
     buildTypes {
