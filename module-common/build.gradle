@@ -159,6 +159,8 @@ dependencies {
     api "com.uber.autodispose:autodispose-android-archcomponents:${AUTO_DISPOSE}"
     //图片解析
     api "com.github.coolfire2015:RxFluxImage:${RX_FLUX_IMAGE}"
+    //下载进度
+    api "com.github.coolfire2015:RxFluxProgress:${RX_FLUX_PROGRESS}"
     //内存泄露分析 LeakCanary
     debugApi "com.squareup.leakcanary:leakcanary-android:${LEAK_CANARY}"
 }

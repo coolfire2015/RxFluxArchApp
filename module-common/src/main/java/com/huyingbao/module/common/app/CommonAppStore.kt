@@ -6,14 +6,20 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.snackbar.Snackbar
 import com.huyingbao.core.arch.RxFlux
 import com.huyingbao.core.arch.dispatcher.RxDispatcher
+import com.huyingbao.core.arch.model.RxAction
 import com.huyingbao.core.arch.model.RxError
 import com.huyingbao.core.arch.model.RxLoading
 import com.huyingbao.core.arch.model.RxRetry
 import com.huyingbao.core.arch.store.RxAppStore
 import com.huyingbao.core.base.flux.activity.BaseFluxActivity
 import com.huyingbao.module.common.R
-import com.huyingbao.module.common.dialog.CommonLoadingDialog
-import com.huyingbao.module.common.dialog.CommonLoadingDialogClickListener
+import com.huyingbao.module.common.ui.dialog.CommonLoadingDialog
+import com.huyingbao.module.common.ui.dialog.CommonLoadingDialogClickListener
+import com.huyingbao.module.common.ui.update.action.CommonAction
+import com.huyingbao.module.common.ui.update.model.AppBean
+import com.huyingbao.module.common.ui.update.model.AppUpdateState
+import com.huyingbao.module.common.ui.update.model.getAppState
+import com.huyingbao.module.common.ui.update.view.UpdateDialog
 import org.greenrobot.eventbus.Subscribe
 import org.jetbrains.anko.toast
 import retrofit2.HttpException
@@ -66,7 +72,7 @@ class CommonAppStore @Inject constructor(
     }
 
     /**
-     * 显示进度对话框，接收[RxLoading]，粘性
+     * 显示或隐藏进度对话框，接收[RxLoading]，粘性
      */
     @Subscribe(sticky = true)
     fun onRxLoading(rxLoading: RxLoading) {
@@ -90,6 +96,38 @@ class CommonAppStore @Inject constructor(
             if (fragmentByTag is CommonLoadingDialog && !rxLoading.isLoading) {
                 //隐藏进度框
                 fragmentByTag.dismiss()
+            }
+        }
+    }
+
+    /**
+     * 显示更新弹框
+     */
+    @Subscribe(tags = [CommonAction.GET_APP_LATEST])
+    fun onGetAppLatest(rxAction: RxAction) {
+        rxAction.getResponse<AppBean>()?.let {
+            it.appUpdateState = getAppState(
+                    build = it.build,
+                    packageName = getApplication<Application>().packageName,
+                    application = getApplication<Application>())
+            val activity = rxFlux.activityStack.peek() ?: return
+            if (it.appUpdateState == AppUpdateState.LATEST) {
+                activity.toast("当前已是最新版本")
+                return
+            }
+            if (activity is AppCompatActivity) {
+                val fragmentByTag = activity.supportFragmentManager
+                        .findFragmentByTag(UpdateDialog::class.java.simpleName)
+                if (fragmentByTag == null) {
+                    UpdateDialog
+                            .newInstance(
+                                    apkUrl = it.install_url,
+                                    changelog = it.changelog,
+                                    appUpdateState = it.appUpdateState)
+                            .show(
+                                    activity.supportFragmentManager,
+                                    UpdateDialog::class.java.simpleName)
+                }
             }
         }
     }

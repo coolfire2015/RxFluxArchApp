@@ -2,12 +2,9 @@ package com.huyingbao.module.github.ui.main.store
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.huyingbao.core.arch.RxApp
 import com.huyingbao.core.arch.dispatcher.RxDispatcher
 import com.huyingbao.core.arch.model.RxAction
 import com.huyingbao.core.arch.store.RxActivityStore
-import com.huyingbao.module.common.update.AppBean
-import com.huyingbao.module.common.update.getAppState
 import com.huyingbao.module.github.database.GithubAppDatabase
 import com.huyingbao.module.github.ui.main.action.MainAction
 import com.huyingbao.module.github.ui.main.model.Event
@@ -35,10 +32,6 @@ class MainStore @Inject constructor(
      * 推荐趋势仓库数据
      */
     val trendListLiveData: LiveData<List<Repos>> by lazy { githubAppDatabase.reposDao().getReposListLiveData() }
-    /**
-     * App版本最新数据
-     */
-    val appLatestLiveData: MutableLiveData<AppBean> by lazy { MutableLiveData<AppBean>() }
 
     override fun onCleared() {
         super.onCleared()
@@ -54,20 +47,6 @@ class MainStore @Inject constructor(
     fun onGetTrend(rxAction: RxAction) {
         rxAction.getResponse<List<Repos>>()?.let {
             githubAppDatabase.reposDao().insertAll(it)
-        }
-    }
-
-    @Subscribe(tags = [MainAction.GET_APP_LATEST])
-    fun onGetAppLatest(rxAction: RxAction) {
-        rxAction.getResponse<AppBean>()?.let {
-            appLatestLiveData.value = it.apply {
-                RxApp.application?.run {
-                    appState = getAppState(
-                            build = it.build,
-                            packageName = this.packageName,
-                            application = this)
-                }
-            }
         }
     }
 }

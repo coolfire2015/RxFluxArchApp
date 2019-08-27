@@ -1,6 +1,7 @@
 package com.huyingbao.module.github.ui.main.action
 
 import com.huyingbao.core.test.subscriber.BaseSubscriberTest
+import com.huyingbao.module.common.app.CommonAppStore
 import com.huyingbao.module.github.BuildConfig
 import com.huyingbao.module.github.app.GithubAppStore
 import com.huyingbao.module.github.module.GithubMockUtils
@@ -23,11 +24,12 @@ class MainActionCreatorTest : BaseSubscriberTest() {
 
     private var mainStore: MainStore = Mockito.mock(MainStore::class.java)
     private var githubAppStore: GithubAppStore = Mockito.mock(GithubAppStore::class.java)
+    private var commonAppStore: CommonAppStore = Mockito.mock(CommonAppStore::class.java)
 
     private var mainActionCreator: MainActionCreator? = null
 
     override fun getSubscriberList(): List<Any> {
-        return listOfNotNull(mainStore, githubAppStore)
+        return listOfNotNull(mainStore, githubAppStore, commonAppStore)
     }
 
     @Before
@@ -59,6 +61,6 @@ class MainActionCreatorTest : BaseSubscriberTest() {
     @Test
     fun getAppLatest() {
         mainActionCreator?.getAppLatest(BuildConfig.FIR_ID, BuildConfig.FIR_TOKEN)
-        verify(mainStore).onGetAppLatest(any())
+        verify(commonAppStore).onGetAppLatest(any())
     }
 }

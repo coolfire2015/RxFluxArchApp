@@ -18,20 +18,14 @@ interface MainAction {
          * 发送用户反馈
          */
         const val FEED_BACK = "feedback"
-
         /**
          * 获取最新动态
          */
         const val GET_NEWS_EVENT = "getNewsEvent"
-
         /**
          * 获取趋势数据
          */
         const val GET_TREND_DATA = "getTrendData"
-        /**
-         * 获取App最新版本信息
-         */
-        const val GET_APP_LATEST = "getAppLatest"
     }
 
     /**
@@ -51,11 +45,6 @@ interface MainAction {
      * @param since         时间（今天/本周/本月）
      */
     fun getTrendData(languageType: String, since: String)
-
-    /**
-     * 获取App最新版本信息
-     */
-    fun getAppLatest(id: String, token: String)
 }
 
 interface MainApi {

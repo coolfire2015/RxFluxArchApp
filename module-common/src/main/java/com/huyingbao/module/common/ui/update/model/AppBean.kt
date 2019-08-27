@@ -1,4 +1,4 @@
-package com.huyingbao.module.common.update
+package com.huyingbao.module.common.ui.update.model
 
 import android.app.Application
 import android.content.pm.PackageManager
@@ -17,7 +17,7 @@ data class AppBean(
         val version: String,
         val versionShort: String
 ) {
-    var appState: AppUpdateState = AppUpdateState.DOWNLOAD
+    var appUpdateState: AppUpdateState = AppUpdateState.DOWNLOAD
 }
 
 data class Binary(

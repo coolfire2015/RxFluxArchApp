@@ -5,7 +5,8 @@ import com.huyingbao.core.arch.dispatcher.RxDispatcher
 import com.huyingbao.core.arch.scope.ActivityScope
 import com.huyingbao.core.utils.FlatMapResponse2Result
 import com.huyingbao.core.utils.FlatMapResult2Response
-import com.huyingbao.module.common.app.FirApi
+import com.huyingbao.module.common.ui.update.action.CommonAction
+import com.huyingbao.module.common.ui.update.action.FirApi
 import com.huyingbao.module.github.BuildConfig
 import com.huyingbao.module.github.app.GithubActionCreator
 import com.huyingbao.module.github.ui.issue.model.Issue
@@ -26,12 +27,12 @@ class MainActionCreator @Inject constructor(
         rxDispatcher: RxDispatcher,
         rxActionManager: RxActionManager,
         @param:Named(BuildConfig.MODULE_NAME) private val retrofit: Retrofit
-) : GithubActionCreator(rxDispatcher, rxActionManager), MainAction {
+) : GithubActionCreator(rxDispatcher, rxActionManager), MainAction, CommonAction {
     @Inject
     lateinit var firApi: FirApi
 
     override fun getAppLatest(id: String, token: String) {
-        val rxAction = newRxAction(MainAction.GET_APP_LATEST)
+        val rxAction = newRxAction(CommonAction.GET_APP_LATEST)
         postHttpLoadingAction(rxAction, firApi.getAppLatest(id, token))
     }
 

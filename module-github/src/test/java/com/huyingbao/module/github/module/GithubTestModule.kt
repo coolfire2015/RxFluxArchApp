@@ -5,7 +5,7 @@ import com.huyingbao.core.test.annotations.InTest
 import com.huyingbao.module.common.app.CommonAppStore
 import com.huyingbao.module.common.app.CommonConstants
 import com.huyingbao.module.common.app.CommonModule
-import com.huyingbao.module.common.app.FirApi
+import com.huyingbao.module.common.ui.update.action.FirApi
 import com.huyingbao.module.github.app.GithubAppStore
 import com.huyingbao.module.github.app.GithubContants
 import com.huyingbao.module.github.ui.login.store.LoginStore

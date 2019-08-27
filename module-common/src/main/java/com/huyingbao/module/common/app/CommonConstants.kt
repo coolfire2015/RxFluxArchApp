@@ -58,6 +58,10 @@ class CommonConstants {
          */
         const val URL = "url"
         /**
+         * 本地路径
+         */
+        const val FILE_PATH = "filepath"
+        /**
          * 索引
          */
         const val INDEX = "index"
