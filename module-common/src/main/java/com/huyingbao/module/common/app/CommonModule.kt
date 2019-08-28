@@ -5,6 +5,8 @@ import com.huyingbao.core.arch.scope.ActivityScope
 import com.huyingbao.core.utils.PageInfoInterceptor
 import com.huyingbao.module.common.BuildConfig
 import com.huyingbao.module.common.ui.update.action.FirApi
+import com.huyingbao.module.common.ui.update.action.UpdateModule
+import com.huyingbao.module.common.ui.update.view.CommonUpdateDialog
 import dagger.Module
 import dagger.Provides
 import dagger.android.AndroidInjectionModule
@@ -52,12 +54,13 @@ class CommonModule {
                 .addInterceptor(PageInfoInterceptor())
                 .build()
         //初始化Retrofit
-        val retrofitBuilder = Retrofit.Builder()
+        val retrofit = Retrofit.Builder()
                 .baseUrl("http://api.fir.im/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
-        return retrofitBuilder.build().create(FirApi::class.java)
+                .build()
+        return retrofit.create(FirApi::class.java)
     }
 }
 
@@ -66,4 +69,7 @@ abstract class CommonInjectModule {
     @ActivityScope
     @ContributesAndroidInjector
     abstract fun injectCommonAppLifecycle(): CommonAppLifecycle
+
+    @ContributesAndroidInjector(modules = [UpdateModule::class])
+    abstract fun injectCommonUpdateDialog(): CommonUpdateDialog
 }

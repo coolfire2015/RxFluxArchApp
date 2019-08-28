@@ -18,7 +18,9 @@ import javax.inject.Singleton
  * Created by liujunfeng on 2019/1/1.
  */
 @Singleton
-class LoginStore @Inject constructor(rxDispatcher: RxDispatcher) : RxActivityStore(rxDispatcher) {
+class LoginStore @Inject constructor(
+        rxDispatcher: RxDispatcher
+) : RxActivityStore(rxDispatcher) {
     @Inject
     lateinit var localStorageUtils: LocalStorageUtils
 

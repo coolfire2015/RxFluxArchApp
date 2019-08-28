@@ -11,5 +11,7 @@ import javax.inject.Singleton
  * Created by liujunfeng on 2019/6/10.
  */
 @Singleton
-class StarStore @Inject constructor(rxDispatcher: RxDispatcher) : RxActivityStore(rxDispatcher) {
+class StarStore @Inject constructor(
+        rxDispatcher: RxDispatcher
+) : RxActivityStore(rxDispatcher) {
 }

@@ -34,5 +34,5 @@ abstract class GanStoreModule {
     @Binds
     @IntoMap
     @RxStoreKey(RandomStore::class)
-    internal abstract fun bindRandomStore(randomStore: RandomStore): ViewModel
+    abstract fun bindRandomStore(randomStore: RandomStore): ViewModel
 }

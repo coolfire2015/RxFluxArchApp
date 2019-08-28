@@ -34,8 +34,9 @@ import javax.inject.Singleton
  * * Created by liujunfeng on 2019/1/1.
  */
 @Singleton
-class RandomStore @Inject
-internal constructor(rxDispatcher: RxDispatcher) : RxActivityStore(rxDispatcher) {
+class RandomStore @Inject constructor(
+        rxDispatcher: RxDispatcher
+) : RxActivityStore(rxDispatcher) {
     val productListLiveData = MutableLiveData<ArrayList<Product>>()
     /**
      * 列表页数

@@ -15,11 +15,11 @@ import com.huyingbao.core.base.flux.activity.BaseFluxActivity
 import com.huyingbao.module.common.R
 import com.huyingbao.module.common.ui.dialog.CommonLoadingDialog
 import com.huyingbao.module.common.ui.dialog.CommonLoadingDialogClickListener
-import com.huyingbao.module.common.ui.update.action.CommonAction
+import com.huyingbao.module.common.ui.update.action.AppAction
 import com.huyingbao.module.common.ui.update.model.AppBean
 import com.huyingbao.module.common.ui.update.model.AppUpdateState
 import com.huyingbao.module.common.ui.update.model.getAppState
-import com.huyingbao.module.common.ui.update.view.UpdateDialog
+import com.huyingbao.module.common.ui.update.view.CommonUpdateDialog
 import org.greenrobot.eventbus.Subscribe
 import org.jetbrains.anko.toast
 import retrofit2.HttpException
@@ -103,7 +103,7 @@ class CommonAppStore @Inject constructor(
     /**
      * 显示更新弹框
      */
-    @Subscribe(tags = [CommonAction.GET_APP_LATEST])
+    @Subscribe(tags = [AppAction.GET_APP_LATEST])
     fun onGetAppLatest(rxAction: RxAction) {
         rxAction.getResponse<AppBean>()?.let {
             it.appUpdateState = getAppState(
@@ -117,16 +117,16 @@ class CommonAppStore @Inject constructor(
             }
             if (activity is AppCompatActivity) {
                 val fragmentByTag = activity.supportFragmentManager
-                        .findFragmentByTag(UpdateDialog::class.java.simpleName)
+                        .findFragmentByTag(CommonUpdateDialog::class.java.simpleName)
                 if (fragmentByTag == null) {
-                    UpdateDialog
+                    CommonUpdateDialog
                             .newInstance(
                                     apkUrl = it.install_url,
                                     changelog = it.changelog,
                                     appUpdateState = it.appUpdateState)
                             .show(
                                     activity.supportFragmentManager,
-                                    UpdateDialog::class.java.simpleName)
+                                    CommonUpdateDialog::class.java.simpleName)
                 }
             }
         }

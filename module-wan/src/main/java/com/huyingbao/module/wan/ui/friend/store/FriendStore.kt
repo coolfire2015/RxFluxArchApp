@@ -16,7 +16,9 @@ import javax.inject.Singleton
  * Created by liujunfeng on 2019/1/1.
  */
 @Singleton
-class FriendStore @Inject constructor(rxDispatcher: RxDispatcher) : RxFragmentStore(rxDispatcher) {
+class FriendStore @Inject constructor(
+        rxDispatcher: RxDispatcher
+) : RxFragmentStore(rxDispatcher) {
     val webSiteListData = MutableLiveData<WanResponse<ArrayList<WebSite>>>()
     var isCreated = false
         private set

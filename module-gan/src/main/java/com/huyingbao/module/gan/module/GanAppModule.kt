@@ -24,7 +24,7 @@ import javax.inject.Singleton
 class GanAppModule {
     @Singleton
     @Provides
-    internal fun provideGanApi(builder: OkHttpClient.Builder): GanApi {
+    fun provideGanApi(builder: OkHttpClient.Builder): GanApi {
         val retrofit = Retrofit.Builder()
                 .baseUrl("https://gank.io/api/")
                 .addConverterFactory(GsonConverterFactory.create(GsonBuilder().serializeNulls().create()))

@@ -6,10 +6,12 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * 搜索模块
+ * 搜索模块 注释
  *
  * Created by liujunfeng on 2019/6/10.
  */
 @Singleton
-class SearchStore @Inject constructor(rxDispatcher: RxDispatcher) : RxActivityStore(rxDispatcher) {
+class SearchStore @Inject constructor(
+        rxDispatcher: RxDispatcher
+) : RxActivityStore(rxDispatcher) {
 }
