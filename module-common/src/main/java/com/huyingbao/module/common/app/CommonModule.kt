@@ -5,7 +5,7 @@ import com.huyingbao.core.arch.scope.ActivityScope
 import com.huyingbao.core.utils.PageInfoInterceptor
 import com.huyingbao.module.common.BuildConfig
 import com.huyingbao.module.common.ui.update.action.FirApi
-import com.huyingbao.module.common.ui.update.action.UpdateModule
+import com.huyingbao.module.common.ui.update.module.CommonUpdateModule
 import com.huyingbao.module.common.ui.update.view.CommonUpdateDialog
 import dagger.Module
 import dagger.Provides
@@ -46,7 +46,6 @@ class CommonModule {
                 .addInterceptor(interceptor)
     }
 
-    @Singleton
     @Provides
     fun provideFirApi(builder: OkHttpClient.Builder): FirApi {
         //初始化OkHttp
@@ -70,6 +69,6 @@ abstract class CommonInjectModule {
     @ContributesAndroidInjector
     abstract fun injectCommonAppLifecycle(): CommonAppLifecycle
 
-    @ContributesAndroidInjector(modules = [UpdateModule::class])
+    @ContributesAndroidInjector(modules = [CommonUpdateModule::class])
     abstract fun injectCommonUpdateDialog(): CommonUpdateDialog
 }

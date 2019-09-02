@@ -73,7 +73,7 @@ class GithubTestModule {
                 //Header中添加Authorization token数据
                 val url = request.url.toString()
                 val requestBuilder = request.newBuilder()
-                        .addHeader(CommonConstants.Header.AUTHORIZATION, "token 6776d3d22eba49f6b44f1e113814f4f628187411")
+                        .addHeader(CommonConstants.Header.AUTHORIZATION, "token 30052ef12d567c24863875805e76e8ac6ffde286")
                         .url(url)
                 request = requestBuilder.build()
             }

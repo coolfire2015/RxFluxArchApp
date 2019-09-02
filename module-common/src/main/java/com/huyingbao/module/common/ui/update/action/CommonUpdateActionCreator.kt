@@ -4,15 +4,13 @@ import android.content.Context
 import com.huyingbao.core.arch.action.RxActionCreator
 import com.huyingbao.core.arch.action.RxActionManager
 import com.huyingbao.core.arch.dispatcher.RxDispatcher
-import com.huyingbao.core.arch.scope.ActivityScope
-import com.huyingbao.core.arch.scope.FragmentScope
 import com.huyingbao.core.progress.DownloadApi
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import java.io.*
 import javax.inject.Inject
 
-class DownloadActionCreator @Inject constructor(
+class CommonUpdateActionCreator @Inject constructor(
         rxDispatcher: RxDispatcher,
         rxActionManager: RxActionManager
 ) : RxActionCreator(rxDispatcher, rxActionManager), DownloadAction {

@@ -1,7 +1,5 @@
-package com.huyingbao.module.common.ui.update.action
+package com.huyingbao.module.common.ui.update.module
 
-import com.huyingbao.core.arch.scope.ActivityScope
-import com.huyingbao.core.arch.scope.FragmentScope
 import com.huyingbao.core.progress.DownloadApi
 import com.huyingbao.core.progress.ProgressInterceptor
 import dagger.Module
@@ -16,7 +14,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
  * Created by liujunfeng on 2019/1/1.
  */
 @Module
-class UpdateModule {
+class CommonUpdateModule {
     @Provides
     fun provideDownloadApi(
             builder: OkHttpClient.Builder,

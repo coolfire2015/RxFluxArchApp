@@ -7,7 +7,7 @@ import com.huyingbao.core.base.common.dialog.BaseCommonDialog
 import com.huyingbao.core.progress.RxProgress
 import com.huyingbao.module.common.R
 import com.huyingbao.module.common.app.CommonConstants
-import com.huyingbao.module.common.ui.update.action.DownloadActionCreator
+import com.huyingbao.module.common.ui.update.action.CommonUpdateActionCreator
 import com.huyingbao.module.common.ui.update.action.getExternalCacheDir
 import com.huyingbao.module.common.ui.update.model.AppUpdateState
 import dagger.android.HasAndroidInjector
@@ -24,7 +24,7 @@ import javax.inject.Inject
  */
 class CommonUpdateDialog : BaseCommonDialog(), RxSubscriberView {
     @Inject
-    lateinit var downloadActionCreator: DownloadActionCreator
+    lateinit var commonUpdateActionCreator: CommonUpdateActionCreator
     private var appUpdateState: AppUpdateState = AppUpdateState.LATEST
     private var apkUrl: String? = null
     private var updateLog: String? = null
@@ -112,7 +112,7 @@ class CommonUpdateDialog : BaseCommonDialog(), RxSubscriberView {
                 AppUpdateState.INSTALL -> context?.toast("安装")
                 AppUpdateState.DOWNLOAD, AppUpdateState.UPDATE -> {
                     apkUrl?.let {
-                        downloadActionCreator.downloadStart(
+                        commonUpdateActionCreator.downloadStart(
                                 tag = TAG,
                                 url = it,
                                 local = "${getExternalCacheDir(context!!, "app")}/asd.apk")

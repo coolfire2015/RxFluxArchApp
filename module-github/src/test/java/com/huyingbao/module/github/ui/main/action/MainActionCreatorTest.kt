@@ -55,6 +55,13 @@ class MainActionCreatorTest : BaseSubscriberTest() {
     @Test
     fun getTrendData() {
         mainActionCreator?.getTrendData("Kotlin", "monthly")
+        verify(rxDispatcher).postRxAction(any())
+    }
+
+    @Ignore("MainStore中方法是在非主线程中进行数据库操作，需要单独测试")
+    @Test
+    fun getTrendDataBackGround() {
+        mainActionCreator?.getTrendData("Kotlin", "monthly")
         verify(mainStore).onGetTrend(any())
     }
 
