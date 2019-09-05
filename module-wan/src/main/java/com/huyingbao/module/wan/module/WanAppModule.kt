@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.google.gson.GsonBuilder
-import com.huyingbao.module.common.app.CommonModule
+import com.huyingbao.module.common.app.CommonAppModule
 import com.huyingbao.module.wan.BuildConfig
 import com.huyingbao.module.wan.app.WanContants
 import com.huyingbao.module.wan.db.WanAppDb
@@ -23,7 +23,7 @@ import javax.inject.Singleton
 @Module(includes = [
     WanInjectActivityModule::class,
     WanStoreModule::class,
-    CommonModule::class
+    CommonAppModule::class
 ])
 class WanAppModule {
     //模块化App中，依赖注入仓库中会有多个方法提供Retrofit对象，

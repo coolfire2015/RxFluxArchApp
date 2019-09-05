@@ -12,7 +12,7 @@ import com.huyingbao.core.arch.model.RxLoading
 import com.huyingbao.core.base.flux.fragment.BaseFluxFragment
 import com.huyingbao.core.base.setTitle
 import com.huyingbao.core.utils.RecyclerItemClickListener
-import com.huyingbao.module.common.app.CommonRouter
+import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.common.ui.web.view.WebActivity
 import com.huyingbao.module.wan.R
 import com.huyingbao.module.wan.ui.article.action.ArticleAction
@@ -131,7 +131,7 @@ class ArticleListFragment : BaseFluxFragment<ArticleStore>() {
             }
             item.itemId == R.id.menu_to_gan -> {
                 //跳转module-gan
-                ARouter.getInstance().build(CommonRouter.RandomActivity).navigation()
+                ARouter.getInstance().build(CommonAppConstants.CommonRouter.RandomActivity).navigation()
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -4,7 +4,7 @@ import android.util.Base64
 import com.huyingbao.core.arch.action.RxActionManager
 import com.huyingbao.core.arch.dispatcher.RxDispatcher
 import com.huyingbao.core.arch.scope.ActivityScope
-import com.huyingbao.module.common.app.CommonConstants
+import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.github.BuildConfig
 import com.huyingbao.module.github.app.GithubActionCreator
 import com.huyingbao.module.github.ui.login.model.LoginRequest
@@ -23,12 +23,11 @@ class LoginActionCreator @Inject constructor(
         rxActionManager: RxActionManager,
         @param:Named(BuildConfig.MODULE_NAME) private val retrofit: Retrofit
 ) : GithubActionCreator(rxDispatcher, rxActionManager), LoginAction {
-
     override fun login(username: String, password: String) {
         // 生成RxAction实例
         val rxAction = newRxAction(LoginAction.LOGIN,
-                CommonConstants.Key.USER_NAME, username,
-                CommonConstants.Key.PASSWORD, password)
+                CommonAppConstants.Key.USER_NAME, username,
+                CommonAppConstants.Key.PASSWORD, password)
         // 用户名密码转换,可以链式转换
         val basicCode = Base64
                 .encodeToString("$username:$password".toByteArray(), Base64.NO_WRAP)

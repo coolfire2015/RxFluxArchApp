@@ -1,7 +1,7 @@
 package com.huyingbao.module.gan.module
 
 import com.google.gson.GsonBuilder
-import com.huyingbao.module.common.app.CommonModule
+import com.huyingbao.module.common.app.CommonAppModule
 import com.huyingbao.module.gan.action.GanApi
 import dagger.Module
 import dagger.Provides
@@ -20,7 +20,7 @@ import javax.inject.Singleton
 @Module(includes = [
     GanInjectActivityModule::class,
     GanStoreModule::class,
-    CommonModule::class])
+    CommonAppModule::class])
 class GanAppModule {
     @Singleton
     @Provides

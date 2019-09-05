@@ -7,7 +7,7 @@ import com.huyingbao.core.arch.model.RxChange
 import com.huyingbao.core.base.FragmentOp
 import com.huyingbao.core.base.flux.activity.BaseFluxFragActivity
 import com.huyingbao.core.base.setFragment
-import com.huyingbao.module.common.app.CommonRouter
+import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.wan.R
 import com.huyingbao.module.wan.ui.article.action.ArticleAction
 import com.huyingbao.module.wan.ui.article.store.ArticleStore
@@ -17,7 +17,7 @@ import org.greenrobot.eventbus.Subscribe
 /**
  * Created by liujunfeng on 2019/1/1.
  */
-@Route(path = CommonRouter.ArticleActivity)
+@Route(path = CommonAppConstants.CommonRouter.ArticleActivity)
 class ArticleActivity : BaseFluxFragActivity<ArticleStore>() {
     override fun createFragment(): Fragment? {
         return ArticleListFragment.newInstance()

@@ -8,7 +8,7 @@ import com.huyingbao.core.annotations.RxAppObserver
 import com.huyingbao.core.arch.RxAppLifecycle
 import com.huyingbao.core.arch.utils.RxAndroidInjection
 import com.huyingbao.core.utils.LocalStorageUtils
-import com.huyingbao.module.common.app.CommonConstants
+import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.github.GithubEventBusIndex
 import dagger.android.HasAndroidInjector
 import org.greenrobot.eventbus.EventBus
@@ -41,7 +41,7 @@ class GithubAppLifecycle(application: Application) : RxAppLifecycle(application)
         //全局数据维持AppStore，注册订阅
         githubAppStore.subscribe()
         //夜间模式切换
-        val nightMode = localStorageUtils.getValue(CommonConstants.Key.NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_NO)
+        val nightMode = localStorageUtils.getValue(CommonAppConstants.Key.NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_NO)
         AppCompatDelegate.setDefaultNightMode(nightMode)
     }
 

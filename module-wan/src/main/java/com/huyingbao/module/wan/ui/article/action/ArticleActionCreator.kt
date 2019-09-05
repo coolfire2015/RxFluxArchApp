@@ -2,7 +2,7 @@ package com.huyingbao.module.wan.ui.article.action
 
 import com.huyingbao.core.arch.action.RxActionManager
 import com.huyingbao.core.arch.dispatcher.RxDispatcher
-import com.huyingbao.module.common.app.CommonConstants
+import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.wan.BuildConfig
 import com.huyingbao.module.wan.app.WanActionCreator
 import retrofit2.Retrofit
@@ -25,7 +25,7 @@ class ArticleActionCreator @Inject constructor(
 
     override fun getArticleList(page: Int) {
         val rxAction = newRxAction(ArticleAction.GET_ARTICLE_LIST,
-                CommonConstants.Key.INDEX, page)
+                CommonAppConstants.Key.INDEX, page)
         rxAction.isGlobalCatch = false
         val articleApi = retrofit.create(ArticleApi::class.java)
         postHttpLoadingAction(rxAction, articleApi.getArticleList(page))

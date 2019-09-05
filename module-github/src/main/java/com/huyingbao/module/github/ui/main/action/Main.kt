@@ -1,6 +1,6 @@
 package com.huyingbao.module.github.ui.main.action
 
-import com.huyingbao.module.common.app.CommonConstants
+import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.github.ui.issue.model.Issue
 import com.huyingbao.module.github.ui.main.model.Event
 import io.reactivex.Observable
@@ -67,7 +67,7 @@ interface MainApi {
     fun getNewsEvent(
             @Path("user") user: String,
             @Query("page") page: Int,
-            @Query("per_page") perPage: Int = CommonConstants.Config.PAGE_SIZE
+            @Query("per_page") perPage: Int = CommonAppConstants.Config.PAGE_SIZE
     ): Observable<Response<ArrayList<Event>>>
 
     /**

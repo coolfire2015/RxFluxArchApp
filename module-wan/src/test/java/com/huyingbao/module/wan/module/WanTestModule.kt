@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.google.gson.GsonBuilder
-import com.huyingbao.module.common.app.CommonModule
+import com.huyingbao.module.common.app.CommonAppModule
 import com.huyingbao.module.wan.BuildConfig
 import com.huyingbao.module.wan.app.WanContants
 import com.huyingbao.module.wan.db.WanAppDb
@@ -58,7 +58,7 @@ class WanTestModule {
      * 返回实际创建的[ArticleStore]实例对象，但是DaggerMock会返回虚拟的Mock对象，参见[wanMockDaggerRule]方法。
      * 如果[WanTestComponent]不定义该对象，该方法不会被调用。
      *
-     * @param rxStoreFactory 来自[CommonModule]，[ArticleStore]对象来自[WanAppModule]
+     * @param rxStoreFactory 来自[CommonAppModule]，[ArticleStore]对象来自[WanAppModule]
      */
     @Singleton
     @Provides
@@ -69,7 +69,7 @@ class WanTestModule {
     /**
      * 初始化Retrofit，覆盖[WanAppModule.provideRetrofit]方法
      *
-     * @param builder 来自[CommonModule]
+     * @param builder 来自[CommonAppModule]
      */
     @Singleton
     @Provides

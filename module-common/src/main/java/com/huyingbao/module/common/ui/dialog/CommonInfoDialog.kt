@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.TextView
 import com.huyingbao.core.base.common.dialog.BaseCommonDialog
 import com.huyingbao.module.common.R
-import com.huyingbao.module.common.app.CommonConstants
+import com.huyingbao.module.common.app.CommonAppConstants
 import kotlinx.android.synthetic.main.common_dialog_info.*
 import org.jetbrains.anko.toast
 
@@ -26,7 +26,7 @@ class CommonInfoDialog : BaseCommonDialog() {
         fun newInstance(info: CommonInfo): CommonInfoDialog {
             return CommonInfoDialog().apply {
                 arguments = Bundle().apply {
-                    putParcelable(CommonConstants.Key.CONTENT, info)
+                    putParcelable(CommonAppConstants.Key.CONTENT, info)
                 }
             }
         }
@@ -38,8 +38,8 @@ class CommonInfoDialog : BaseCommonDialog() {
 
     override fun afterCreate(savedInstanceState: Bundle?) {
         arguments?.let {
-            if (it.containsKey(CommonConstants.Key.CONTENT)) {
-                commonInfo = it.getParcelable(CommonConstants.Key.CONTENT)
+            if (it.containsKey(CommonAppConstants.Key.CONTENT)) {
+                commonInfo = it.getParcelable(CommonAppConstants.Key.CONTENT)
             }
         }
     }

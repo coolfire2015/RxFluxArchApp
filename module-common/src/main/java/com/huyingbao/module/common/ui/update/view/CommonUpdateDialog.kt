@@ -6,7 +6,7 @@ import com.huyingbao.core.arch.view.RxSubscriberView
 import com.huyingbao.core.base.common.dialog.BaseCommonDialog
 import com.huyingbao.core.progress.RxProgress
 import com.huyingbao.module.common.R
-import com.huyingbao.module.common.app.CommonConstants
+import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.common.ui.update.action.CommonUpdateActionCreator
 import com.huyingbao.module.common.ui.update.action.getExternalCacheDir
 import com.huyingbao.module.common.ui.update.model.AppUpdateState
@@ -46,10 +46,10 @@ class CommonUpdateDialog : BaseCommonDialog(), RxSubscriberView {
             return CommonUpdateDialog().apply {
                 arguments = Bundle().apply {
                     //枚举的序数作为参数传入
-                    putInt(CommonConstants.Key.INDEX, appUpdateState.ordinal)
-                    putString(CommonConstants.Key.URL, apkUrl)
-                    putString(CommonConstants.Key.CONTENT, changelog)
-                    putString(CommonConstants.Key.FILE_PATH, archiveFilepath)
+                    putInt(CommonAppConstants.Key.INDEX, appUpdateState.ordinal)
+                    putString(CommonAppConstants.Key.URL, apkUrl)
+                    putString(CommonAppConstants.Key.CONTENT, changelog)
+                    putString(CommonAppConstants.Key.FILE_PATH, archiveFilepath)
                 }
             }
         }
@@ -81,10 +81,10 @@ class CommonUpdateDialog : BaseCommonDialog(), RxSubscriberView {
      */
     private fun initView() {
         arguments?.let {
-            appUpdateState = AppUpdateState.values()[it.getInt(CommonConstants.Key.INDEX, 0)]
-            apkUrl = it.getString(CommonConstants.Key.URL)
-            updateLog = it.getString(CommonConstants.Key.CONTENT)
-            archiveFilepath = it.getString(CommonConstants.Key.FILE_PATH)
+            appUpdateState = AppUpdateState.values()[it.getInt(CommonAppConstants.Key.INDEX, 0)]
+            apkUrl = it.getString(CommonAppConstants.Key.URL)
+            updateLog = it.getString(CommonAppConstants.Key.CONTENT)
+            archiveFilepath = it.getString(CommonAppConstants.Key.FILE_PATH)
         }
         when (appUpdateState) {
             AppUpdateState.INSTALL -> tv_update_title.text = "安装"

@@ -8,7 +8,7 @@ import com.huyingbao.core.arch.model.RxChange
 import com.huyingbao.core.base.FragmentOp
 import com.huyingbao.core.base.flux.activity.BaseFluxActivity
 import com.huyingbao.core.base.setFragment
-import com.huyingbao.module.common.app.CommonRouter
+import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.github.R
 import com.huyingbao.module.github.app.GithubAppStore
 import com.huyingbao.module.github.ui.login.action.LoginAction
@@ -23,11 +23,10 @@ import javax.inject.Inject
  *
  * Created by liujunfeng on 2019/1/1.
  */
-@Route(path = CommonRouter.LoginActivity)
+@Route(path = CommonAppConstants.CommonRouter.LoginActivity)
 class LoginActivity : BaseFluxActivity<LoginStore>() {
     @Inject
     lateinit var loginActionCreator: LoginActionCreator
-
     @Inject
     lateinit var githubAppStore: GithubAppStore
 

@@ -7,7 +7,7 @@ import androidx.paging.toLiveData
 import com.huyingbao.core.arch.dispatcher.RxDispatcher
 import com.huyingbao.core.arch.model.RxAction
 import com.huyingbao.core.arch.store.RxActivityStore
-import com.huyingbao.module.common.app.CommonConstants
+import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.wan.app.WanResponse
 import com.huyingbao.module.wan.db.WanAppDb
 import com.huyingbao.module.wan.ui.article.action.ArticleAction
@@ -71,7 +71,7 @@ class ArticleStore @Inject constructor(
     @Subscribe(tags = [ArticleAction.GET_ARTICLE_LIST], threadMode = ThreadMode.BACKGROUND)
     fun onGetArticleLiveData(rxAction: RxAction) {
         //如果是刷新，先清除数据库缓存
-        nextRequestPage = rxAction.get<Int>(CommonConstants.Key.INDEX) ?: 0
+        nextRequestPage = rxAction.get<Int>(CommonAppConstants.Key.INDEX) ?: 0
         if (nextRequestPage == 0) {
             wanAppDb.reposDao().deleteAll()
         }

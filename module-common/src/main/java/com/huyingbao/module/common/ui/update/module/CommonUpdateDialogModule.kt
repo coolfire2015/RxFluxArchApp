@@ -9,12 +9,12 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 
 /**
- * 基础依赖注入仓库，所有子模块中的AppModule中需要包括该类，实现Store注入和Dagger.Android注入
+ * [com.huyingbao.module.common.ui.update.view.CommonUpdateDialog]的依赖注入仓库
  *
  * Created by liujunfeng on 2019/1/1.
  */
 @Module
-class CommonUpdateModule {
+class CommonUpdateDialogModule {
     @Provides
     fun provideDownloadApi(
             builder: OkHttpClient.Builder,

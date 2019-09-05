@@ -20,8 +20,7 @@ import com.huyingbao.core.base.flux.activity.BaseFluxActivity
 import com.huyingbao.core.image.ImageLoader
 import com.huyingbao.core.image.ImageLoaderUtils
 import com.huyingbao.core.utils.LocalStorageUtils
-import com.huyingbao.module.common.app.CommonConstants
-import com.huyingbao.module.common.app.CommonRouter
+import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.common.ui.dialog.CommonInfo
 import com.huyingbao.module.common.ui.dialog.CommonInfoDialog
 import com.huyingbao.module.common.ui.dialog.CommonInfoDialogClickListener
@@ -42,7 +41,7 @@ import javax.inject.Inject
  *
  * Created by liujunfeng on 2019/6/10.
  */
-@Route(path = CommonRouter.MainActivity)
+@Route(path = CommonAppConstants.CommonRouter.MainActivity)
 class MainActivity : BaseFluxActivity<MainStore>() {
     @Inject
     lateinit var githubAppStore: GithubAppStore
@@ -106,7 +105,7 @@ class MainActivity : BaseFluxActivity<MainStore>() {
     private fun initNavigationView() {
         //修改日夜模式Menu图标文字
         nav_view_main?.menu?.findItem(R.id.nav_main_night)?.let {
-            when (localStorageUtils.getValue(CommonConstants.Key.NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_NO)) {
+            when (localStorageUtils.getValue(CommonAppConstants.Key.NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_NO)) {
                 AppCompatDelegate.MODE_NIGHT_YES -> {
                     it.icon = getDrawable(R.drawable.ic_day)
                     it.title = getText(R.string.github_menu_day)
@@ -129,8 +128,8 @@ class MainActivity : BaseFluxActivity<MainStore>() {
                 R.id.nav_main_about -> showAbout()
                 R.id.nav_main_version -> checkUpdate()
                 R.id.nav_main_night -> changeNight()
-                R.id.nav_main_wan -> ARouter.getInstance().build(CommonRouter.ArticleActivity).navigation()
-                R.id.nav_main_gan -> ARouter.getInstance().build(CommonRouter.RandomActivity).navigation()
+                R.id.nav_main_wan -> ARouter.getInstance().build(CommonAppConstants.CommonRouter.ArticleActivity).navigation()
+                R.id.nav_main_gan -> ARouter.getInstance().build(CommonAppConstants.CommonRouter.RandomActivity).navigation()
                 R.id.nav_main_logout -> logout()
             }
             //关闭抽屉 drawer_layout_main?.closeDrawer(GravityCompat.START)
@@ -148,7 +147,7 @@ class MainActivity : BaseFluxActivity<MainStore>() {
                     val imageLoader = ImageLoader.Builder<String>()
                     imageLoader.isCircle = true
                     imageLoader.resource = it.avatarUrl
-                    imageLoader.errorHolder = R.drawable.ic_main
+                    imageLoader.errorHolder = R.drawable.ic_account
                     imageLoader.imgView = headerView.getChildAt(0) as ImageView
                     ImageLoaderUtils.loadImage(this, imageLoader.build())
                     //用户名
@@ -251,12 +250,12 @@ class MainActivity : BaseFluxActivity<MainStore>() {
      * 切换夜间模式
      */
     private fun changeNight() {
-        when (localStorageUtils.getValue(CommonConstants.Key.NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_NO)) {
-            AppCompatDelegate.MODE_NIGHT_NO -> localStorageUtils.setValue(CommonConstants.Key.NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_YES)
-            AppCompatDelegate.MODE_NIGHT_YES -> localStorageUtils.setValue(CommonConstants.Key.NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_NO)
-            else -> localStorageUtils.setValue(CommonConstants.Key.NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_NO)
+        when (localStorageUtils.getValue(CommonAppConstants.Key.NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_NO)) {
+            AppCompatDelegate.MODE_NIGHT_NO -> localStorageUtils.setValue(CommonAppConstants.Key.NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_YES)
+            AppCompatDelegate.MODE_NIGHT_YES -> localStorageUtils.setValue(CommonAppConstants.Key.NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_NO)
+            else -> localStorageUtils.setValue(CommonAppConstants.Key.NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_NO)
         }
-        AppCompatDelegate.setDefaultNightMode(localStorageUtils.getValue(CommonConstants.Key.NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_NO))
+        AppCompatDelegate.setDefaultNightMode(localStorageUtils.getValue(CommonAppConstants.Key.NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_NO))
         recreate()
     }
 
@@ -271,7 +270,7 @@ class MainActivity : BaseFluxActivity<MainStore>() {
      * 清除旧Token，跳转登录页面，结束当前页面
      */
     private fun logout() {
-        localStorageUtils.setValue(CommonConstants.Key.ACCESS_TOKEN, "")
+        localStorageUtils.setValue(CommonAppConstants.Key.ACCESS_TOKEN, "")
         val intent = Intent(this, LoginActivity::class.java)
         intent.clearTask()
         intent.clearTop()

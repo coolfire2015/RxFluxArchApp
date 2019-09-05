@@ -7,7 +7,7 @@ import com.huyingbao.core.arch.model.RxAction
 import com.huyingbao.core.arch.model.RxChange
 import com.huyingbao.core.arch.store.RxAppStore
 import com.huyingbao.core.utils.LocalStorageUtils
-import com.huyingbao.module.common.app.CommonConstants
+import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.github.BuildConfig
 import com.huyingbao.module.github.ui.login.action.LoginAction
 import com.huyingbao.module.github.ui.login.model.User
@@ -53,20 +53,20 @@ class GithubAppStore @Inject constructor(
      * 获取保存的Token
      */
     fun getAccessToken(): String? {
-        return localStorageUtils.getValue(CommonConstants.Key.ACCESS_TOKEN, "")
+        return localStorageUtils.getValue(CommonAppConstants.Key.ACCESS_TOKEN, "")
     }
 
     /**
      * 获取保存的用户名
      */
     fun getUserName(): String? {
-        return localStorageUtils.getValue(CommonConstants.Key.USER_NAME, if (BuildConfig.DEBUG) BuildConfig.GIT_NAME else "")
+        return localStorageUtils.getValue(CommonAppConstants.Key.USER_NAME, if (BuildConfig.DEBUG) BuildConfig.GIT_NAME else "")
     }
 
     /**
      * 获取保存的密码
      */
     fun getPassword(): String? {
-        return localStorageUtils.getValue(CommonConstants.Key.PASSWORD, if (BuildConfig.DEBUG) BuildConfig.GIT_PWD else "")
+        return localStorageUtils.getValue(CommonAppConstants.Key.PASSWORD, if (BuildConfig.DEBUG) BuildConfig.GIT_PWD else "")
     }
 }

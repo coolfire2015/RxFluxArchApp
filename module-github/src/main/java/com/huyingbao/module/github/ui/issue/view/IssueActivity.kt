@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.huyingbao.core.base.flux.activity.BaseFluxFragActivity
-import com.huyingbao.module.common.app.CommonRouter
+import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.github.ui.issue.store.IssueStore
 
 /**
@@ -12,7 +12,7 @@ import com.huyingbao.module.github.ui.issue.store.IssueStore
  *
  * Created by liujunfeng on 2019/6/10.
  */
-@Route(path = CommonRouter.IssueActivity)
+@Route(path = CommonAppConstants.CommonRouter.IssueActivity)
 class IssueActivity : BaseFluxFragActivity<IssueStore>() {
     override fun createFragment(): Fragment? {
         return IssueFragment.newInstance()

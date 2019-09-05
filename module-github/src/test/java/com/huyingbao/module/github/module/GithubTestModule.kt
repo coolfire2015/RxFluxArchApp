@@ -2,9 +2,9 @@ package com.huyingbao.module.github.module
 
 import android.text.TextUtils
 import com.huyingbao.core.test.annotations.InTest
+import com.huyingbao.module.common.app.CommonAppConstants
+import com.huyingbao.module.common.app.CommonAppModule
 import com.huyingbao.module.common.app.CommonAppStore
-import com.huyingbao.module.common.app.CommonConstants
-import com.huyingbao.module.common.app.CommonModule
 import com.huyingbao.module.common.ui.update.action.FirApi
 import com.huyingbao.module.github.app.GithubAppStore
 import com.huyingbao.module.github.app.GithubContants
@@ -59,7 +59,7 @@ class GithubTestModule {
     /**
      * 初始化Retrofit
      *
-     * @param builder 来自[CommonModule]
+     * @param builder 来自[CommonAppModule]
      */
     @Singleton
     @Provides
@@ -68,12 +68,12 @@ class GithubTestModule {
         //Head拦截器
         val headInterceptor = Interceptor { chain ->
             var request = chain.request()
-            val token = request.header(CommonConstants.Header.AUTHORIZATION)
+            val token = request.header(CommonAppConstants.Header.AUTHORIZATION)
             if (TextUtils.isEmpty(token)) {
                 //Header中添加Authorization token数据
                 val url = request.url.toString()
                 val requestBuilder = request.newBuilder()
-                        .addHeader(CommonConstants.Header.AUTHORIZATION, "token 30052ef12d567c24863875805e76e8ac6ffde286")
+                        .addHeader(CommonAppConstants.Header.AUTHORIZATION, "token 30052ef12d567c24863875805e76e8ac6ffde286")
                         .url(url)
                 request = requestBuilder.build()
             }
