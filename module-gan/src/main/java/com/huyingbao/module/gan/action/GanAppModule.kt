@@ -1,11 +1,10 @@
 package com.huyingbao.module.gan.action
 
 import androidx.lifecycle.ViewModel
-import com.google.gson.GsonBuilder
 import com.huyingbao.core.arch.scope.ActivityScope
 import com.huyingbao.core.arch.store.RxStoreKey
 import com.huyingbao.module.common.app.CommonAppModule
-import com.huyingbao.module.gan.ui.random.action.GanApi
+import com.huyingbao.module.gan.BuildConfig
 import com.huyingbao.module.gan.ui.random.module.GanInjectFragmentModule
 import com.huyingbao.module.gan.ui.random.store.RandomStore
 import com.huyingbao.module.gan.ui.random.view.RandomActivity
@@ -18,21 +17,23 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 /**
  * Module其实是一个简单工厂模式，Module里面的方法基本都是创建类实例的方法。
  *
+ * 使用Dagger.Android注入Activity。
  *
  * Created by liujunfeng on 2019/1/1.
  */
 @Module(includes = [CommonAppModule::class])
 abstract class GanAppModule {
     /**
-     * ContributesAndroidInjector注解帮助我们生成方法的返回值类型（RandomActivity）的注射器
-     * 自动生成注射器AndroidInjector子类RandomActivitySubcomponent
+     * [ContributesAndroidInjector]注解帮助我们生成方法的返回值类型[RandomActivity]）的注射器
+     * 自动生成注射器[dagger.android.AndroidInjector]子类RandomActivitySubcomponent
      *
-     * ContributesAndroidInjector用来简化Subcomponent的书写
+     * [ContributesAndroidInjector]用来简化Subcomponent的书写
      *
      * 在2.11之前，每一个Fragment或者Activity都需要有自己的Component
      * 然后在Component中声明inject方法，
@@ -43,10 +44,12 @@ abstract class GanAppModule {
      * 此外，这个方法不能有参数
      *
      * ActivityScope标注生成的Subcomponet生命周期跟随Activity
-     * ContributesAndroidInjector指定DaggerAndroidActivity的Subcomponent中需要安装的Module
+     * [ContributesAndroidInjector]指定DaggerAndroidActivity的Subcomponent中需要安装的Module
      *
      * dagger.android会根据@ContributesAndroidInjector生成需要注入对应对象的SubComponent，
      * 并添加到map中
+     *
+     * [ActivityScope]标注自动生成的[GanAppModule_InjectRandomActivity.RandomActivitySubcomponent]注入器
      */
     @ActivityScope
     @ContributesAndroidInjector(modules = [GanInjectFragmentModule::class])
@@ -75,19 +78,32 @@ abstract class GanAppModule {
     @RxStoreKey(RandomStore::class)
     abstract fun bindRandomStore(randomStore: RandomStore): ViewModel
 
+    /**
+     * 伴生对象，提供全局单例对象
+     */
     @Module
     companion object {
+        /**
+         * Api根路径
+         */
+        const val BASE_API = "https://gank.io/api/"
+
+        /**
+         * 提供[Retrofit]单例对象
+         *
+         * 每个子模块的Module中都提供[Retrofit]单例对象，使用[Named]注解，子模块提供的单例对象。
+         */
         @JvmStatic
         @Singleton
         @Provides
-        fun provideGanApi(builder: OkHttpClient.Builder): GanApi {
-            val retrofit = Retrofit.Builder()
-                    .baseUrl("https://gank.io/api/")
-                    .addConverterFactory(GsonConverterFactory.create(GsonBuilder().serializeNulls().create()))
+        @Named(BuildConfig.MODULE_NAME)
+        fun provideRetrofit(builder: OkHttpClient.Builder): Retrofit {
+            return Retrofit.Builder()
+                    .baseUrl(BASE_API)
+                    .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(builder.build())
                     .build()
-            return retrofit.create(GanApi::class.java)
         }
     }
 }

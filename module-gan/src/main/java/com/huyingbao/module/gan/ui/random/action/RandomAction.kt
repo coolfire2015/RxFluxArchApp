@@ -30,7 +30,7 @@ interface RandomAction {
     fun getDataList(category: String, count: Int, page: Int)
 }
 
-interface GanApi {
+interface RandomApi {
     /**
      * 获取文章数据列表
      *

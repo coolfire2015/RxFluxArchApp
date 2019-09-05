@@ -15,9 +15,9 @@ import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
 /**
- * 全局生命周期跟随类
+ * Application生命周期方法分发类
  *
- * Created by liujunfeng on 2019/5/30.
+ * Created by liujunfeng on 2019/8/1.
  */
 @RxAppObserver
 class GithubAppLifecycle(application: Application) : RxAppLifecycle(application) {

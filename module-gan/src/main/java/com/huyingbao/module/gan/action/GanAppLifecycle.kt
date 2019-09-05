@@ -11,6 +11,11 @@ import com.huyingbao.module.gan.GanEventBusIndex
 
 import org.greenrobot.eventbus.EventBus
 
+/**
+ * Application生命周期方法分发类
+ *
+ * Created by liujunfeng on 2019/8/1.
+ */
 @RxAppObserver
 class GanAppLifecycle(application: Application) : RxAppLifecycle(application) {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)

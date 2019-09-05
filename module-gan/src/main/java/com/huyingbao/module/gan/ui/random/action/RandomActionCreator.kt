@@ -5,7 +5,10 @@ import com.huyingbao.core.arch.action.RxActionManager
 import com.huyingbao.core.arch.dispatcher.RxDispatcher
 import com.huyingbao.core.arch.scope.ActivityScope
 import com.huyingbao.module.common.app.CommonAppConstants
+import com.huyingbao.module.gan.BuildConfig
+import retrofit2.Retrofit
 import javax.inject.Inject
+import javax.inject.Named
 
 
 /**
@@ -15,12 +18,12 @@ import javax.inject.Inject
 class RandomActionCreator @Inject constructor(
         rxDispatcher: RxDispatcher,
         rxActionManager: RxActionManager,
-        private val ganApi: GanApi
+        @param:Named(BuildConfig.MODULE_NAME) private val retrofit: Retrofit
 ) : RxActionCreator(rxDispatcher, rxActionManager), RandomAction {
     override fun getDataList(category: String, count: Int, page: Int) {
         val rxAction = newRxAction(RandomAction.GET_DATA_LIST,
                 CommonAppConstants.Key.COUNT, count,
                 CommonAppConstants.Key.PAGE, page)
-        postHttpAction(rxAction, ganApi.getDataList(category, count, page))
+        postHttpAction(rxAction, retrofit.create(RandomApi::class.java).getDataList(category, count, page))
     }
 }
