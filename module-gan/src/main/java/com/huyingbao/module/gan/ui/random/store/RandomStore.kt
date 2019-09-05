@@ -6,7 +6,7 @@ import com.huyingbao.core.arch.dispatcher.RxDispatcher
 import com.huyingbao.core.arch.model.RxAction
 import com.huyingbao.core.arch.model.RxChange
 import com.huyingbao.core.arch.store.RxActivityStore
-import com.huyingbao.module.gan.action.GanConstants
+import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.gan.action.GanResponse
 import com.huyingbao.module.gan.ui.random.action.RandomAction
 import com.huyingbao.module.gan.ui.random.model.Product
@@ -57,7 +57,7 @@ class RandomStore @Inject constructor(
     @Subscribe(tags = [RandomAction.TO_SHOW_DATA])
     fun toShowData(rxAction: RxAction) {
         onCleared()//跳转页面，先清除旧数据
-        category = rxAction.get<String>(GanConstants.Key.CATEGORY)
+        category = rxAction.get<String>(CommonAppConstants.Key.CATEGORY)
         postChange(RxChange.newInstance(rxAction.tag))
     }
 

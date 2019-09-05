@@ -8,7 +8,6 @@ import com.huyingbao.module.common.app.CommonAppStore
 import com.huyingbao.module.common.ui.update.action.FirApi
 import com.huyingbao.module.github.app.GithubAppModule
 import com.huyingbao.module.github.app.GithubAppStore
-import com.huyingbao.module.github.app.GithubContants
 import com.huyingbao.module.github.ui.login.store.LoginStore
 import com.huyingbao.module.github.ui.main.store.MainStore
 import dagger.Component
@@ -84,7 +83,7 @@ class GithubTestModule {
         builder.addInterceptor(headInterceptor)
         //初始化Retrofit
         val retrofitBuilder = Retrofit.Builder()
-                .baseUrl(GithubContants.Url.BASE_API)
+                .baseUrl(GithubAppModule.BASE_API)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

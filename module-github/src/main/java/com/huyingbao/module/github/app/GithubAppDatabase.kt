@@ -18,5 +18,9 @@ import com.huyingbao.module.github.ui.main.model.ReposDao
         exportSchema = false
 )
 abstract class GithubAppDatabase : RoomDatabase() {
+    companion object {
+
+    }
+
     abstract fun reposDao(): ReposDao
 }

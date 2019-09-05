@@ -78,6 +78,15 @@ abstract class GithubAppModule {
     @Module
     companion object {
         /**
+         * Api根路径
+         */
+        const val BASE_API = "https://api.github.com/"
+        /**
+         * 需要创建的数据库名字
+         */
+        const val DATABASE_NAME = "rx-flux-arch-db"
+
+        /**
          * 提供[Retrofit]单例对象
          *
          * 每个子模块的Module中都提供[Retrofit]单例对象，使用[Named]注解，子模块提供的单例对象。
@@ -108,7 +117,7 @@ abstract class GithubAppModule {
                     .build()
             //初始化Retrofit
             val retrofitBuilder = Retrofit.Builder()
-                    .baseUrl(GithubContants.Url.BASE_API)
+                    .baseUrl(BASE_API)
                     //入参Body中如果有参数为空，依然序列化
                     //.addConverterFactory(GsonConverterFactory.create(GsonBuilder().serializeNulls().create()))
                     //使用ScalarsConverterFactory，当接口返回类型为常规类型时，规范接口返回数据
@@ -130,7 +139,7 @@ abstract class GithubAppModule {
             val databaseBuilder = Room.databaseBuilder(
                     application,
                     GithubAppDatabase::class.java,
-                    GithubContants.Key.DATABASE_NAME)
+                    DATABASE_NAME)
                     //允许Room破坏性地重新创建数据库表。
                     .fallbackToDestructiveMigration()
             return databaseBuilder.build()

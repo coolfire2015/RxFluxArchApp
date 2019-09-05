@@ -69,6 +69,18 @@ class CommonAppConstants {
          * 索引
          */
         const val INDEX = "index"
+        /**
+         * 类别
+         */
+        const val CATEGORY = "category"
+        /**
+         * 个数
+         */
+        const val COUNT = "count"
+        /**
+         * 页码
+         */
+        const val PAGE = "page"
     }
 
     object Header {
