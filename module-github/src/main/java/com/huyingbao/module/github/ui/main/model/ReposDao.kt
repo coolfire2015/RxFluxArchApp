@@ -1,8 +1,7 @@
-package com.huyingbao.module.github.database
+package com.huyingbao.module.github.ui.main.model
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.huyingbao.module.github.ui.main.model.Repos
 
 /**
  * 包含用于访问数据库的方法。

@@ -23,7 +23,7 @@ import javax.inject.Inject
  *
  * Created by liujunfeng on 2019/1/1.
  */
-@Route(path = CommonAppConstants.CommonRouter.LoginActivity)
+@Route(path = CommonAppConstants.Router.LoginActivity)
 class LoginActivity : BaseFluxActivity<LoginStore>() {
     @Inject
     lateinit var loginActionCreator: LoginActionCreator

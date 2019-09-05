@@ -1,8 +1,9 @@
-package com.huyingbao.module.wan.db
+package com.huyingbao.module.wan.app
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.huyingbao.module.wan.ui.article.model.Article
+import com.huyingbao.module.wan.ui.article.model.ArticleDao
 
 /**
  *GithubAppDatabase是一个继承[RoomDatabase]的抽象类。
@@ -16,6 +17,6 @@ import com.huyingbao.module.wan.ui.article.model.Article
         version = 3,
         exportSchema = false
 )
-abstract class WanAppDb : RoomDatabase() {
+abstract class WanAppDatabase : RoomDatabase() {
     abstract fun reposDao(): ArticleDao
 }

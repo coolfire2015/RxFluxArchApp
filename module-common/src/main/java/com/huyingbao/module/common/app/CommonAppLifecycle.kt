@@ -57,7 +57,7 @@ class CommonAppLifecycle(
         commonAppStore.subscribe()
         //true：没有Robolectric类，代码在Android设备运行。
         //false：有Robolectric类，代码在运行单元测试。
-        var android = try {
+        val android = try {
             Class.forName("org.robolectric.Robolectric") == null
         } catch (e: ClassNotFoundException) {
             true

@@ -6,6 +6,7 @@ import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.common.app.CommonAppModule
 import com.huyingbao.module.common.app.CommonAppStore
 import com.huyingbao.module.common.ui.update.action.FirApi
+import com.huyingbao.module.github.app.GithubAppModule
 import com.huyingbao.module.github.app.GithubAppStore
 import com.huyingbao.module.github.app.GithubContants
 import com.huyingbao.module.github.ui.login.store.LoginStore

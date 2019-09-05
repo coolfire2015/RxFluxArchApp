@@ -17,7 +17,7 @@ import org.greenrobot.eventbus.Subscribe
 /**
  * Created by liujunfeng on 2019/1/1.
  */
-@Route(path = CommonAppConstants.CommonRouter.ArticleActivity)
+@Route(path = CommonAppConstants.Router.ArticleActivity)
 class ArticleActivity : BaseFluxFragActivity<ArticleStore>() {
     override fun createFragment(): Fragment? {
         return ArticleListFragment.newInstance()

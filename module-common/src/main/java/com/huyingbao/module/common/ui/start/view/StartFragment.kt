@@ -35,7 +35,7 @@ class StartFragment : BaseCommonFragment() {
                 .timer(1500, TimeUnit.MILLISECONDS)
                 .autoDisposable(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
                 .subscribe {
-                    val appRouter = CommonAppConstants.CommonRouter.getAppRouter(AndroidUtils.getApplicationLabel(context))
+                    val appRouter = CommonAppConstants.Router.getAppRouter(AndroidUtils.getApplicationLabel(context))
                     ARouter.getInstance().build(appRouter).navigation()
                     activity?.finish()
                 }

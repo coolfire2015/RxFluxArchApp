@@ -1,4 +1,4 @@
-package com.shuyu.github.kotlin.model.bean
+package com.huyingbao.module.github.ui.repos.model
 
 import com.google.gson.annotations.SerializedName
 import com.huyingbao.module.github.ui.login.model.User

@@ -2,7 +2,7 @@ package com.huyingbao.module.github.ui.main.model
 
 import com.google.gson.annotations.SerializedName
 import com.huyingbao.module.github.ui.login.model.User
-import com.shuyu.github.kotlin.model.bean.Repository
+import com.huyingbao.module.github.ui.repos.model.Repository
 import java.util.*
 
 /**

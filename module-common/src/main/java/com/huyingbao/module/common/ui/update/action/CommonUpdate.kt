@@ -12,6 +12,17 @@ import retrofit2.http.Query
  *
  * Created by liujunfeng on 2019/6/10.
  */
+internal interface DownloadAction {
+    /**
+     * 开始下载
+     *
+     * @param tag   下载的唯一标记
+     * @param url   下载地址
+     * @param local 本地存储地址
+     */
+    fun downloadStart(tag: String, url: String, local: String): Boolean
+}
+
 interface AppAction {
     companion object {
         /**
@@ -24,20 +35,6 @@ interface AppAction {
      * 获取App最新版本信息
      */
     fun getAppLatest(id: String, token: String)
-}
-
-/**
- * Created by liujunfeng on 2019/4/24.
- */
-internal interface DownloadAction {
-    /**
-     * 开始下载
-     *
-     * @param tag   下载的唯一标记
-     * @param url   下载地址
-     * @param local 本地存储地址
-     */
-    fun downloadStart(tag: String, url: String, local: String): Boolean
 }
 
 /**

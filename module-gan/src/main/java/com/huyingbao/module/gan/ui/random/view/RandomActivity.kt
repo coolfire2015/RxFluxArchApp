@@ -15,7 +15,7 @@ import org.greenrobot.eventbus.Subscribe
 /**
  * Created by liujunfeng on 2019/1/1.
  */
-@Route(path = CommonAppConstants.CommonRouter.RandomActivity)
+@Route(path = CommonAppConstants.Router.RandomActivity)
 class RandomActivity : BaseFluxFragActivity<RandomStore>() {
     override fun createFragment(): Fragment? {
         return CategoryFragment.newInstance()

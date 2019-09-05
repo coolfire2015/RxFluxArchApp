@@ -9,7 +9,7 @@ import com.huyingbao.core.arch.model.RxAction
 import com.huyingbao.core.arch.store.RxActivityStore
 import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.wan.app.WanResponse
-import com.huyingbao.module.wan.db.WanAppDb
+import com.huyingbao.module.wan.app.WanAppDatabase
 import com.huyingbao.module.wan.ui.article.action.ArticleAction
 import com.huyingbao.module.wan.ui.article.action.ArticleActionCreator
 import com.huyingbao.module.wan.ui.article.model.Article
@@ -27,7 +27,7 @@ import javax.inject.Singleton
 @Singleton
 class ArticleStore @Inject constructor(
         rxDispatcher: RxDispatcher,
-        private var wanAppDb: WanAppDb,
+        private var wanAppDb: WanAppDatabase,
         private var articleActionCreator: ArticleActionCreator
 ) : RxActivityStore(rxDispatcher) {
     /**

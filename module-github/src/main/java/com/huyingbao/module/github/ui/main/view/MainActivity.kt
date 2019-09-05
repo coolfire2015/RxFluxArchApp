@@ -41,7 +41,7 @@ import javax.inject.Inject
  *
  * Created by liujunfeng on 2019/6/10.
  */
-@Route(path = CommonAppConstants.CommonRouter.MainActivity)
+@Route(path = CommonAppConstants.Router.MainActivity)
 class MainActivity : BaseFluxActivity<MainStore>() {
     @Inject
     lateinit var githubAppStore: GithubAppStore
@@ -128,8 +128,8 @@ class MainActivity : BaseFluxActivity<MainStore>() {
                 R.id.nav_main_about -> showAbout()
                 R.id.nav_main_version -> checkUpdate()
                 R.id.nav_main_night -> changeNight()
-                R.id.nav_main_wan -> ARouter.getInstance().build(CommonAppConstants.CommonRouter.ArticleActivity).navigation()
-                R.id.nav_main_gan -> ARouter.getInstance().build(CommonAppConstants.CommonRouter.RandomActivity).navigation()
+                R.id.nav_main_wan -> ARouter.getInstance().build(CommonAppConstants.Router.ArticleActivity).navigation()
+                R.id.nav_main_gan -> ARouter.getInstance().build(CommonAppConstants.Router.RandomActivity).navigation()
                 R.id.nav_main_logout -> logout()
             }
             //关闭抽屉 drawer_layout_main?.closeDrawer(GravityCompat.START)

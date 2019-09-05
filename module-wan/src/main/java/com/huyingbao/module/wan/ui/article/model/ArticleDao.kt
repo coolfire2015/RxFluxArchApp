@@ -1,4 +1,4 @@
-package com.huyingbao.module.wan.db
+package com.huyingbao.module.wan.ui.article.model
 
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource

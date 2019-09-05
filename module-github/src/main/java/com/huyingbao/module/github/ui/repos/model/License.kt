@@ -1,4 +1,4 @@
-package com.shuyu.github.kotlin.model.bean
+package com.huyingbao.module.github.ui.repos.model
 
 /**
  * Created by liujunfeng on 2019/5/30.

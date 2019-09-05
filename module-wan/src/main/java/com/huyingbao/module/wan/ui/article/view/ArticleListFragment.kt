@@ -131,7 +131,7 @@ class ArticleListFragment : BaseFluxFragment<ArticleStore>() {
             }
             item.itemId == R.id.menu_to_gan -> {
                 //跳转module-gan
-                ARouter.getInstance().build(CommonAppConstants.CommonRouter.RandomActivity).navigation()
+                ARouter.getInstance().build(CommonAppConstants.Router.RandomActivity).navigation()
                 true
             }
             else -> super.onOptionsItemSelected(item)

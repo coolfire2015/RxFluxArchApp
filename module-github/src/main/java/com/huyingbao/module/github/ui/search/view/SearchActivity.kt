@@ -12,7 +12,7 @@ import com.huyingbao.module.github.ui.search.store.SearchStore
  *
  * Created by liujunfeng on 2019/6/10.
  */
-@Route(path = CommonAppConstants.CommonRouter.SearchActivity)
+@Route(path = CommonAppConstants.Router.SearchActivity)
 class SearchActivity : BaseFluxFragActivity<SearchStore>() {
     override fun createFragment(): Fragment? {
         return SearchFragment.newInstance()

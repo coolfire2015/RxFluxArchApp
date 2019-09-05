@@ -1,4 +1,4 @@
-package com.huyingbao.module.github.module
+package com.huyingbao.module.github.app
 
 import android.app.Application
 import android.text.TextUtils
@@ -12,9 +12,6 @@ import com.huyingbao.core.utils.PageInfoInterceptor
 import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.common.app.CommonAppModule
 import com.huyingbao.module.github.BuildConfig
-import com.huyingbao.module.github.app.GithubAppLifecycle
-import com.huyingbao.module.github.app.GithubContants
-import com.huyingbao.module.github.database.GithubAppDatabase
 import com.huyingbao.module.github.ui.login.module.LoginActivityModule
 import com.huyingbao.module.github.ui.login.store.LoginStore
 import com.huyingbao.module.github.ui.login.view.LoginActivity

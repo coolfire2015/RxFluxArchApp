@@ -12,7 +12,7 @@ import com.huyingbao.module.github.ui.person.store.PersonStore
  *
  * Created by liujunfeng on 2019/6/10.
  */
-@Route(path = CommonAppConstants.CommonRouter.PersonActivity)
+@Route(path = CommonAppConstants.Router.PersonActivity)
 class PersonActivity : BaseFluxFragActivity<PersonStore>() {
     override fun createFragment(): Fragment? {
         return PersonFragment.newInstance()

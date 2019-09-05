@@ -1,7 +1,6 @@
 package com.huyingbao.module.common.app
 
 import com.huyingbao.core.arch.module.RxFluxModule
-import com.huyingbao.core.arch.scope.ActivityScope
 import com.huyingbao.module.common.BuildConfig
 import com.huyingbao.module.common.ui.update.module.CommonUpdateDialogModule
 import com.huyingbao.module.common.ui.update.view.CommonUpdateDialog
@@ -24,7 +23,6 @@ import javax.inject.Singleton
     AndroidInjectionModule::class
 ])
 abstract class CommonAppModule {
-    @ActivityScope
     @ContributesAndroidInjector
     abstract fun injectCommonAppLifecycle(): CommonAppLifecycle
 

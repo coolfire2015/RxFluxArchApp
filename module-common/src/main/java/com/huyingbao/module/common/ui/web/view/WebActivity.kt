@@ -21,7 +21,7 @@ import org.jetbrains.anko.toast
  *
  * Created by liujunfeng on 2019/5/31.
  */
-@Route(path = CommonAppConstants.CommonRouter.WebActivity)
+@Route(path = CommonAppConstants.Router.WebActivity)
 class WebActivity : BaseCommonFragActivity() {
 
     private var url: String? = null

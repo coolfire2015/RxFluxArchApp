@@ -1,4 +1,4 @@
-package com.huyingbao.module.gan.module
+package com.huyingbao.module.gan.ui.random.module
 
 
 import com.huyingbao.core.arch.scope.FragmentScope

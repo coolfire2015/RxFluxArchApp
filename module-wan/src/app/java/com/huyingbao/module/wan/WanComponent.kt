@@ -1,7 +1,7 @@
 package com.huyingbao.module.wan
 
 import android.app.Application
-import com.huyingbao.module.wan.module.WanAppModule
+import com.huyingbao.module.wan.app.WanAppModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector

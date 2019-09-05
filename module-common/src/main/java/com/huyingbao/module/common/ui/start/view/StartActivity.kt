@@ -4,13 +4,16 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.huyingbao.core.base.common.activity.BaseCommonFragActivity
+import com.huyingbao.module.common.app.CommonAppConstants
 
 /**
  * 引导页面，使用standard模式启动
  *
  * Created by liujunfeng on 2019/5/31.
  */
+@Route(path = CommonAppConstants.Router.StartActivity)
 class StartActivity : BaseCommonFragActivity() {
     override fun createFragment(): Fragment? {
         return StartFragment.newInstance()

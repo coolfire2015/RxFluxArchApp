@@ -1,4 +1,4 @@
-package com.huyingbao.module.wan.module
+package com.huyingbao.module.wan.ui.article.module
 
 
 import com.huyingbao.core.arch.scope.FragmentScope
@@ -13,7 +13,7 @@ import dagger.android.ContributesAndroidInjector
  * Created by liujunfeng on 2019/1/1.
  */
 @Module
-abstract class WanInjectFragmentModule {
+abstract class ArticleActivityModule {
     @FragmentScope
     @ContributesAndroidInjector
     abstract fun injectArticleListFragment(): ArticleListFragment

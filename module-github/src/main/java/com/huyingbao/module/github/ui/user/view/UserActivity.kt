@@ -12,7 +12,7 @@ import com.huyingbao.module.github.ui.user.store.UserStore
  *
  * Created by liujunfeng on 2019/6/10.
  */
-@Route(path = CommonAppConstants.CommonRouter.UserActivity)
+@Route(path = CommonAppConstants.Router.UserActivity)
 class UserActivity : BaseFluxFragActivity<UserStore>() {
     override fun createFragment(): Fragment {
         return UserFragment.newInstance()

@@ -1,9 +1,9 @@
 package com.huyingbao.module.app
 
 import android.app.Application
-import com.huyingbao.module.gan.module.GanAppModule
-import com.huyingbao.module.github.module.GithubAppModule
-import com.huyingbao.module.wan.module.WanAppModule
+import com.huyingbao.module.gan.action.GanAppModule
+import com.huyingbao.module.github.app.GithubAppModule
+import com.huyingbao.module.wan.app.WanAppModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -40,7 +40,7 @@ interface SimpleComponent : AndroidInjector<SimpleApplication> {
     @Component.Builder
     interface Builder {
         @BindsInstance
-        fun application(application: Application): SimpleComponent.Builder
+        fun application(application: Application): Builder
 
         fun build(): SimpleComponent
     }

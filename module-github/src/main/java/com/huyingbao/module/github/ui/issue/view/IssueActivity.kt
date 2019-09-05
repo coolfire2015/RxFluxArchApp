@@ -12,7 +12,7 @@ import com.huyingbao.module.github.ui.issue.store.IssueStore
  *
  * Created by liujunfeng on 2019/6/10.
  */
-@Route(path = CommonAppConstants.CommonRouter.IssueActivity)
+@Route(path = CommonAppConstants.Router.IssueActivity)
 class IssueActivity : BaseFluxFragActivity<IssueStore>() {
     override fun createFragment(): Fragment? {
         return IssueFragment.newInstance()

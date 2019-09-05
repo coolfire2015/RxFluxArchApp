@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.huyingbao.core.arch.dispatcher.RxDispatcher
 import com.huyingbao.core.arch.model.RxAction
 import com.huyingbao.core.arch.store.RxActivityStore
-import com.huyingbao.module.github.database.GithubAppDatabase
+import com.huyingbao.module.github.app.GithubAppDatabase
 import com.huyingbao.module.github.ui.main.action.MainAction
 import com.huyingbao.module.github.ui.main.model.Event
 import com.huyingbao.module.github.ui.main.model.Repos

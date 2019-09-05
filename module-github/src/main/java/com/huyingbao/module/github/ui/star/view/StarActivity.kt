@@ -12,7 +12,7 @@ import com.huyingbao.module.github.ui.star.store.StarStore
  *
  * Created by liujunfeng on 2019/6/10.
  */
-@Route(path = CommonAppConstants.CommonRouter.StarActivity)
+@Route(path = CommonAppConstants.Router.StarActivity)
 class StarActivity : BaseFluxFragActivity<StarStore>() {
     override fun createFragment(): Fragment? {
         return StarFragment.newInstance()

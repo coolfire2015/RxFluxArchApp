@@ -12,7 +12,7 @@ import com.huyingbao.module.github.ui.code.store.CodeStore
  *
  * Created by liujunfeng on 2019/6/10.
  */
-@Route(path = CommonAppConstants.CommonRouter.CodeActivity)
+@Route(path = CommonAppConstants.Router.CodeActivity)
 class CodeActivity : BaseFluxFragActivity<CodeStore>() {
     override fun createFragment(): Fragment? {
         return CodeFragment.newInstance()

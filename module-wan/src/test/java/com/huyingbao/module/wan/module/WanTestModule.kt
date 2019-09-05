@@ -8,7 +8,8 @@ import com.google.gson.GsonBuilder
 import com.huyingbao.module.common.app.CommonAppModule
 import com.huyingbao.module.wan.BuildConfig
 import com.huyingbao.module.wan.app.WanContants
-import com.huyingbao.module.wan.db.WanAppDb
+import com.huyingbao.module.wan.app.WanAppDatabase
+import com.huyingbao.module.wan.app.WanAppModule
 import com.huyingbao.module.wan.ui.article.store.ArticleStore
 import dagger.Component
 import dagger.Module
@@ -87,10 +88,10 @@ class WanTestModule {
      */
     @Singleton
     @Provides
-    fun provideDataBase(application: Application): WanAppDb {
+    fun provideDataBase(application: Application): WanAppDatabase {
         val databaseBuilder = Room.inMemoryDatabaseBuilder(
                 application,
-                WanAppDb::class.java)
+                WanAppDatabase::class.java)
                 //允许Room破坏性地重新创建数据库表。
                 .fallbackToDestructiveMigration()
         return databaseBuilder.build()

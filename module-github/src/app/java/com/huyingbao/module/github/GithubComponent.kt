@@ -1,7 +1,7 @@
 package com.huyingbao.module.github
 
 import android.app.Application
-import com.huyingbao.module.github.module.GithubAppModule
+import com.huyingbao.module.github.app.GithubAppModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector

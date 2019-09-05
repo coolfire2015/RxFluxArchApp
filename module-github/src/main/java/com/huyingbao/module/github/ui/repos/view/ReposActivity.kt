@@ -12,7 +12,7 @@ import com.huyingbao.module.github.ui.repos.store.ReposStore
  *
  * Created by liujunfeng on 2019/6/10.
  */
-@Route(path = CommonAppConstants.CommonRouter.ReposActivity)
+@Route(path = CommonAppConstants.Router.ReposActivity)
 class ReposActivity : BaseFluxFragActivity<ReposStore>() {
     override fun createFragment(): Fragment? {
         return ReposFragment.newInstance()

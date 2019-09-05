@@ -78,15 +78,12 @@ class CommonAppConstants {
         const val AUTHORIZATION = "Authorization"
     }
 
-    object Error {
-        const val COMMON = 600
-        const val UNAUTHORIZED = 401
-    }
-
     /**
-     * 全局路由地址静态类，可以根据module manifest文件中 Application label 值提供不同的路由地址
+     * 全局路由地址静态类
+     *
+     * 可以根据module manifest文件中 Application label 值提供不同的路由地址
      */
-    object CommonRouter {
+    object Router {
         /**
          * key   ：module manifest文件中 Application label值
          * value ：module 需要启动的第一个Activity路由地址
