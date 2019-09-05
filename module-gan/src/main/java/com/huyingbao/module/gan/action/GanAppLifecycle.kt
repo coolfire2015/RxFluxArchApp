@@ -13,7 +13,6 @@ import org.greenrobot.eventbus.EventBus
 
 @RxAppObserver
 class GanAppLifecycle(application: Application) : RxAppLifecycle(application) {
-
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     override fun onCreate() {
         EventBus.builder()

@@ -1,6 +1,6 @@
 package com.huyingbao.module.gan.ui.random.action
 
-import com.huyingbao.module.gan.action.GanResponse
+import com.huyingbao.module.gan.ui.random.model.GanResponse
 import com.huyingbao.module.gan.ui.random.model.Product
 import io.reactivex.Observable
 import retrofit2.http.GET

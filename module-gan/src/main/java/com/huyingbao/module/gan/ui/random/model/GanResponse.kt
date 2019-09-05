@@ -1,4 +1,4 @@
-package com.huyingbao.module.gan.action
+package com.huyingbao.module.gan.ui.random.model
 
 import java.util.*
 

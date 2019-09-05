@@ -7,7 +7,7 @@ import com.huyingbao.core.arch.model.RxAction
 import com.huyingbao.core.arch.model.RxChange
 import com.huyingbao.core.arch.store.RxActivityStore
 import com.huyingbao.module.common.app.CommonAppConstants
-import com.huyingbao.module.gan.action.GanResponse
+import com.huyingbao.module.gan.ui.random.model.GanResponse
 import com.huyingbao.module.gan.ui.random.action.RandomAction
 import com.huyingbao.module.gan.ui.random.model.Product
 
