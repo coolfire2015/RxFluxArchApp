@@ -4,6 +4,7 @@ import com.huyingbao.core.arch.action.RxActionCreator
 import com.huyingbao.core.arch.action.RxActionManager
 import com.huyingbao.core.arch.dispatcher.RxDispatcher
 import com.huyingbao.core.arch.model.RxAction
+import com.huyingbao.module.wan.ui.article.model.WanResponse
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function

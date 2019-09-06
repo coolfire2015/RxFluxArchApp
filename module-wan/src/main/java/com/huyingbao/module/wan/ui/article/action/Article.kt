@@ -1,6 +1,6 @@
 package com.huyingbao.module.wan.ui.article.action
 
-import com.huyingbao.module.wan.app.WanResponse
+import com.huyingbao.module.wan.ui.article.model.WanResponse
 import com.huyingbao.module.wan.ui.article.model.Article
 import com.huyingbao.module.wan.ui.article.model.Banner
 import com.huyingbao.module.wan.ui.article.model.Page

@@ -1,6 +1,6 @@
 package com.huyingbao.module.wan.ui.friend.action
 
-import com.huyingbao.module.wan.app.WanResponse
+import com.huyingbao.module.wan.ui.article.model.WanResponse
 import com.huyingbao.module.wan.ui.friend.model.WebSite
 import io.reactivex.Observable
 import retrofit2.http.GET

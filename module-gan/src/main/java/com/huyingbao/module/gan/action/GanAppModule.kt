@@ -1,11 +1,14 @@
 package com.huyingbao.module.gan.action
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.huyingbao.core.arch.scope.ActivityScope
 import com.huyingbao.core.arch.store.RxStoreKey
 import com.huyingbao.module.common.app.CommonAppModule
 import com.huyingbao.module.gan.BuildConfig
-import com.huyingbao.module.gan.ui.random.module.GanInjectFragmentModule
+import com.huyingbao.module.gan.ui.random.module.RandomActivityModule
 import com.huyingbao.module.gan.ui.random.store.RandomStore
 import com.huyingbao.module.gan.ui.random.view.RandomActivity
 import dagger.Binds
@@ -23,7 +26,9 @@ import javax.inject.Singleton
 /**
  * Module其实是一个简单工厂模式，Module里面的方法基本都是创建类实例的方法。
  *
- * 使用Dagger.Android注入Activity。
+ * 1.使用Dagger.Android自动生成Activity的依赖注入器[dagger.Subcomponent]，作用域为[ActivityScope]，并绑定对应[Module]。
+ *
+ * 2.伴生对象，提供[Singleton]全局单例对象
  *
  * Created by liujunfeng on 2019/1/1.
  */
@@ -52,7 +57,7 @@ abstract class GanAppModule {
      * [ActivityScope]标注自动生成的[GanAppModule_InjectRandomActivity.RandomActivitySubcomponent]注入器
      */
     @ActivityScope
-    @ContributesAndroidInjector(modules = [GanInjectFragmentModule::class])
+    @ContributesAndroidInjector(modules = [RandomActivityModule::class])
     abstract fun injectRandomActivity(): RandomActivity
 
     /**
@@ -86,7 +91,11 @@ abstract class GanAppModule {
         /**
          * Api根路径
          */
-        const val BASE_API = "https://gank.io/api/"
+        const val BASE_API = "http://gank.io/api/"
+        /**
+         * 需要创建的数据库名字
+         */
+        const val DATABASE_NAME = "gan-db"
 
         /**
          * 提供[Retrofit]单例对象
@@ -104,6 +113,22 @@ abstract class GanAppModule {
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(builder.build())
                     .build()
+        }
+
+        /**
+         * 提供[RoomDatabase]单例对象，获得创建数据库的实例：
+         */
+        @JvmStatic
+        @Singleton
+        @Provides
+        fun provideDataBase(application: Application): GanAppDatabase {
+            val databaseBuilder = Room.databaseBuilder(
+                    application,
+                    GanAppDatabase::class.java,
+                    DATABASE_NAME)
+                    //允许Room破坏性地重新创建数据库表。
+                    .fallbackToDestructiveMigration()
+            return databaseBuilder.build()
         }
     }
 }

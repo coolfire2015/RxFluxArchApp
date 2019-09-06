@@ -1,7 +1,7 @@
 package com.huyingbao.module.gan.ui.random.action
 
+import com.huyingbao.module.gan.ui.random.model.Article
 import com.huyingbao.module.gan.ui.random.model.GanResponse
-import com.huyingbao.module.gan.ui.random.model.Product
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -11,6 +11,9 @@ import retrofit2.http.Path
  */
 interface RandomAction {
     companion object {
+        /**
+         * 跳转对应类别的列表数据页面
+         */
         const val TO_SHOW_DATA = "toShowData"
 
         /**
@@ -20,12 +23,18 @@ interface RandomAction {
     }
 
     /**
+     * 跳转对应类别的列表数据页面
+     *
+     * @param category 类别
+     */
+    fun toShowData(category: String)
+
+    /**
      * 获取文章数据列表
      *
      * @param category 类别
      * @param count    数目
      * @param page     页码
-     * @return
      */
     fun getDataList(category: String, count: Int, page: Int)
 }
@@ -37,11 +46,10 @@ interface RandomApi {
      * @param category 类别
      * @param count    数目
      * @param page     页码
-     * @return
      */
     @GET("data/{category}/{count}/{page} ")
     fun getDataList(
             @Path("category") category: String,
             @Path("count") count: Int,
-            @Path("page") page: Int): Observable<GanResponse<Product>>
+            @Path("page") page: Int): Observable<GanResponse<Article>>
 }

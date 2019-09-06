@@ -52,6 +52,15 @@ abstract class WanAppModule {
     @Module
     companion object {
         /**
+         * Api根路径
+         */
+        const val BASE_API = "https://www.wanandroid.com/"
+        /**
+         * 需要创建的数据库名字
+         */
+        const val DATABASE_NAME = "wan-db"
+
+        /**
          *模块化App中，依赖注入仓库中会有多个方法提供Retrofit对象， 使用@Name注解，不同模块使用对应模块内的Retrofit对象提供方法。
          */
         @JvmStatic
@@ -60,7 +69,7 @@ abstract class WanAppModule {
         @Named(BuildConfig.MODULE_NAME)
         fun provideRetrofit(builder: OkHttpClient.Builder): Retrofit {
             return Retrofit.Builder()
-                    .baseUrl(WanContants.Base.BASE_URL)
+                    .baseUrl(BASE_API)
                     .addConverterFactory(GsonConverterFactory.create(GsonBuilder().serializeNulls().create()))
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(builder.build())
@@ -77,7 +86,7 @@ abstract class WanAppModule {
             val databaseBuilder = Room.databaseBuilder(
                     application,
                     WanAppDatabase::class.java,
-                    WanContants.Key.DATABASE_NAME)
+                    DATABASE_NAME)
                     //允许Room破坏性地重新创建数据库表。
                     .fallbackToDestructiveMigration()
             return databaseBuilder.build()

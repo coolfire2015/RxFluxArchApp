@@ -84,7 +84,7 @@ abstract class GithubAppModule {
         /**
          * 需要创建的数据库名字
          */
-        const val DATABASE_NAME = "rx-flux-arch-db"
+        const val DATABASE_NAME = "github-db"
 
         /**
          * 提供[Retrofit]单例对象

@@ -20,6 +20,12 @@ class RandomActionCreator @Inject constructor(
         rxActionManager: RxActionManager,
         @param:Named(BuildConfig.MODULE_NAME) private val retrofit: Retrofit
 ) : RxActionCreator(rxDispatcher, rxActionManager), RandomAction {
+    override fun toShowData(category: String) {
+        val rxAction = newRxAction(RandomAction.TO_SHOW_DATA,
+                CommonAppConstants.Key.CATEGORY, category)
+        postRxAction(rxAction)
+    }
+
     override fun getDataList(category: String, count: Int, page: Int) {
         val rxAction = newRxAction(RandomAction.GET_DATA_LIST,
                 CommonAppConstants.Key.COUNT, count,
