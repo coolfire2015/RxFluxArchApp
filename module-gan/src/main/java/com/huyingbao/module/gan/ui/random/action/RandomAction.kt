@@ -5,6 +5,7 @@ import com.huyingbao.module.gan.ui.random.model.GanResponse
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
+import java.util.*
 
 /**
  * Created by liujunfeng on 2019/1/1.
@@ -51,5 +52,5 @@ interface RandomApi {
     fun getDataList(
             @Path("category") category: String,
             @Path("count") count: Int,
-            @Path("page") page: Int): Observable<GanResponse<Article>>
+            @Path("page") page: Int): Observable<GanResponse<ArrayList<Article>>>
 }

@@ -1,4 +1,4 @@
-package com.huyingbao.module.gan.action
+package com.huyingbao.module.gan.app
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
@@ -34,6 +34,12 @@ import javax.inject.Singleton
  */
 @Module(includes = [CommonAppModule::class])
 abstract class GanAppModule {
+    /**
+     * 快速生成[GanAppLifecycle]的依赖注入器。
+     */
+    @ContributesAndroidInjector
+    abstract fun injectGanAppLifecycle(): GanAppLifecycle
+
     /**
      * [ContributesAndroidInjector]注解帮助我们生成方法的返回值类型[RandomActivity]）的注射器
      * 自动生成注射器[dagger.android.AndroidInjector]子类RandomActivitySubcomponent

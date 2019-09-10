@@ -2,8 +2,8 @@ package com.huyingbao.module.gan.ui.random.module
 
 
 import com.huyingbao.core.arch.scope.FragmentScope
-import com.huyingbao.module.gan.ui.random.view.CategoryFragment
 import com.huyingbao.module.gan.ui.random.view.ArticleListFragment
+import com.huyingbao.module.gan.ui.random.view.CategoryFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

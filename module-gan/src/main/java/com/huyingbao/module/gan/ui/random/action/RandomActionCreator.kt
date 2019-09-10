@@ -3,18 +3,18 @@ package com.huyingbao.module.gan.ui.random.action
 import com.huyingbao.core.arch.action.RxActionCreator
 import com.huyingbao.core.arch.action.RxActionManager
 import com.huyingbao.core.arch.dispatcher.RxDispatcher
-import com.huyingbao.core.arch.scope.ActivityScope
 import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.gan.BuildConfig
 import retrofit2.Retrofit
 import javax.inject.Inject
 import javax.inject.Named
+import javax.inject.Singleton
 
 
 /**
  * Created by liujunfeng on 2019/1/1.
  */
-@ActivityScope
+@Singleton
 class RandomActionCreator @Inject constructor(
         rxDispatcher: RxDispatcher,
         rxActionManager: RxActionManager,
@@ -30,6 +30,7 @@ class RandomActionCreator @Inject constructor(
         val rxAction = newRxAction(RandomAction.GET_DATA_LIST,
                 CommonAppConstants.Key.COUNT, count,
                 CommonAppConstants.Key.PAGE, page)
-        postHttpAction(rxAction, retrofit.create(RandomApi::class.java).getDataList(category, count, page))
+        rxAction.isGlobalCatch = false
+        postHttpLoadingAction(rxAction, retrofit.create(RandomApi::class.java).getDataList(category, count, page))
     }
 }

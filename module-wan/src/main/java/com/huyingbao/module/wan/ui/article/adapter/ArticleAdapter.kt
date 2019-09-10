@@ -28,7 +28,6 @@ import com.huyingbao.module.wan.ui.article.model.Article
 import org.jetbrains.anko.find
 
 /**
- *
  * 一个简单的PagedListAdapter，它将Article item 绑定到CardView。
  *
  * PagedListAdapter是一个[RecyclerView.Adapter]基类，它可以在RecyclerView中显示PagedLists的内容。
@@ -39,6 +38,8 @@ import org.jetbrains.anko.find
  *
  * @see androidx.paging.PagedListAdapter
  * @see androidx.paging.AsyncPagedListDiffer
+ *
+ * Created by liujunfeng on 2019/1/1.
  */
 class ArticleAdapter : PagedListAdapter<Article, ArticleViewHolder>(diffCallback) {
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {

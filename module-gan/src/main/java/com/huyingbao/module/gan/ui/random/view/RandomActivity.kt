@@ -26,6 +26,9 @@ class RandomActivity : BaseFluxFragActivity<RandomStore>() {
 
     override fun afterCreate(savedInstanceState: Bundle?) {}
 
+    /**
+     * 跳转对应类别的列表数据页面
+     */
     @Subscribe(tags = [RandomAction.TO_SHOW_DATA], sticky = true)
     fun toShowData(rxChange: RxChange) {
         setFragment(R.id.fl_container, ArticleListFragment.newInstance(), FragmentOp.OP_HIDE)

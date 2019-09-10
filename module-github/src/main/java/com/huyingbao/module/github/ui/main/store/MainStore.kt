@@ -1,6 +1,5 @@
 package com.huyingbao.module.github.ui.main.store
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.huyingbao.core.arch.dispatcher.RxDispatcher
 import com.huyingbao.core.arch.model.RxAction
@@ -27,11 +26,11 @@ class MainStore @Inject constructor(
     /**
      * 动态事件数据
      */
-    val eventListLiveData: MutableLiveData<ArrayList<Event>> by lazy { MutableLiveData<ArrayList<Event>>() }
+    val eventListLiveData by lazy { MutableLiveData<ArrayList<Event>>() }
     /**
      * 推荐趋势仓库数据
      */
-    val trendListLiveData: LiveData<List<Repos>> by lazy { githubAppDatabase.reposDao().getReposListLiveData() }
+    val trendListLiveData by lazy { githubAppDatabase.reposDao().getReposListLiveData() }
 
     override fun onCleared() {
         super.onCleared()

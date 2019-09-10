@@ -31,7 +31,7 @@ class ArticleListFragment : BaseFluxFragment<ArticleStore>() {
     @Inject
     lateinit var articleActionCreator: ArticleActionCreator
 
-    private var recyclerView: RecyclerView? = null
+    private var rvContent: RecyclerView? = null
     private var refreshLayout: SmartRefreshLayout? = null
 
     private var articleAdapter: ArticleAdapter? = null
@@ -56,11 +56,11 @@ class ArticleListFragment : BaseFluxFragment<ArticleStore>() {
      * 设置Adapter
      */
     private fun initAdapter() {
-        recyclerView = view?.find(R.id.rv_content)
+        rvContent = view?.find(R.id.rv_content)
         //RecyclerView设置适配器
-        recyclerView?.adapter = ArticleAdapter().apply { articleAdapter = this }
+        rvContent?.adapter = ArticleAdapter().apply { articleAdapter = this }
         //RecyclerView设置点击事件
-        recyclerView?.addOnItemTouchListener(RecyclerItemClickListener(context, recyclerView,
+        rvContent?.addOnItemTouchListener(RecyclerItemClickListener(context, rvContent,
                 object : RecyclerItemClickListener.OnItemClickListener {
                     override fun onItemClick(view: View, position: Int) {
                         context?.let {

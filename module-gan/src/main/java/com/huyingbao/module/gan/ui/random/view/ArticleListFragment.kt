@@ -1,21 +1,23 @@
 package com.huyingbao.module.gan.ui.random.view
 
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
+import com.huyingbao.core.arch.model.RxLoading
 import com.huyingbao.core.base.flux.fragment.BaseFluxFragment
 import com.huyingbao.core.base.setTitle
-import com.huyingbao.module.common.app.CommonAppConstants.Config.PAGE_SIZE
+import com.huyingbao.core.utils.RecyclerItemClickListener
+import com.huyingbao.module.common.app.CommonAppConstants
+import com.huyingbao.module.common.ui.web.view.WebActivity
 import com.huyingbao.module.gan.R
+import com.huyingbao.module.gan.ui.random.action.RandomAction
 import com.huyingbao.module.gan.ui.random.action.RandomActionCreator
 import com.huyingbao.module.gan.ui.random.adapter.ArticleAdapter
-import com.huyingbao.module.gan.ui.random.model.Article
 import com.huyingbao.module.gan.ui.random.store.RandomStore
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
-
+import org.greenrobot.eventbus.Subscribe
+import org.jetbrains.anko.find
 import javax.inject.Inject
 
 /**
@@ -41,85 +43,67 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
     }
 
     override fun afterCreate(savedInstanceState: Bundle?) {
-        setTitle(rxStore?.category, true)
-        initRecyclerView()
+        setTitle(rxStore?.categoryLiveData?.value, true)
         initAdapter()
-        showData()
-        //如果store已经创建并获取到数据，说明是横屏等操作导致的Fragment重建，不需要重新获取数据
-        if (rxStore!!.productListLiveData.value != null) {
-            return
-        }
-        refresh()
+        initRefreshView()
     }
 
     /**
-     * 实例化RecyclerView
-     */
-    private fun initRecyclerView() {
-        rvContent = view!!.findViewById(R.id.rv_content)
-        rvContent?.layoutManager = LinearLayoutManager(activity)
-        rvContent?.setHasFixedSize(true)
-    }
-
-    /**
-     * 实例化adapter
+     * 设置Adapter
      */
     private fun initAdapter() {
-        articleAdapter = ArticleAdapter(null)
-        //设置加载更多监听器
-        articleAdapter!!.setOnLoadMoreListener({ loadMore() }, rvContent)
-        //view设置适配器
-        rvContent?.adapter = articleAdapter
-    }
-
-    /**
-     * 显示数据
-     */
-    private fun showData() {
-        rxStore!!.productListLiveData.observe(this, Observer { productList ->
-            //判断获取回来的数据是否是刷新的数据
-            val isRefresh = rxStore!!.nextRequestPage == 1
-            setData(isRefresh, productList)
-            articleAdapter!!.setEnableLoadMore(true)
+        rvContent = view?.find(R.id.rv_content)
+        //RecyclerView设置适配器
+        rvContent?.adapter = ArticleAdapter().apply { articleAdapter = this }
+        //RecyclerView设置点击事件
+        rvContent?.addOnItemTouchListener(RecyclerItemClickListener(context, rvContent,
+                object : RecyclerItemClickListener.OnItemClickListener {
+                    override fun onItemClick(view: View, position: Int) {
+                        context?.let {
+                            //跳转网页
+                            val intent = WebActivity.newIntent(it,
+                                    articleAdapter?.getItem(position)?.url,
+                                    articleAdapter?.getItem(position)?.desc)
+                            startActivity(intent)
+                        }
+                    }
+                }))
+        //显示数据
+        rxStore?.articleLiveData?.observe(this, Observer {
+            articleAdapter?.submitList(it)
         })
     }
 
     /**
-     * 刷新
+     * 初始化上下拉刷新View
      */
-    private fun refresh() {
-        rxStore!!.nextRequestPage = 1
-        //这里的作用是防止下拉刷新的时候还可以上拉加载
-        articleAdapter!!.setEnableLoadMore(false)
-        rxStore!!.category?.let {
-            randomActionCreator.getDataList(it, PAGE_SIZE, rxStore!!.nextRequestPage)
+    private fun initRefreshView() {
+        refreshLayout = view?.find(R.id.rfl_content)
+        //下拉刷新监听器，设置获取最新一页数据
+        refreshLayout?.setOnRefreshListener {
+            rxStore?.categoryLiveData?.value?.let { category ->
+                randomActionCreator.getDataList(
+                        category,
+                        CommonAppConstants.Config.PAGE_SIZE,
+                        RandomStore.DEFAULT_PAGE)
+            }
+        }
+        //如果是新创建，调用刷新方法，排除屏幕旋转
+        if (rxStore?.nextRequestPage == RandomStore.DEFAULT_PAGE) {
+            refreshLayout?.autoRefresh()
         }
     }
 
     /**
-     * 加载更多
+     * 显示进度对话框
+     * 接收[RxLoading]，粘性
+     * 该方法不经过RxStore,
+     * 由RxFluxView直接处理
      */
-    private fun loadMore() {
-        rxStore!!.category?.let {
-            randomActionCreator.getDataList(it, PAGE_SIZE, rxStore!!.nextRequestPage)
-        }
-    }
-
-    /**
-     * 设置数据
-     *
-     * @param isRefresh
-     * @param data
-     */
-    private fun setData(isRefresh: Boolean, data: List<Article>?) {
-        val size = if (data == null || data.size == 0) 0 else data.size % PAGE_SIZE
-        articleAdapter!!.setNewData(data)
-        if (size == 0) {
-            articleAdapter!!.loadMoreComplete()
-        } else {//最后一页取回的数据不到PAGE_SIZE，说明没有更多数据，结束加载更多操作
-            //第一页如果不够一页就不显示没有更多数据布局
-            articleAdapter!!.loadMoreEnd(isRefresh)
-            Toast.makeText(context, "no more data", Toast.LENGTH_SHORT).show()
+    @Subscribe(tags = [RandomAction.GET_DATA_LIST], sticky = true)
+    fun onRxLoading(rxLoading: RxLoading) {
+        if (!rxLoading.isLoading) {
+            refreshLayout?.finishRefresh()
         }
     }
 }

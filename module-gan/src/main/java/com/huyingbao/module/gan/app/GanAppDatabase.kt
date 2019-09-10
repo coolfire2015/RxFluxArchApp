@@ -1,4 +1,4 @@
-package com.huyingbao.module.gan.action
+package com.huyingbao.module.gan.app
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

@@ -11,9 +11,9 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
-import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.huyingbao.core.base.flux.activity.BaseFluxActivity
@@ -189,8 +189,12 @@ class MainActivity : BaseFluxActivity<MainStore>() {
     private fun initViewPager() {
         view_pager_main.offscreenPageLimit = 3
         //设置适配器，生成对应的Fragment
-        view_pager_main.adapter = object : FragmentPagerAdapter(supportFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-            override fun getItem(position: Int): Fragment {
+        view_pager_main.adapter = object : FragmentStateAdapter(this) {
+            override fun getItemCount(): Int {
+                return 3
+            }
+
+            override fun createFragment(position: Int): Fragment {
                 return when (position) {
                     0 -> DynamicFragment()
                     1 -> TrendFragment()
@@ -198,16 +202,9 @@ class MainActivity : BaseFluxActivity<MainStore>() {
                     else -> DynamicFragment()
                 }
             }
-
-            override fun getCount(): Int {
-                return 3
-            }
         }
         //设置滑动回调
-        view_pager_main.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-            }
-
+        view_pager_main.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 when (position) {
                     0 -> bottom_nav_main.selectedItemId = R.id.bottom_nav_dynamic
@@ -215,10 +212,6 @@ class MainActivity : BaseFluxActivity<MainStore>() {
                     2 -> bottom_nav_main.selectedItemId = R.id.bottom_nav_mine
                     else -> bottom_nav_main.selectedItemId = R.id.bottom_nav_dynamic
                 }
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {
-
             }
         })
     }

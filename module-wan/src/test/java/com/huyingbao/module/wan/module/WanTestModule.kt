@@ -7,7 +7,6 @@ import androidx.room.RoomDatabase
 import com.google.gson.GsonBuilder
 import com.huyingbao.module.common.app.CommonAppModule
 import com.huyingbao.module.wan.BuildConfig
-import com.huyingbao.module.wan.app.WanContants
 import com.huyingbao.module.wan.app.WanAppDatabase
 import com.huyingbao.module.wan.app.WanAppModule
 import com.huyingbao.module.wan.ui.article.store.ArticleStore
@@ -76,7 +75,7 @@ class WanTestModule {
     @Provides
     fun provideRetrofit(builder: OkHttpClient.Builder): Retrofit {
         val retrofitBuilder = Retrofit.Builder()
-                .baseUrl(if (BuildConfig.MOCK_URL) initMockServer() else WanContants.Base.BASE_URL)
+                .baseUrl(if (BuildConfig.MOCK_URL) initMockServer() else WanAppModule.BASE_API)
                 .addConverterFactory(GsonConverterFactory.create(GsonBuilder().serializeNulls().create()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(builder.build())
@@ -106,7 +105,7 @@ class WanTestModule {
  * 1.动态创建了一个[WanTestModule]的子类，返回在测试中定义并使用[org.mockito.Mock]和[org.mockito.Spy]标注的虚拟对象 ，而不是真实的对象。
  *
  * 2.Mock [WanTestModule]，通过反射的方式得到[WanTestModule]的所有[dagger.Provides]方法，如果有某个方法的返回值是[org.mockito.Mock]和[org.mockito.Spy]标注的虚拟对象，
- * 那么就使用Mockito，让这个[dagger.Provides]方法被调用时，返回虚拟对象。
+ * 那么就使用Mockito，让这个[dagger.Provides]方法被调用时，返回虚拟 对象。
  *
  * 3.使用[WanTestModule]来构建一个[WanTestComponent]，并且放到[WanMockUtils]里面去。
  */

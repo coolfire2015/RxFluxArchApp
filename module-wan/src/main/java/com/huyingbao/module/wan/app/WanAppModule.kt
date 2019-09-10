@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.google.gson.GsonBuilder
 import com.huyingbao.core.arch.scope.ActivityScope
 import com.huyingbao.core.arch.store.RxStoreKey
 import com.huyingbao.module.common.app.CommonAppModule
@@ -61,7 +60,9 @@ abstract class WanAppModule {
         const val DATABASE_NAME = "wan-db"
 
         /**
-         *模块化App中，依赖注入仓库中会有多个方法提供Retrofit对象， 使用@Name注解，不同模块使用对应模块内的Retrofit对象提供方法。
+         * 提供[Retrofit]单例对象
+         *
+         * 每个子模块的Module中都提供[Retrofit]单例对象，使用[Named]注解，子模块提供的单例对象。
          */
         @JvmStatic
         @Singleton
@@ -70,7 +71,7 @@ abstract class WanAppModule {
         fun provideRetrofit(builder: OkHttpClient.Builder): Retrofit {
             return Retrofit.Builder()
                     .baseUrl(BASE_API)
-                    .addConverterFactory(GsonConverterFactory.create(GsonBuilder().serializeNulls().create()))
+                    .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(builder.build())
                     .build()

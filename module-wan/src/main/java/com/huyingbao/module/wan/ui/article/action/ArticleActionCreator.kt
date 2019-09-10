@@ -25,7 +25,7 @@ class ArticleActionCreator @Inject constructor(
 
     override fun getArticleList(page: Int) {
         val rxAction = newRxAction(ArticleAction.GET_ARTICLE_LIST,
-                CommonAppConstants.Key.INDEX, page)
+                CommonAppConstants.Key.PAGE, page)
         rxAction.isGlobalCatch = false
         val articleApi = retrofit.create(ArticleApi::class.java)
         postHttpLoadingAction(rxAction, articleApi.getArticleList(page))
