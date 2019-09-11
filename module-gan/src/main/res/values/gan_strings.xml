@@ -9,7 +9,6 @@
     <string name="gan_category_wan_kotlin">玩安卓Kotlin</string>
 
     <string-array name="gan_array_category">
-        <item>all</item>
         <item>Android</item>
         <item>iOS</item>
         <item>休息视频</item>

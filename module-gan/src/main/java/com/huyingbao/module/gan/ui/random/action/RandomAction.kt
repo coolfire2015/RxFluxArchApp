@@ -13,22 +13,10 @@ import java.util.*
 interface RandomAction {
     companion object {
         /**
-         * 跳转对应类别的列表数据页面
-         */
-        const val TO_SHOW_DATA = "toShowData"
-
-        /**
          * 获取文章数据列表
          */
         const val GET_DATA_LIST = "getDataList"
     }
-
-    /**
-     * 跳转对应类别的列表数据页面
-     *
-     * @param category 类别
-     */
-    fun toShowData(category: String)
 
     /**
      * 获取文章数据列表

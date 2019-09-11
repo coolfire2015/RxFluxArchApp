@@ -6,7 +6,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.huyingbao.core.arch.model.RxLoading
 import com.huyingbao.core.base.flux.fragment.BaseFluxFragment
-import com.huyingbao.core.base.setTitle
 import com.huyingbao.core.utils.RecyclerItemClickListener
 import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.common.ui.web.view.WebActivity
@@ -27,14 +26,17 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
     @Inject
     lateinit var randomActionCreator: RandomActionCreator
 
+    private var category: String? = null
     private var rvContent: RecyclerView? = null
     private var refreshLayout: SmartRefreshLayout? = null
 
     private var articleAdapter: ArticleAdapter? = null
 
     companion object {
-        fun newInstance(): ArticleListFragment {
-            return ArticleListFragment()
+        fun newInstance(category: String) = ArticleListFragment().apply {
+            arguments = Bundle().apply {
+                putString(CommonAppConstants.Key.CATEGORY, category)
+            }
         }
     }
 
@@ -43,7 +45,8 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
     }
 
     override fun afterCreate(savedInstanceState: Bundle?) {
-        setTitle(rxStore?.categoryLiveData?.value, true)
+        category = arguments?.getString(CommonAppConstants.Key.CATEGORY)
+        rxStore?.categoryLiveData?.value = category
         initAdapter()
         initRefreshView()
     }
