@@ -10,12 +10,12 @@ import com.huyingbao.core.arch.model.RxAction
 import com.huyingbao.core.arch.model.RxChange
 import com.huyingbao.core.arch.store.RxActivityStore
 import com.huyingbao.module.common.app.CommonAppConstants
-import com.huyingbao.module.common.tools.ioThread
 import com.huyingbao.module.gan.app.GanAppDatabase
 import com.huyingbao.module.gan.ui.random.action.RandomAction
 import com.huyingbao.module.gan.ui.random.model.Article
 import com.huyingbao.module.gan.ui.random.model.GanResponse
 import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -45,16 +45,16 @@ class RandomStore @Inject constructor(
     }
 
     /**
-     * 存储当前文章类别和页码
+     * 存储当前文章类别
      */
-    val configLiveData by lazy { MutableLiveData<Pair<String, Int>>() }
+    val categoryLiveData by lazy { MutableLiveData<String>() }
     /**
-     * 文章数据，当[configLiveData]数据更新时，从数据库更新对应类别的数据
+     * 文章数据，当[categoryLiveData]数据更新时，从数据库更新对应类别的数据
      */
     val articleLiveData by lazy {
-        Transformations.switchMap(configLiveData) {
+        Transformations.switchMap(categoryLiveData) {
             it?.let {
-                ganAppDatabase.reposDao().getArticleList(it.first).toLiveData(
+                ganAppDatabase.reposDao().getArticleList(it).toLiveData(
                         config = Config(pageSize = 30, enablePlaceholders = true),
                         boundaryCallback = object : PagedList.BoundaryCallback<Article>() {
                             override fun onItemAtEndLoaded(itemAtEnd: Article) {
@@ -72,35 +72,26 @@ class RandomStore @Inject constructor(
      * 当所有者Activity销毁时,框架调用ViewModel的onCleared（）方法，以便它可以清理资源。
      */
     override fun onCleared() {
-        configLiveData.value = null
+        categoryLiveData.value = null
     }
 
     /**
      * 接收ArticleList数据，需要在新线程中，更新room数据库数据
      */
-    @Subscribe(tags = [RandomAction.GET_DATA_LIST])
+    @Subscribe(tags = [RandomAction.GET_DATA_LIST], threadMode = ThreadMode.BACKGROUND)
     fun onGetDataList(rxAction: RxAction) {
-        //存储当前的页码
-        val page = rxAction[CommonAppConstants.Key.PAGE] ?: DEFAULT_PAGE
-        //存储当前的类别
-        val category = rxAction[CommonAppConstants.Key.CATEGORY] ?: DEFAULT_CATEGORY
-        //更新当前存储配置数据
-        configLiveData.value = Pair(category, page + 1)
-        //在IO线程中更新数据库
-        ioThread {
-            //数据库事务操作
-            ganAppDatabase.runInTransaction {
-                //如果是刷新，先清除数据库缓存
-                if (page == DEFAULT_PAGE) {
-                    ganAppDatabase.reposDao().deleteAll(category)
-                }
-                //如果有数据，添加到数据库缓存中
-                rxAction.getResponse<GanResponse<ArrayList<Article>>>()?.results?.let {
-                    ganAppDatabase.reposDao().insertAll(it)
-                }
+        //数据库事务操作
+        ganAppDatabase.runInTransaction {
+            //如果是刷新，先清除数据库缓存
+            if (rxAction[CommonAppConstants.Key.PAGE] ?: DEFAULT_PAGE == DEFAULT_PAGE) {
+                ganAppDatabase.reposDao().deleteAll(
+                        rxAction[CommonAppConstants.Key.CATEGORY] ?: DEFAULT_CATEGORY
+                )
+            }
+            //如果有数据，添加到数据库缓存中
+            rxAction.getResponse<GanResponse<ArrayList<Article>>>()?.results?.let {
+                ganAppDatabase.reposDao().insertAll(it)
             }
         }
-        //通知UI，获取数据成功，需要更新页面索引
-        postChange(RxChange.newInstance(rxAction.tag))
     }
 }

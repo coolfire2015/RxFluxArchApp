@@ -38,7 +38,7 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
     /**
      * 列表页数
      */
-    private var nextRequestPage = RandomStore.DEFAULT_PAGE
+    private var page = RandomStore.DEFAULT_PAGE
 
     private var rvContent: RecyclerView? = null
     private var refreshLayout: SmartRefreshLayout? = null
@@ -63,13 +63,15 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
         initRefreshView()
     }
 
+    /**
+     * ViewPager2左右滑动，该方法会被调用
+     */
     override fun onResume() {
         super.onResume()
-        rxStore?.configLiveData?.value = Pair(
-                category ?: RandomStore.DEFAULT_CATEGORY,
-                nextRequestPage)
-        //如果是首页，需要刷新
-        if (nextRequestPage == RandomStore.DEFAULT_PAGE) {
+        //更新文章类别
+        rxStore?.categoryLiveData?.value = category
+        //如果是第一页，需要刷新
+        if (page == RandomStore.DEFAULT_PAGE) {
             refreshLayout?.autoRefresh()
         }
     }
@@ -96,7 +98,7 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
                 }))
         //显示数据
         rxStore?.articleLiveData?.observe(this, Observer {
-            if (TextUtils.equals(category, rxStore?.configLiveData?.value?.first)) {
+            if (TextUtils.equals(category, rxStore?.categoryLiveData?.value)) {
                 articleAdapter?.submitList(it)
             }
         })
@@ -112,10 +114,7 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
     }
 
     /**
-     * 显示进度对话框
-     * 接收[RxLoading]，粘性
-     * 该方法不经过RxStore,
-     * 由RxFluxView直接处理
+     * 显示进度对话框，接收[RxLoading]，粘性，该方法不经过RxStore，由RxFluxView直接处理
      */
     @Subscribe(tags = [RandomAction.GET_DATA_LIST], sticky = true)
     fun onRxLoading(rxLoading: RxLoading) {
@@ -124,23 +123,25 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
         }
     }
 
-    @Subscribe(tags = [RandomAction.GET_DATA_LIST], sticky = true)
-    fun onGetData(rxChange: RxChange) {
-        if (TextUtils.equals(category, rxStore?.configLiveData?.value?.first)) {
-            nextRequestPage++
-        }
-    }
-
+    /**
+     * 获取下一页数据
+     */
     @Subscribe(tags = [RandomAction.GET_NEXT_PAGE], sticky = true)
     fun getNextPage(rxChange: RxChange) {
-        if (TextUtils.equals(category, rxStore?.configLiveData?.value?.first)) {
+        if (TextUtils.equals(category, rxStore?.categoryLiveData?.value)) {
             getData()
         }
     }
 
+    /**
+     * 获取数据
+     */
     private fun getData() {
         category?.let {
-            randomActionCreator.getDataList(it, CommonAppConstants.Config.PAGE_SIZE, nextRequestPage)
+            //获取数据
+            randomActionCreator.getDataList(it, CommonAppConstants.Config.PAGE_SIZE, page)
+            //页码更新
+            page++
         }
     }
 }
