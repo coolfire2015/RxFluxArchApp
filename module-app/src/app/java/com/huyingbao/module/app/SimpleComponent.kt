@@ -1,7 +1,7 @@
 package com.huyingbao.module.app
 
 import android.app.Application
-import com.huyingbao.module.gan.action.GanAppModule
+import com.huyingbao.module.gan.app.GanAppModule
 import com.huyingbao.module.github.app.GithubAppModule
 import com.huyingbao.module.wan.app.WanAppModule
 import dagger.BindsInstance

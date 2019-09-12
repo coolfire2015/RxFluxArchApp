@@ -47,7 +47,7 @@ class ArticleListFragment : BaseFluxFragment<ArticleStore>() {
     }
 
     override fun afterCreate(savedInstanceState: Bundle?) {
-        setTitle(R.string.wan_label_article, true)
+        setTitle(R.string.app_label_wan, true)
         initAdapter()
         initRefreshView()
     }
