@@ -22,6 +22,7 @@ class RandomActionCreator @Inject constructor(
 ) : RxActionCreator(rxDispatcher, rxActionManager), RandomAction {
     override fun getDataList(category: String, count: Int, page: Int) {
         val rxAction = newRxAction(RandomAction.GET_DATA_LIST,
+                CommonAppConstants.Key.CATEGORY, category,
                 CommonAppConstants.Key.COUNT, count,
                 CommonAppConstants.Key.PAGE, page)
         rxAction.isGlobalCatch = false

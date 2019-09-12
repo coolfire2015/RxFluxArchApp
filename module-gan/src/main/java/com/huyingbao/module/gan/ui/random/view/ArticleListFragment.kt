@@ -1,9 +1,12 @@
 package com.huyingbao.module.gan.ui.random.view
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import com.huyingbao.core.arch.dispatcher.RxDispatcher
+import com.huyingbao.core.arch.model.RxChange
 import com.huyingbao.core.arch.model.RxLoading
 import com.huyingbao.core.base.flux.fragment.BaseFluxFragment
 import com.huyingbao.core.utils.RecyclerItemClickListener
@@ -25,8 +28,18 @@ import javax.inject.Inject
 class ArticleListFragment : BaseFluxFragment<RandomStore>() {
     @Inject
     lateinit var randomActionCreator: RandomActionCreator
+    @Inject
+    lateinit var rxDispatcher: RxDispatcher
 
+    /**
+     * 列表类别
+     */
     private var category: String? = null
+    /**
+     * 列表页数
+     */
+    private var nextRequestPage = RandomStore.DEFAULT_PAGE
+
     private var rvContent: RecyclerView? = null
     private var refreshLayout: SmartRefreshLayout? = null
 
@@ -46,9 +59,19 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
 
     override fun afterCreate(savedInstanceState: Bundle?) {
         category = arguments?.getString(CommonAppConstants.Key.CATEGORY)
-        rxStore?.categoryLiveData?.value = category
         initAdapter()
         initRefreshView()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        rxStore?.configLiveData?.value = Pair(
+                category ?: RandomStore.DEFAULT_CATEGORY,
+                nextRequestPage)
+        //如果是首页，需要刷新
+        if (nextRequestPage == RandomStore.DEFAULT_PAGE) {
+            refreshLayout?.autoRefresh()
+        }
     }
 
     /**
@@ -73,7 +96,9 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
                 }))
         //显示数据
         rxStore?.articleLiveData?.observe(this, Observer {
-            articleAdapter?.submitList(it)
+            if (TextUtils.equals(category, rxStore?.configLiveData?.value?.first)) {
+                articleAdapter?.submitList(it)
+            }
         })
     }
 
@@ -83,18 +108,7 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
     private fun initRefreshView() {
         refreshLayout = view?.find(R.id.rfl_content)
         //下拉刷新监听器，设置获取最新一页数据
-        refreshLayout?.setOnRefreshListener {
-            rxStore?.categoryLiveData?.value?.let { category ->
-                randomActionCreator.getDataList(
-                        category,
-                        CommonAppConstants.Config.PAGE_SIZE,
-                        RandomStore.DEFAULT_PAGE)
-            }
-        }
-        //如果是新创建，调用刷新方法，排除屏幕旋转
-        if (rxStore?.nextRequestPage == RandomStore.DEFAULT_PAGE) {
-            refreshLayout?.autoRefresh()
-        }
+        refreshLayout?.setOnRefreshListener { getData() }
     }
 
     /**
@@ -107,6 +121,26 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
     fun onRxLoading(rxLoading: RxLoading) {
         if (!rxLoading.isLoading) {
             refreshLayout?.finishRefresh()
+        }
+    }
+
+    @Subscribe(tags = [RandomAction.GET_DATA_LIST], sticky = true)
+    fun onGetData(rxChange: RxChange) {
+        if (TextUtils.equals(category, rxStore?.configLiveData?.value?.first)) {
+            nextRequestPage++
+        }
+    }
+
+    @Subscribe(tags = [RandomAction.GET_NEXT_PAGE], sticky = true)
+    fun getNextPage(rxChange: RxChange) {
+        if (TextUtils.equals(category, rxStore?.configLiveData?.value?.first)) {
+            getData()
+        }
+    }
+
+    private fun getData() {
+        category?.let {
+            randomActionCreator.getDataList(it, CommonAppConstants.Config.PAGE_SIZE, nextRequestPage)
         }
     }
 }

@@ -22,7 +22,8 @@ data class Article(
          * who : lijinshanmx
          */
         @PrimaryKey
-        var createdAt: String = "",
+        var _id: String = "",
+        var createdAt: String? = null,
         var desc: String? = null,
         var publishedAt: String? = null,
         var source: String? = null,

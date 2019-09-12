@@ -26,11 +26,12 @@ class LoginStore @Inject constructor(
 
     @Subscribe(tags = [LoginAction.LOGIN])
     fun onLogin(rxAction: RxAction) {
-        val userName: String? = rxAction.data[CommonAppConstants.Key.USER_NAME] as String?
-        val password: String? = rxAction.data[CommonAppConstants.Key.PASSWORD] as String?
-        localStorageUtils.setValue(CommonAppConstants.Key.ACCESS_TOKEN, rxAction.getResponse<AccessToken?>()?.token!!)
-        localStorageUtils.setValue(CommonAppConstants.Key.USER_NAME, userName!!)
-        localStorageUtils.setValue(CommonAppConstants.Key.PASSWORD, password!!)
+        val token = rxAction.getResponse<AccessToken?>()?.token ?: ""
+        val userName: String = rxAction[CommonAppConstants.Key.USER_NAME] ?: ""
+        val password: String = rxAction[CommonAppConstants.Key.PASSWORD] ?: ""
+        localStorageUtils.setValue(CommonAppConstants.Key.ACCESS_TOKEN, token)
+        localStorageUtils.setValue(CommonAppConstants.Key.USER_NAME, userName)
+        localStorageUtils.setValue(CommonAppConstants.Key.PASSWORD, password)
         postChange(RxChange.newInstance(rxAction.tag))
     }
 }

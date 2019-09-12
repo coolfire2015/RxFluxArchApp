@@ -14,7 +14,7 @@ import com.huyingbao.module.gan.ui.random.model.ArticleDao
  */
 @Database(
         entities = [Article::class],
-        version = 3,
+        version = 4,
         exportSchema = false
 )
 abstract class GanAppDatabase : RoomDatabase() {
