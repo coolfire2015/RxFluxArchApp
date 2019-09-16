@@ -6,8 +6,7 @@ import android.widget.TextView
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.huyingbao.core.image.ImageLoader
-import com.huyingbao.core.image.ImageLoaderUtils
+import com.huyingbao.module.common.utils.TimeUtils
 import com.huyingbao.module.gan.R
 import com.huyingbao.module.gan.ui.random.model.Article
 import org.jetbrains.anko.find
@@ -44,7 +43,7 @@ class ArticleAdapter : PagedListAdapter<Article, ArticleViewHolder>(diffCallback
          * @see androidx.recyclerview.widget.DiffUtil
          */
         private val diffCallback = object : DiffUtil.ItemCallback<Article>() {
-            override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean = oldItem.createdAt == newItem.createdAt
+            override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean = oldItem._id == newItem._id
             /**
              * 注意，在kotlin中，==检查数据类比较所有内容，但是在java中，通常您将实现object#equals，并使用它来比较对象内容。
              */
@@ -64,18 +63,8 @@ class ArticleViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     fun bindTo(article: Article?) {
         article?.let {
             itemView.run {
-                val imageLoader = ImageLoader.Builder<String>()
-                imageLoader.isCircle = true
-                if (article.images != null && article.images!!.isNotEmpty()) {
-                    imageLoader.resource = article.images!![0]
-                } else {
-                    imageLoader.resource = article.url
-                }
-                imageLoader.errorHolder = android.R.drawable.ic_menu_camera
-                imageLoader.imgView = find(R.id.iv_product_img)
-                ImageLoaderUtils.loadImage(itemView.context, imageLoader.build())
                 find<TextView>(R.id.tv_product_name).text = it.desc
-                find<TextView>(R.id.tv_product_description).text = it.createdAt
+                find<TextView>(R.id.tv_product_description).text = it.createdAt?.let { time -> TimeUtils.formatUTCTime(time) }
             }
         }
     }

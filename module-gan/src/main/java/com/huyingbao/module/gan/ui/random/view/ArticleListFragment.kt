@@ -1,12 +1,12 @@
 package com.huyingbao.module.gan.ui.random.view
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.huyingbao.core.arch.dispatcher.RxDispatcher
 import com.huyingbao.core.arch.model.RxChange
+import com.huyingbao.core.arch.model.RxError
 import com.huyingbao.core.arch.model.RxLoading
 import com.huyingbao.core.base.flux.fragment.BaseFluxFragment
 import com.huyingbao.core.utils.RecyclerItemClickListener
@@ -20,9 +20,16 @@ import com.huyingbao.module.gan.ui.random.store.RandomStore
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import org.greenrobot.eventbus.Subscribe
 import org.jetbrains.anko.find
+import org.jetbrains.anko.toast
+import retrofit2.HttpException
+import java.net.SocketException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 /**
+ * TODO 未解决旋转屏幕重新获取数据问题
+ *
  * Created by liujunfeng on 2019/1/1.
  */
 class ArticleListFragment : BaseFluxFragment<RandomStore>() {
@@ -68,8 +75,6 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
      */
     override fun onResume() {
         super.onResume()
-        //更新文章类别
-        rxStore?.categoryLiveData?.value = category
         //如果是第一页，需要刷新
         if (page == RandomStore.DEFAULT_PAGE) {
             refreshLayout?.autoRefresh()
@@ -97,11 +102,16 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
                     }
                 }))
         //显示数据
-        rxStore?.articleLiveData?.observe(this, Observer {
-            if (TextUtils.equals(category, rxStore?.categoryLiveData?.value)) {
-                articleAdapter?.submitList(it)
-            }
-        })
+        category?.let { category ->
+            rxStore?.getArticleLiveData(category)?.observe(this, Observer {
+                if (it.size > 0) {
+                    //适配器添加数据
+                    articleAdapter?.submitList(it)
+                    //页码更新
+                    page++
+                }
+            })
+        }
     }
 
     /**
@@ -110,7 +120,10 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
     private fun initRefreshView() {
         refreshLayout = view?.find(R.id.rfl_content)
         //下拉刷新监听器，设置获取最新一页数据
-        refreshLayout?.setOnRefreshListener { getData() }
+        refreshLayout?.setOnRefreshListener {
+            page = RandomStore.DEFAULT_PAGE
+            getData()
+        }
     }
 
     /**
@@ -124,13 +137,33 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
     }
 
     /**
+     * 接收[RxError]，粘性
+     */
+    @Subscribe(tags = [RandomAction.GET_DATA_LIST], sticky = true)
+    fun onRxError(rxError: RxError) {
+        when (val throwable = rxError.throwable) {
+            is HttpException -> activity?.toast("${throwable.code()}:${throwable.message()}")
+            is SocketException -> activity?.toast("网络异常!")
+            is UnknownHostException -> activity?.toast("网络异常!")
+            is SocketTimeoutException -> activity?.toast("连接超时!")
+            else -> activity?.toast(throwable.toString())
+        }
+    }
+
+    /**
+     * 获取网络数据成功，页码更新
+     */
+    @Subscribe(tags = [RandomAction.GET_DATA_LIST], sticky = true)
+    fun onGetDataList(rxChange: RxChange) {
+        page++
+    }
+
+    /**
      * 获取下一页数据
      */
     @Subscribe(tags = [RandomAction.GET_NEXT_PAGE], sticky = true)
     fun getNextPage(rxChange: RxChange) {
-        if (TextUtils.equals(category, rxStore?.categoryLiveData?.value)) {
-            getData()
-        }
+        getData()
     }
 
     /**
@@ -140,8 +173,6 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
         category?.let {
             //获取数据
             randomActionCreator.getDataList(it, CommonAppConstants.Config.PAGE_SIZE, page)
-            //页码更新
-            page++
         }
     }
 }

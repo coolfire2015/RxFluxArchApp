@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.huyingbao.module.common.tools
+package com.huyingbao.module.common.utils
 
 import java.util.concurrent.Executors
 

@@ -22,7 +22,7 @@ interface ArticleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(list: ArrayList<Article>)
 
-    @Query("SELECT * FROM article WHERE type = (:type) ORDER BY createdAt DESC")
+    @Query("SELECT * FROM article WHERE type = (:type) ORDER BY _id DESC")
     fun getArticleList(type: String): DataSource.Factory<Int, Article>
 
     @Query("DELETE FROM article WHERE type = (:type)")

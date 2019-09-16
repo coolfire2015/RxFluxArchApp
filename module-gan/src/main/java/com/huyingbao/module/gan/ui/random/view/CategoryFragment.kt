@@ -29,9 +29,15 @@ class CategoryFragment : BaseFluxFragment<RandomStore>() {
         initViewPager()
     }
 
+    /**
+     * 初始化ViewPager
+     */
     private fun initViewPager() {
+        //获取要展示的类别
         val categoryArray = resources.getStringArray(R.array.gan_array_category)
+        //设置应该保留在当前可见页面两侧的页面数量。超过此限制的页面将在需要时从适配器重新创建。
         view_pager_content.offscreenPageLimit = 7
+        //设置适配器，显示对应的Fragment
         view_pager_content.adapter = object : FragmentStateAdapter(this) {
             override fun createFragment(position: Int): Fragment {
                 return ArticleListFragment.newInstance(categoryArray[position])
@@ -41,6 +47,7 @@ class CategoryFragment : BaseFluxFragment<RandomStore>() {
                 return categoryArray.size
             }
         }
+        //ViewPager同TabLayout联动
         TabLayoutMediator(tab_layout_top, view_pager_content) { tab, position ->
             tab.text = categoryArray[position]
         }.attach()
