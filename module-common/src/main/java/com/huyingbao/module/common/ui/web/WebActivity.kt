@@ -1,4 +1,4 @@
-package com.huyingbao.module.common.ui.web.view
+package com.huyingbao.module.common.ui.web
 
 import android.content.ClipData
 import android.content.Context

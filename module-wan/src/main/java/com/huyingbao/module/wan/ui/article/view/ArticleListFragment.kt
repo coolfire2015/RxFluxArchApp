@@ -14,7 +14,7 @@ import com.huyingbao.core.base.flux.fragment.BaseFluxFragment
 import com.huyingbao.core.base.setTitle
 import com.huyingbao.core.utils.RecyclerItemClickListener
 import com.huyingbao.module.common.app.CommonAppConstants
-import com.huyingbao.module.common.ui.web.view.WebActivity
+import com.huyingbao.module.common.ui.web.WebActivity
 import com.huyingbao.module.common.utils.showCommonError
 import com.huyingbao.module.wan.R
 import com.huyingbao.module.wan.ui.article.action.ArticleAction

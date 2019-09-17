@@ -5,9 +5,9 @@ import android.view.View
 import androidx.lifecycle.Observer
 import com.huyingbao.core.base.flux.fragment.BaseFluxBindFragment
 import com.huyingbao.core.base.setTitle
-import com.huyingbao.module.common.ui.dialog.CommonInfo
-import com.huyingbao.module.common.ui.dialog.CommonInfoDialog
-import com.huyingbao.module.common.ui.dialog.CommonInfoDialogClickListener
+import com.huyingbao.module.common.ui.info.CommonInfo
+import com.huyingbao.module.common.ui.info.CommonInfoDialog
+import com.huyingbao.module.common.ui.info.CommonInfoDialogClickListener
 import com.huyingbao.module.common.widget.CommonInfoCardView
 import com.huyingbao.module.github.R
 import com.huyingbao.module.github.app.GithubAppStore

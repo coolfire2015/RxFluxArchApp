@@ -1,4 +1,4 @@
-package com.huyingbao.module.common.ui.start.view
+package com.huyingbao.module.common.ui.start
 
 import android.os.Bundle
 import androidx.lifecycle.Lifecycle

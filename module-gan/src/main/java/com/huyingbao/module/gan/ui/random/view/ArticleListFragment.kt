@@ -10,7 +10,7 @@ import com.huyingbao.core.arch.model.RxLoading
 import com.huyingbao.core.base.flux.fragment.BaseFluxFragment
 import com.huyingbao.core.utils.RecyclerItemClickListener
 import com.huyingbao.module.common.app.CommonAppConstants
-import com.huyingbao.module.common.ui.web.view.WebActivity
+import com.huyingbao.module.common.ui.web.WebActivity
 import com.huyingbao.module.common.utils.showCommonError
 import com.huyingbao.module.gan.R
 import com.huyingbao.module.gan.ui.random.action.RandomAction
@@ -104,6 +104,7 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
             refreshLayout?.autoRefresh()
         }
     }
+
     /**
      * 初始化上下拉刷新View
      */

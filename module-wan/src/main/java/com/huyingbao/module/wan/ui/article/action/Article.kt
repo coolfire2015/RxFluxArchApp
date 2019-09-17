@@ -1,9 +1,9 @@
 package com.huyingbao.module.wan.ui.article.action
 
-import com.huyingbao.module.wan.ui.article.model.WanResponse
 import com.huyingbao.module.wan.ui.article.model.Article
 import com.huyingbao.module.wan.ui.article.model.Banner
 import com.huyingbao.module.wan.ui.article.model.Page
+import com.huyingbao.module.wan.ui.article.model.WanResponse
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path

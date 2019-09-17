@@ -1,4 +1,4 @@
-package com.huyingbao.module.common.ui.dialog
+package com.huyingbao.module.common.ui.info
 
 import android.content.DialogInterface
 import android.os.Bundle

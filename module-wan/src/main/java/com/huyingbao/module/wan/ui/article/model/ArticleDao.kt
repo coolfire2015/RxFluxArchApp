@@ -3,7 +3,6 @@ package com.huyingbao.module.wan.ui.article.model
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
-import com.huyingbao.module.wan.ui.article.model.Article
 
 /**
  * 包含用于访问数据库的方法。

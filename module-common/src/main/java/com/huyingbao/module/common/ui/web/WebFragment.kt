@@ -1,4 +1,4 @@
-package com.huyingbao.module.common.ui.web.view
+package com.huyingbao.module.common.ui.web
 
 import android.os.Bundle
 import android.view.View

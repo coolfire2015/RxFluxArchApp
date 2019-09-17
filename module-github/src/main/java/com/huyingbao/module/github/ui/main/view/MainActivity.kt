@@ -21,9 +21,9 @@ import com.huyingbao.core.image.ImageLoader
 import com.huyingbao.core.image.ImageLoaderUtils
 import com.huyingbao.core.utils.LocalStorageUtils
 import com.huyingbao.module.common.app.CommonAppConstants
-import com.huyingbao.module.common.ui.dialog.CommonInfo
-import com.huyingbao.module.common.ui.dialog.CommonInfoDialog
-import com.huyingbao.module.common.ui.dialog.CommonInfoDialogClickListener
+import com.huyingbao.module.common.ui.info.CommonInfo
+import com.huyingbao.module.common.ui.info.CommonInfoDialog
+import com.huyingbao.module.common.ui.info.CommonInfoDialogClickListener
 import com.huyingbao.module.common.utils.ViewUtils
 import com.huyingbao.module.github.BuildConfig
 import com.huyingbao.module.github.R

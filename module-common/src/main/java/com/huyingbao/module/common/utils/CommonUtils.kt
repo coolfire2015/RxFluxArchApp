@@ -9,8 +9,8 @@ import com.huyingbao.core.arch.model.RxLoading
 import com.huyingbao.core.arch.model.RxRetry
 import com.huyingbao.core.base.flux.activity.BaseFluxActivity
 import com.huyingbao.module.common.R
-import com.huyingbao.module.common.ui.dialog.CommonLoadingDialog
-import com.huyingbao.module.common.ui.dialog.CommonLoadingDialogClickListener
+import com.huyingbao.module.common.ui.loading.CommonLoadingDialog
+import com.huyingbao.module.common.ui.loading.CommonLoadingDialogClickListener
 import org.jetbrains.anko.toast
 import retrofit2.HttpException
 import java.net.SocketException

@@ -36,6 +36,7 @@ class ArticleStore @Inject constructor(
     companion object {
         const val DEFAULT_PAGE = 0
     }
+
     /**
      * 列表页数
      */
