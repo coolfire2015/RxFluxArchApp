@@ -6,6 +6,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object TimeUtils {
+    /**
+     * 格式化UTC时间（协调世界时）
+     */
     fun formatUTCTime(utcTime: String): String {
         return try {
             //时间格式

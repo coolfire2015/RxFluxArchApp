@@ -14,7 +14,7 @@ import com.tencent.smtt.sdk.WebViewClient
 import kotlinx.android.synthetic.main.common_fragment_web.*
 
 /**
- * X5内核WebView展示页面
+ * X5内核WebView展示页面，有进度展示，有下拉刷新
  *
  * Created by liujunfeng on 2019/1/1.
  */
@@ -34,46 +34,62 @@ class WebFragment : BaseCommonFragment(), BaseView, RxSubscriberView {
     }
 
     override fun afterCreate(savedInstanceState: Bundle?) {
-        arguments?.let {
-            if (it.containsKey(CommonAppConstants.Key.URL)) {
-                //和系统WebView一样
-                val settings = web_content.settings
+        initWebView()
+        arguments?.getString(CommonAppConstants.Key.URL)?.let { url ->
+            //加载网页
+            web_content.loadUrl(url)
+            //设置网页刷新
+            rfl_content.setOnRefreshListener {
+                web_content.loadUrl(url)
+                rfl_content.finishRefresh()
+            }
+        }
+    }
+
+    /**
+     * 初始化[WebViewClient]
+     */
+    private fun initWebView() {
+        web_content.run {
+            //WebView设置
+            settings.run {
                 //支持Javascript 与js交互
-                settings.setJavaScriptEnabled(true)
+                setJavaScriptEnabled(true)
                 //支持通过JS打开新窗口
-                settings.javaScriptCanOpenWindowsAutomatically = true
+                javaScriptCanOpenWindowsAutomatically = true
                 //设置可以访问文件
-                settings.allowFileAccess = true
+                allowFileAccess = true
                 //支持缩放
-                settings.setSupportZoom(true)
+                setSupportZoom(true)
                 //设置内置的缩放控件
-                settings.builtInZoomControls = true
+                builtInZoomControls = true
                 //自适应屏幕
-                settings.useWideViewPort = true
+                useWideViewPort = true
                 //多窗口
-                settings.setSupportMultipleWindows(true)
+                setSupportMultipleWindows(true)
                 //设置编码格式
-                settings.defaultTextEncodingName = "utf-8"
-                settings.setAppCacheEnabled(true)
-                settings.domStorageEnabled = true
-                settings.setAppCacheMaxSize(Long.MAX_VALUE)
+                defaultTextEncodingName = "utf-8"
+                setAppCacheEnabled(true)
+                domStorageEnabled = true
+                setAppCacheMaxSize(Long.MAX_VALUE)
                 //缓存模式
-                settings.cacheMode = WebSettings.LOAD_NO_CACHE
-                //阻止部分网页跳转到浏览器
-                web_content.webViewClient = WebViewClient()
-                //设置进度条
-                web_content.webChromeClient = object : WebChromeClient() {
-                    override fun onProgressChanged(webView: WebView?, progress: Int) {
-                        super.onProgressChanged(webView, progress)
-                        if (this@WebFragment.isResumed) {
-                            progress_bar_web.progress = progress
-                            if (progress == 100) {
-                                progress_bar_web.visibility = View.GONE
-                            }
+                cacheMode = WebSettings.LOAD_NO_CACHE
+            }
+            //阻止部分网页跳转到浏览器
+            webViewClient = WebViewClient()
+            //进度监听
+            webChromeClient = object : WebChromeClient() {
+                override fun onProgressChanged(webView: WebView?, progress: Int) {
+                    super.onProgressChanged(webView, progress)
+                    if (this@WebFragment.isResumed && progress_bar_web != null) {
+                        progress_bar_web.progress = progress
+                        if (progress == 100) {
+                            progress_bar_web.visibility = View.GONE
+                        } else {
+                            progress_bar_web.visibility = View.VISIBLE
                         }
                     }
                 }
-                web_content.loadUrl(it.getString(CommonAppConstants.Key.URL))
             }
         }
     }
