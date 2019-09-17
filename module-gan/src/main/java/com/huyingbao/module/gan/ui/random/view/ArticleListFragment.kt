@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
-import com.huyingbao.core.arch.dispatcher.RxDispatcher
 import com.huyingbao.core.arch.model.RxChange
 import com.huyingbao.core.arch.model.RxError
 import com.huyingbao.core.arch.model.RxLoading
@@ -12,6 +11,7 @@ import com.huyingbao.core.base.flux.fragment.BaseFluxFragment
 import com.huyingbao.core.utils.RecyclerItemClickListener
 import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.common.ui.web.view.WebActivity
+import com.huyingbao.module.common.utils.showCommonError
 import com.huyingbao.module.gan.R
 import com.huyingbao.module.gan.ui.random.action.RandomAction
 import com.huyingbao.module.gan.ui.random.action.RandomActionCreator
@@ -20,11 +20,6 @@ import com.huyingbao.module.gan.ui.random.store.RandomStore
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import org.greenrobot.eventbus.Subscribe
 import org.jetbrains.anko.find
-import org.jetbrains.anko.toast
-import retrofit2.HttpException
-import java.net.SocketException
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
 import javax.inject.Inject
 
 /**
@@ -35,8 +30,6 @@ import javax.inject.Inject
 class ArticleListFragment : BaseFluxFragment<RandomStore>() {
     @Inject
     lateinit var randomActionCreator: RandomActionCreator
-    @Inject
-    lateinit var rxDispatcher: RxDispatcher
 
     /**
      * 列表类别
@@ -71,17 +64,6 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
     }
 
     /**
-     * ViewPager2左右滑动，该方法会被调用
-     */
-    override fun onResume() {
-        super.onResume()
-        //如果是第一页，需要刷新
-        if (page == RandomStore.DEFAULT_PAGE) {
-            refreshLayout?.autoRefresh()
-        }
-    }
-
-    /**
      * 设置Adapter
      */
     private fun initAdapter() {
@@ -113,6 +95,16 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
     }
 
     /**
+     * ViewPager2左右滑动，该方法会被调用
+     */
+    override fun onResume() {
+        super.onResume()
+        //如果是第一页，需要刷新
+        if (page == RandomStore.DEFAULT_PAGE) {
+            refreshLayout?.autoRefresh()
+        }
+    }
+    /**
      * 初始化上下拉刷新View
      */
     private fun initRefreshView() {
@@ -139,13 +131,7 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
      */
     @Subscribe(tags = [RandomAction.GET_DATA_LIST], sticky = true)
     fun onRxError(rxError: RxError) {
-        when (val throwable = rxError.throwable) {
-            is HttpException -> activity?.toast("${throwable.code()}:${throwable.message()}")
-            is SocketException -> activity?.toast("网络异常!")
-            is UnknownHostException -> activity?.toast("网络异常!")
-            is SocketTimeoutException -> activity?.toast("连接超时!")
-            else -> activity?.toast(throwable.toString())
-        }
+        activity?.let { showCommonError(it, rxError) }
     }
 
     /**

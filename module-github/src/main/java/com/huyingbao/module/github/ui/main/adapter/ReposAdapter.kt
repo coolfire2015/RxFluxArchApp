@@ -1,6 +1,5 @@
 package com.huyingbao.module.github.ui.main.adapter
 
-import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.huyingbao.core.image.ImageLoader
@@ -32,7 +31,7 @@ class ReposAdapter(
         imageLoader.isCircle = true
         imageLoader.resource = item.ownerPic
         imageLoader.errorHolder = android.R.drawable.ic_menu_camera
-        imageLoader.imgView = helper.getView<ImageView>(R.id.iv_repos_user_img)
+        imageLoader.imgView = helper.getView(R.id.iv_repos_user_img)
         ImageLoaderUtils.loadImage(mContext, imageLoader.build())
     }
 }

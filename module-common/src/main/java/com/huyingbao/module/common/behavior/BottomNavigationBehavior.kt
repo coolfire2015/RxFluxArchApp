@@ -22,8 +22,7 @@ class BottomNavigationBehavior(
             directTargetChild: View,
             target: View,
             axes: Int,
-            type: Int
-    ): Boolean {
+            type: Int): Boolean {
         return axes == ViewCompat.SCROLL_AXIS_VERTICAL
     }
 
@@ -34,8 +33,7 @@ class BottomNavigationBehavior(
             dx: Int,
             dy: Int,
             consumed: IntArray,
-            type: Int
-    ) {
+            type: Int) {
         if (dy > 0) {// 上滑隐藏
             if (outAnimator == null) {
                 outAnimator = ObjectAnimator.ofFloat(child, "translationY", 0f, child.height.toFloat())

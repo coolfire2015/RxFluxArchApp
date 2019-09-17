@@ -8,12 +8,14 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.launcher.ARouter
+import com.huyingbao.core.arch.model.RxError
 import com.huyingbao.core.arch.model.RxLoading
 import com.huyingbao.core.base.flux.fragment.BaseFluxFragment
 import com.huyingbao.core.base.setTitle
 import com.huyingbao.core.utils.RecyclerItemClickListener
 import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.common.ui.web.view.WebActivity
+import com.huyingbao.module.common.utils.showCommonError
 import com.huyingbao.module.wan.R
 import com.huyingbao.module.wan.ui.article.action.ArticleAction
 import com.huyingbao.module.wan.ui.article.action.ArticleActionCreator
@@ -83,26 +85,32 @@ class ArticleListFragment : BaseFluxFragment<ArticleStore>() {
      */
     private fun initRefreshView() {
         refreshLayout = view?.find(R.id.rfl_content)
+        //下拉刷新监听器，设置获取最新一页数据
         refreshLayout?.setOnRefreshListener {
-            articleActionCreator.getArticleList(0)
+            articleActionCreator.getArticleList(ArticleStore.DEFAULT_PAGE)
         }
         //如果是新创建，调用刷新方法，排除屏幕旋转
-        if (rxStore?.nextRequestPage == 0) {
+        if (rxStore?.nextRequestPage == ArticleStore.DEFAULT_PAGE) {
             refreshLayout?.autoRefresh()
         }
     }
 
     /**
-     * 显示进度对话框
-     * 接收[RxLoading]，粘性
-     * 该方法不经过RxStore,
-     * 由RxFluxView直接处理
+     * 显示进度对话框，接收[RxLoading]，粘性，该方法不经过RxStore，由RxFluxView直接处理
      */
     @Subscribe(tags = [ArticleAction.GET_ARTICLE_LIST], sticky = true)
     fun onRxLoading(rxLoading: RxLoading) {
         if (!rxLoading.isLoading) {
             refreshLayout?.finishRefresh()
         }
+    }
+
+    /**
+     * 接收[RxError]，粘性
+     */
+    @Subscribe(tags = [ArticleAction.GET_ARTICLE_LIST], sticky = true)
+    fun onRxError(rxError: RxError) {
+        activity?.let { showCommonError(it, rxError) }
     }
 
     /**

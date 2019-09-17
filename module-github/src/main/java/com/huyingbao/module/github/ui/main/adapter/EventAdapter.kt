@@ -1,6 +1,5 @@
 package com.huyingbao.module.github.ui.main.adapter
 
-import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.huyingbao.core.image.ImageLoader
@@ -22,7 +21,7 @@ class EventAdapter(data: List<Event>?) : BaseQuickAdapter<Event, BaseViewHolder>
         imageLoader.isCircle = true
         imageLoader.resource = item.actor?.avatarUrl ?: item.org?.avatarUrl
         imageLoader.errorHolder = android.R.drawable.ic_menu_camera
-        imageLoader.imgView = helper.getView<ImageView>(R.id.iv_event_user_head)
+        imageLoader.imgView = helper.getView(R.id.iv_event_user_head)
         ImageLoaderUtils.loadImage(mContext, imageLoader.build())
     }
 }

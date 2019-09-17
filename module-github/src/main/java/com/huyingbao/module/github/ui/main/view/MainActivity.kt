@@ -8,7 +8,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
@@ -17,7 +16,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.google.android.material.appbar.AppBarLayout
 import com.huyingbao.core.base.flux.activity.BaseFluxActivity
 import com.huyingbao.core.image.ImageLoader
 import com.huyingbao.core.image.ImageLoaderUtils
@@ -26,6 +24,7 @@ import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.common.ui.dialog.CommonInfo
 import com.huyingbao.module.common.ui.dialog.CommonInfoDialog
 import com.huyingbao.module.common.ui.dialog.CommonInfoDialogClickListener
+import com.huyingbao.module.common.utils.ViewUtils
 import com.huyingbao.module.github.BuildConfig
 import com.huyingbao.module.github.R
 import com.huyingbao.module.github.app.GithubAppStore
@@ -58,8 +57,8 @@ class MainActivity : BaseFluxActivity<MainStore>() {
     }
 
     override fun afterCreate(savedInstanceState: Bundle?) {
-        (find<Toolbar>(R.id.tlb_top).layoutParams as AppBarLayout.LayoutParams).scrollFlags =
-                AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
+        //设置联动
+        ViewUtils.setScroll(find(R.id.tlb_top))
         setTitle(R.string.app_label_github)
         initDrawerLayout()
         initNavigationView()

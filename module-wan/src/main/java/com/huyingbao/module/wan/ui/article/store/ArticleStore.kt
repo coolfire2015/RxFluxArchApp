@@ -31,9 +31,15 @@ class ArticleStore @Inject constructor(
         private var articleActionCreator: ArticleActionCreator
 ) : RxActivityStore(rxDispatcher) {
     /**
+     * 默认起始页码
+     */
+    companion object {
+        const val DEFAULT_PAGE = 0
+    }
+    /**
      * 列表页数
      */
-    var nextRequestPage = 0
+    var nextRequestPage = DEFAULT_PAGE
         private set
     /**
      * 横幅数据
@@ -57,7 +63,7 @@ class ArticleStore @Inject constructor(
      * 当所有者Activity销毁时,框架调用ViewModel的onCleared（）方法，以便它可以清理资源。
      */
     override fun onCleared() {
-        nextRequestPage = 0
+        nextRequestPage = DEFAULT_PAGE
         bannerLiveData.value = null
     }
 
@@ -76,8 +82,8 @@ class ArticleStore @Inject constructor(
     @Subscribe(tags = [ArticleAction.GET_ARTICLE_LIST], threadMode = ThreadMode.BACKGROUND)
     fun onGetArticleLiveData(rxAction: RxAction) {
         //如果是刷新，先清除数据库缓存
-        nextRequestPage = rxAction.get<Int>(CommonAppConstants.Key.PAGE) ?: 0
-        if (nextRequestPage == 0) {
+        nextRequestPage = rxAction.get<Int>(CommonAppConstants.Key.PAGE) ?: DEFAULT_PAGE
+        if (nextRequestPage == DEFAULT_PAGE) {
             wanAppDatabase.reposDao().deleteAll()
         }
         //如果有数据，添加到数据库缓存中
