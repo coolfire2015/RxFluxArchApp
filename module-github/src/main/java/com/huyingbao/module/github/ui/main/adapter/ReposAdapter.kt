@@ -13,7 +13,12 @@ import com.huyingbao.module.github.ui.main.model.Repos
  *
  * Created by liujunfeng on 2019/6/15.
  */
-class ReposAdapter(data: List<Repos>?) : BaseQuickAdapter<Repos, BaseViewHolder>(R.layout.github_layout_item_repos, data) {
+class ReposAdapter(
+        data: List<Repos>?
+) : BaseQuickAdapter<Repos, BaseViewHolder>(
+        R.layout.github_layout_item_repos,
+        data
+) {
 
     override fun convert(helper: BaseViewHolder, item: Repos) {
         helper.setText(R.id.tv_repos_owner, item.ownerName)

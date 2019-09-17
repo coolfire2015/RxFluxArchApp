@@ -1,5 +1,6 @@
 package com.huyingbao.module.gan.ui.random.adapter
 
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -56,15 +57,17 @@ class ArticleAdapter : PagedListAdapter<Article, ArticleViewHolder>(diffCallback
  * 一个简单ViewHolder。它还接受null项，因为数据可能在绑定之前没有被获取。
  */
 class ArticleViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.gan_recycle_item_product, parent, false)) {
+        LayoutInflater.from(parent.context).inflate(R.layout.gan_recycle_item_article, parent, false)) {
     /**
      * 如果尚未分页项，则它们可能为空。PagedListAdapter将在加载项时重新绑定ViewHolder。
      */
     fun bindTo(article: Article?) {
         article?.let {
             itemView.run {
-                find<TextView>(R.id.tv_product_name).text = it.desc
-                find<TextView>(R.id.tv_product_description).text = it.createdAt?.let { time -> TimeUtils.formatUTCTime(time) }
+                find<TextView>(R.id.tv_item_author).text = it.who
+                find<TextView>(R.id.tv_item_title).text = Html.fromHtml(it.desc)
+                find<TextView>(R.id.tv_item_time).text = it.createdAt?.let { time -> TimeUtils.formatUTCTime(time) }
+                find<TextView>(R.id.tv_item_chapter).text = it.type
             }
         }
     }

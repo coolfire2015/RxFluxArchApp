@@ -107,8 +107,6 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
                 if (it.size > 0) {
                     //适配器添加数据
                     articleAdapter?.submitList(it)
-                    //页码更新
-                    page++
                 }
             })
         }

@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
@@ -16,6 +17,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.google.android.material.appbar.AppBarLayout
 import com.huyingbao.core.base.flux.activity.BaseFluxActivity
 import com.huyingbao.core.image.ImageLoader
 import com.huyingbao.core.image.ImageLoaderUtils
@@ -34,6 +36,7 @@ import com.huyingbao.module.github.ui.user.view.UserActivity
 import kotlinx.android.synthetic.main.github_activity_main.*
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.clearTop
+import org.jetbrains.anko.find
 import javax.inject.Inject
 
 /**
@@ -55,6 +58,8 @@ class MainActivity : BaseFluxActivity<MainStore>() {
     }
 
     override fun afterCreate(savedInstanceState: Bundle?) {
+        (find<Toolbar>(R.id.tlb_top).layoutParams as AppBarLayout.LayoutParams).scrollFlags =
+                AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
         setTitle(R.string.app_label_github)
         initDrawerLayout()
         initNavigationView()
