@@ -13,10 +13,6 @@ import java.util.*
 interface RandomAction {
     companion object {
         /**
-         * 需要获取下一页数据
-         */
-        const val GET_NEXT_PAGE = "getNextPage"
-        /**
          * 获取文章数据列表
          */
         const val GET_DATA_LIST = "getDataList"

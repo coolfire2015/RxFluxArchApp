@@ -8,6 +8,7 @@ import com.huyingbao.core.arch.dispatcher.RxDispatcher
 import com.huyingbao.core.arch.model.RxAction
 import com.huyingbao.core.arch.model.RxChange
 import com.huyingbao.core.arch.store.RxActivityStore
+import com.huyingbao.module.common.app.CommonAppAction
 import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.common.utils.ioThread
 import com.huyingbao.module.gan.app.GanAppDatabase
@@ -45,9 +46,13 @@ class RandomStore @Inject constructor(
 
     /**
      * 接收ArticleList数据，需要在新线程中，更新room数据库数据
+     *
+     * 使用[ioThread]方法，数据库操作在IO线程运行，
+     * 主线程对外调用[RxActivityStore.postChange]方法。
      */
     @Subscribe(tags = [RandomAction.GET_DATA_LIST])
     fun onGetDataList(rxAction: RxAction) {
+        //IO线程操作
         ioThread {
             //数据库事务操作
             ganAppDatabase.runInTransaction {
@@ -63,7 +68,7 @@ class RandomStore @Inject constructor(
                 }
             }
         }
-        //通知获取网络数据成功
+        //主线程，通知获取网络数据成功
         postChange(RxChange.newInstance(rxAction.tag))
     }
 
@@ -87,7 +92,7 @@ class RandomStore @Inject constructor(
                         override fun onItemAtEndLoaded(itemAtEnd: Article) {
                             super.onItemAtEndLoaded(itemAtEnd)
                             //Page滑动到底部，通知UI需要获取下一页数据
-                            postChange(RxChange.newInstance(RandomAction.GET_NEXT_PAGE))
+                            postChange(RxChange.newInstance(CommonAppAction.GET_NEXT_PAGE))
                         }
                     }
             )

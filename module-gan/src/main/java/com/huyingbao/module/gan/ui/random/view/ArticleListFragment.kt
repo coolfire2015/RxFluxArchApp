@@ -9,6 +9,7 @@ import com.huyingbao.core.arch.model.RxError
 import com.huyingbao.core.arch.model.RxLoading
 import com.huyingbao.core.base.flux.fragment.BaseFluxFragment
 import com.huyingbao.core.utils.RecyclerItemClickListener
+import com.huyingbao.module.common.app.CommonAppAction
 import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.common.ui.web.WebActivity
 import com.huyingbao.module.common.utils.showCommonError
@@ -60,7 +61,6 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
     override fun afterCreate(savedInstanceState: Bundle?) {
         category = arguments?.getString(CommonAppConstants.Key.CATEGORY)
         initAdapter()
-        initRefreshView()
     }
 
     /**
@@ -92,6 +92,13 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
                 }
             })
         }
+        //初始化上下拉刷新View
+        refreshLayout = view?.find(R.id.rfl_content)
+        //下拉刷新监听器，设置获取最新一页数据
+        refreshLayout?.setOnRefreshListener {
+            page = RandomStore.DEFAULT_PAGE
+            getData(null)
+        }
     }
 
     /**
@@ -102,18 +109,6 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
         //如果是第一页，需要刷新
         if (page == RandomStore.DEFAULT_PAGE) {
             refreshLayout?.autoRefresh()
-        }
-    }
-
-    /**
-     * 初始化上下拉刷新View
-     */
-    private fun initRefreshView() {
-        refreshLayout = view?.find(R.id.rfl_content)
-        //下拉刷新监听器，设置获取最新一页数据
-        refreshLayout?.setOnRefreshListener {
-            page = RandomStore.DEFAULT_PAGE
-            getData()
         }
     }
 
@@ -144,19 +139,11 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
     }
 
     /**
-     * 获取下一页数据
-     */
-    @Subscribe(tags = [RandomAction.GET_NEXT_PAGE], sticky = true)
-    fun getNextPage(rxChange: RxChange) {
-        getData()
-    }
-
-    /**
      * 获取数据
      */
-    private fun getData() {
+    @Subscribe(tags = [CommonAppAction.GET_NEXT_PAGE], sticky = true)
+    fun getData(rxChange: RxChange?) {
         category?.let {
-            //获取数据
             randomActionCreator.getDataList(it, CommonAppConstants.Config.PAGE_SIZE, page)
         }
     }

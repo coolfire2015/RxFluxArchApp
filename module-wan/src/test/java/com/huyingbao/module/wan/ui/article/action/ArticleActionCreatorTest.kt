@@ -44,7 +44,7 @@ class ArticleActionCreatorTest : BaseSubscriberTest() {
         //验证接口调用成功，发送数据
         verify(rxDispatcher).postRxAction(any())
         //验证RxStore接收到数据，因为RxStore是mock的，故该方法并不会通知View更新数据
-        verify(articleStore).onGetArticleLiveData(any())
+        verify(articleStore).onGetArticleList(any())
     }
 
     @Test

@@ -92,3 +92,15 @@ class CommonAppStore @Inject constructor(
         }
     }
 }
+
+/**
+ * Created by liujunfeng on 2019/1/1.
+ */
+interface CommonAppAction {
+    companion object {
+        /**
+         * 需要获取下一页数据
+         */
+        const val GET_NEXT_PAGE = "getNextPage"
+    }
+}

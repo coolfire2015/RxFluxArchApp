@@ -1,6 +1,8 @@
 package com.huyingbao.module.github.ui.main.store
 
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.Config
+import androidx.paging.toLiveData
 import com.huyingbao.core.arch.dispatcher.RxDispatcher
 import com.huyingbao.core.arch.model.RxAction
 import com.huyingbao.core.arch.store.RxActivityStore
@@ -26,11 +28,21 @@ class MainStore @Inject constructor(
     /**
      * 动态事件数据
      */
-    val eventListLiveData by lazy { MutableLiveData<ArrayList<Event>>() }
+    val eventListLiveData by lazy {
+        MutableLiveData<ArrayList<Event>>()
+    }
     /**
      * 推荐趋势仓库数据
      */
-    val trendListLiveData by lazy { githubAppDatabase.reposDao().getReposListLiveData() }
+    val trendListLiveData by lazy {
+        githubAppDatabase.reposDao().getReposList().toLiveData(
+                config = Config(
+                        //每次加载多少数据
+                        pageSize = 30,
+                        //是否启用占位符，若为true，则视为固定数量的item
+                        enablePlaceholders = true),
+                )
+    }
 
     override fun onCleared() {
         super.onCleared()

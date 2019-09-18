@@ -8,11 +8,13 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.launcher.ARouter
+import com.huyingbao.core.arch.model.RxChange
 import com.huyingbao.core.arch.model.RxError
 import com.huyingbao.core.arch.model.RxLoading
 import com.huyingbao.core.base.flux.fragment.BaseFluxFragment
 import com.huyingbao.core.base.setTitle
 import com.huyingbao.core.utils.RecyclerItemClickListener
+import com.huyingbao.module.common.app.CommonAppAction
 import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.common.ui.web.WebActivity
 import com.huyingbao.module.common.utils.showCommonError
@@ -51,7 +53,6 @@ class ArticleListFragment : BaseFluxFragment<ArticleStore>() {
     override fun afterCreate(savedInstanceState: Bundle?) {
         setTitle(R.string.app_label_wan, true)
         initAdapter()
-        initRefreshView()
     }
 
     /**
@@ -78,19 +79,19 @@ class ArticleListFragment : BaseFluxFragment<ArticleStore>() {
         rxStore?.articleLiveData?.observe(this, Observer {
             articleAdapter?.submitList(it)
         })
-    }
-
-    /**
-     * 初始化上下拉刷新View
-     */
-    private fun initRefreshView() {
+        //初始化上下拉刷新View
         refreshLayout = view?.find(R.id.rfl_content)
         //下拉刷新监听器，设置获取最新一页数据
         refreshLayout?.setOnRefreshListener {
-            articleActionCreator.getArticleList(ArticleStore.DEFAULT_PAGE)
+            rxStore?.pageLiveData?.value = ArticleStore.DEFAULT_PAGE
+            getData(null)
         }
-        //如果是新创建，调用刷新方法，排除屏幕旋转
-        if (rxStore?.nextRequestPage == ArticleStore.DEFAULT_PAGE) {
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //如果是第一页，需要刷新(排除屏幕旋转)
+        if (rxStore?.pageLiveData?.value == ArticleStore.DEFAULT_PAGE) {
             refreshLayout?.autoRefresh()
         }
     }
@@ -111,6 +112,16 @@ class ArticleListFragment : BaseFluxFragment<ArticleStore>() {
     @Subscribe(tags = [ArticleAction.GET_ARTICLE_LIST], sticky = true)
     fun onRxError(rxError: RxError) {
         activity?.let { showCommonError(it, rxError) }
+    }
+
+    /**
+     * 获取数据
+     */
+    @Subscribe(tags = [CommonAppAction.GET_NEXT_PAGE], sticky = true)
+    fun getData(rxChange: RxChange?) {
+        rxStore?.pageLiveData?.value?.let {
+            articleActionCreator.getArticleList(it)
+        }
     }
 
     /**
