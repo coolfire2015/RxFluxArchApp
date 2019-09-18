@@ -10,7 +10,6 @@ import com.huyingbao.core.arch.model.RxChange
 import com.huyingbao.core.arch.store.RxActivityStore
 import com.huyingbao.module.common.app.CommonAppAction
 import com.huyingbao.module.common.app.CommonAppConstants
-import com.huyingbao.module.common.utils.ioThread
 import com.huyingbao.module.wan.app.WanAppDatabase
 import com.huyingbao.module.wan.ui.article.action.ArticleAction
 import com.huyingbao.module.wan.ui.article.model.Article
@@ -18,6 +17,7 @@ import com.huyingbao.module.wan.ui.article.model.Banner
 import com.huyingbao.module.wan.ui.article.model.Page
 import com.huyingbao.module.wan.ui.article.model.WanResponse
 import org.greenrobot.eventbus.Subscribe
+import org.jetbrains.anko.doAsync
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -94,14 +94,14 @@ class ArticleStore @Inject constructor(
     /**
      * 接收ArticleList数据，需要在新线程中，更新room数据库数据
      *
-     * 使用[ioThread]方法，数据库操作在IO线程运行，
+     * 使用[doAsync]方法，数据库操作在IO线程运行，
      * 不对外调用[RxActivityStore.postChange]方法。
      */
     @Subscribe(tags = [ArticleAction.GET_ARTICLE_LIST])
     fun onGetArticleList(rxAction: RxAction) {
         val page = rxAction.get<Int>(CommonAppConstants.Key.PAGE) ?: DEFAULT_PAGE
-        //IO线程操作
-        ioThread {
+        //异步线程运行
+        doAsync {
             //如果是刷新，先清除数据库缓存
             if (page == DEFAULT_PAGE) {
                 wanAppDatabase.reposDao().deleteAll()

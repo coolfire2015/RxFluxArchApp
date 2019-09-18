@@ -1,11 +1,17 @@
 package com.huyingbao.module.gan.ui.random.view
 
 import android.os.Bundle
+import android.view.View
+import androidx.appcompat.widget.Toolbar
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.google.android.material.appbar.AppBarLayout
 import com.huyingbao.core.base.flux.activity.BaseFluxFragActivity
 import com.huyingbao.module.common.app.CommonAppConstants
-import com.huyingbao.module.common.utils.ViewUtils
+import com.huyingbao.module.common.utils.addFloatingActionButton
+import com.huyingbao.module.common.utils.setAppBarElevation
+import com.huyingbao.module.common.utils.setAppBarScroll
 import com.huyingbao.module.gan.R
 import com.huyingbao.module.gan.ui.random.store.RandomStore
 import org.jetbrains.anko.find
@@ -22,8 +28,12 @@ class RandomActivity : BaseFluxFragActivity<RandomStore>() {
 
     override fun afterCreate(savedInstanceState: Bundle?) {
         //消除阴影
-        ViewUtils.setElevation(find(R.id.abl_top), 0f)
+        find<AppBarLayout>(R.id.abl_top).setAppBarElevation(0f)
         //设置联动
-        ViewUtils.setScroll(find(R.id.tlb_top))
+        find<Toolbar>(R.id.tlb_top).setAppBarScroll()
+        //添加FloatingActionButton
+        find<CoordinatorLayout>(R.id.cdl_content)
+                .addFloatingActionButton(this, View.OnClickListener {
+                })
     }
 }

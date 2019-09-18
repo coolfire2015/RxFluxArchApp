@@ -40,8 +40,8 @@ class MainStore @Inject constructor(
                         //每次加载多少数据
                         pageSize = 30,
                         //是否启用占位符，若为true，则视为固定数量的item
-                        enablePlaceholders = true),
-                )
+                        enablePlaceholders = true)
+        )
     }
 
     override fun onCleared() {

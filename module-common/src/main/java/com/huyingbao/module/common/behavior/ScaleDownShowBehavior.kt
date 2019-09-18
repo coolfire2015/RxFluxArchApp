@@ -9,7 +9,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ScaleDownShowBehavior(
         context: Context,
-        attrs: AttributeSet
+        attrs: AttributeSet?
 ) : FloatingActionButton.Behavior(context, attrs) {
     override fun onStartNestedScroll(coordinatorLayout: CoordinatorLayout,
                                      child: FloatingActionButton,

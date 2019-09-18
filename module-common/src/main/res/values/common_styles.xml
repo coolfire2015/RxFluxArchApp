@@ -35,9 +35,10 @@
     </style>
     <!--引导页,全屏-->
     <style name="AppTheme.Loading">
-        <item name="android:windowBackground">@null</item><!-- 设置透明 -->
-        <item name="android:windowIsTranslucent">true</item><!-- 设置透明 -->
+        <item name="android:windowBackground">@drawable/bg_launch</item><!-- Splash页面背景 -->
+        <item name="android:windowIsTranslucent">false</item><!-- Splash背景非透明 -->
         <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
     <!--自定义AppBarLayout样式-->
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

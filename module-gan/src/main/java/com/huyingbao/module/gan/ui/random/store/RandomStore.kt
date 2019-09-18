@@ -10,12 +10,12 @@ import com.huyingbao.core.arch.model.RxChange
 import com.huyingbao.core.arch.store.RxActivityStore
 import com.huyingbao.module.common.app.CommonAppAction
 import com.huyingbao.module.common.app.CommonAppConstants
-import com.huyingbao.module.common.utils.ioThread
 import com.huyingbao.module.gan.app.GanAppDatabase
 import com.huyingbao.module.gan.ui.random.action.RandomAction
 import com.huyingbao.module.gan.ui.random.model.Article
 import com.huyingbao.module.gan.ui.random.model.GanResponse
 import org.greenrobot.eventbus.Subscribe
+import org.jetbrains.anko.doAsync
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -47,13 +47,13 @@ class RandomStore @Inject constructor(
     /**
      * 接收ArticleList数据，需要在新线程中，更新room数据库数据
      *
-     * 使用[ioThread]方法，数据库操作在IO线程运行，
+     * 使用[doAsync]方法，数据库操作在IO线程运行，
      * 主线程对外调用[RxActivityStore.postChange]方法。
      */
     @Subscribe(tags = [RandomAction.GET_DATA_LIST])
     fun onGetDataList(rxAction: RxAction) {
-        //IO线程操作
-        ioThread {
+        //异步线程操作
+        doAsync {
             //数据库事务操作
             ganAppDatabase.runInTransaction {
                 //如果是刷新，先清除数据库缓存
