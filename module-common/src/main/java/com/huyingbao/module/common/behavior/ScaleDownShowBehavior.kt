@@ -7,6 +7,9 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
+/**
+ * [FloatingActionButton]滑动联动隐藏
+ */
 class ScaleDownShowBehavior(
         context: Context,
         attrs: AttributeSet?

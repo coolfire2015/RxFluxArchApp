@@ -81,6 +81,10 @@ class CommonAppConstants {
          * 页码
          */
         const val PAGE = "page"
+        /**
+         * true：因登录失效，跳转LoginActivity，需要跳转LoginFragment
+         */
+        const val TO_LOGIN: String = "toLogin"
     }
 
     object Header {

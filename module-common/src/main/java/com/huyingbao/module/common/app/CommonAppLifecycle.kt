@@ -65,10 +65,10 @@ class CommonAppLifecycle(
         //在Android设备运行时，初始化相关SDK
         if (android) {
             initARouter()
-            initBugly()
-            initTinker()
             initDebug()
             initX5()
+            initTinker()
+            initBugly()
         }
     }
 
@@ -95,40 +95,43 @@ class CommonAppLifecycle(
     }
 
     /**
-     * 初始化Bugly
+     * 初始化debug工具
      */
-    private fun initBugly() {
-        //配置策略
-        val strategy = CrashReport.UserStrategy(application)
-        // 获取当前进程名
-        val processName = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            DaggerApplication.getProcessName()
-        } else {
-            AndroidUtils.getProcessName(android.os.Process.myPid())
-        }
-        // 设置是否为上报进程
-        strategy.isUploadProcess = processName == null || processName == application.packageName
-        // X5内核异常上报
-        strategy.setCrashHandleCallback(object : CrashReport.CrashHandleCallback() {
-            override fun onCrashHandleStart(p0: Int, p1: String?, p2: String?, p3: String?): MutableMap<String, String> {
-                val map = LinkedHashMap<String, String>()
-                val x5CrashInfo = com.tencent.smtt.sdk.WebView.getCrashExtraMessage(application)
-                map["x5crashInfo"] = x5CrashInfo
-                return map
-            }
-
-            override fun onCrashHandleStart2GetExtraDatas(p0: Int, p1: String?, p2: String?, p3: String?): ByteArray? {
-                return try {
-                    "Extra data.".toByteArray(charset("UTF-8"))
-                } catch (e: Exception) {
-                    null
-                }
+    private fun initDebug() {
+        //.logStrategy(customLog) // (Optional) Changes the log strategy to print out. Default LogCat
+        //.methodOffset(5)        // (Optional) Hides internal method calls up to offset. Default 5
+        val formatStrategy = PrettyFormatStrategy.newBuilder()
+                // (Optional) Whether to show thread info or not. Default true
+                .showThreadInfo(false)
+                // (Optional) How many method line to show. Default 2
+                .methodCount(2)
+                // (Optional) Global tag for every log. Default PRETTY_LOGGER
+                .tag("RxFlux")
+                .build()
+        Logger.addLogAdapter(object : AndroidLogAdapter(formatStrategy) {
+            override fun isLoggable(priority: Int, tag: String?): Boolean {
+                return BuildConfig.DEBUG
             }
         })
-        //设置开发设备
-        CrashReport.setIsDevelopmentDevice(application, BuildConfig.DEBUG)
-        //初始化Bugly
-        CrashReport.initCrashReport(application, "6da8b7224c", BuildConfig.DEBUG, strategy)
+    }
+
+    /**
+     * 初始化X5内核
+     */
+    private fun initX5() {
+        //搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
+        val cb = object : QbSdk.PreInitCallback {
+            override fun onViewInitFinished(arg0: Boolean) {
+                //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
+                Logger.d("onViewInitFinished is $arg0")
+            }
+
+            override fun onCoreInitFinished() {
+                Logger.d("onCoreInitFinished")
+            }
+        }
+        //x5内核初始化接口
+        QbSdk.initX5Environment(application, cb)
     }
 
     /**
@@ -154,6 +157,46 @@ class CommonAppLifecycle(
         // fetchPatchUpdateAndPollWithInterval 与 fetchPatchUpdate(false)
         // 不同的是，会通过handler的方式去轮询
         TinkerPatch.with().fetchPatchUpdateAndPollWithInterval()
+    }
+
+    /**
+     * 初始化Bugly
+     */
+    private fun initBugly() {
+        //配置策略
+        val strategy = CrashReport.UserStrategy(application)
+        // 获取当前进程名
+        val processName = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            DaggerApplication.getProcessName()
+        } else {
+            AndroidUtils.getProcessName(android.os.Process.myPid())
+        }
+        // 设置是否为上报进程
+        strategy.isUploadProcess = processName == null || processName == application.packageName
+        // X5内核异常上报
+        strategy.setCrashHandleCallback(object : CrashReport.CrashHandleCallback() {
+            override fun onCrashHandleStart(p0: Int, p1: String?, p2: String?, p3: String?): MutableMap<String, String> {
+                val map = LinkedHashMap<String, String>()
+                try {
+                    val x5CrashInfo = com.tencent.smtt.sdk.WebView.getCrashExtraMessage(application)
+                    map["x5crashInfo"] = x5CrashInfo
+                } catch (e: Exception) {
+                }
+                return map
+            }
+
+            override fun onCrashHandleStart2GetExtraDatas(p0: Int, p1: String?, p2: String?, p3: String?): ByteArray? {
+                return try {
+                    "Extra data.".toByteArray(charset("UTF-8"))
+                } catch (e: Exception) {
+                    null
+                }
+            }
+        })
+        //设置开发设备
+        CrashReport.setIsDevelopmentDevice(application, BuildConfig.DEBUG)
+        //初始化Bugly
+        CrashReport.initCrashReport(application, "6da8b7224c", BuildConfig.DEBUG, strategy)
     }
 
     /**
@@ -199,45 +242,5 @@ class CommonAppLifecycle(
                 .setPatchRollbackOnScreenOff(true)
                 //我们可以通过RollbackCallBack设置对回退时的回调
                 .setPatchRollBackCallback { Logger.i("onPatchRollback callback here") }
-    }
-
-    /**
-     * 初始化debug工具
-     */
-    private fun initDebug() {
-        //.logStrategy(customLog) // (Optional) Changes the log strategy to print out. Default LogCat
-        //.methodOffset(5)        // (Optional) Hides internal method calls up to offset. Default 5
-        val formatStrategy = PrettyFormatStrategy.newBuilder()
-                // (Optional) Whether to show thread info or not. Default true
-                .showThreadInfo(false)
-                // (Optional) How many method line to show. Default 2
-                .methodCount(2)
-                // (Optional) Global tag for every log. Default PRETTY_LOGGER
-                .tag("RxFlux")
-                .build()
-        Logger.addLogAdapter(object : AndroidLogAdapter(formatStrategy) {
-            override fun isLoggable(priority: Int, tag: String?): Boolean {
-                return BuildConfig.DEBUG
-            }
-        })
-    }
-
-    /**
-     * 初始化X5内核
-     */
-    private fun initX5() {
-        //搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
-        val cb = object : QbSdk.PreInitCallback {
-            override fun onViewInitFinished(arg0: Boolean) {
-                //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
-                Logger.d("onViewInitFinished is $arg0")
-            }
-
-            override fun onCoreInitFinished() {
-                Logger.d("onCoreInitFinished")
-            }
-        }
-        //x5内核初始化接口
-        QbSdk.initX5Environment(application, cb)
     }
 }

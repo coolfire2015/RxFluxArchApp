@@ -3,12 +3,14 @@ package com.huyingbao.module.common.utils
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.alibaba.android.arouter.launcher.ARouter
 import com.google.android.material.snackbar.Snackbar
 import com.huyingbao.core.arch.model.RxError
 import com.huyingbao.core.arch.model.RxLoading
 import com.huyingbao.core.arch.model.RxRetry
 import com.huyingbao.core.base.flux.activity.BaseFluxActivity
 import com.huyingbao.module.common.R
+import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.common.ui.loading.CommonLoadingDialog
 import com.huyingbao.module.common.ui.loading.CommonLoadingDialogClickListener
 import org.jetbrains.anko.toast
@@ -22,10 +24,21 @@ import java.net.UnknownHostException
  */
 fun showCommonError(activity: Activity, rxError: RxError) {
     when (val throwable = rxError.throwable) {
-        is HttpException -> activity.toast("${throwable.code()}:${throwable.message()}")
-        is SocketException -> activity.toast("网络异常!")
-        is UnknownHostException -> activity.toast("网络异常!")
-        is SocketTimeoutException -> activity.toast("连接超时!")
+        is HttpException -> {
+            if (throwable.code() == 401) {
+                //登录失效，结束当前页面，跳转登录页面
+                activity.toast("登录失效！")
+                activity.finish()
+                ARouter.getInstance().build(CommonAppConstants.Router.LoginActivity)
+                        .withBoolean(CommonAppConstants.Key.TO_LOGIN, true)
+                        .navigation()
+            } else {
+                activity.toast("${throwable.code()}:${throwable.message()}")
+            }
+        }
+        is SocketException -> activity.toast("网络异常！")
+        is UnknownHostException -> activity.toast("网络异常！")
+        is SocketTimeoutException -> activity.toast("连接超时！")
         else -> activity.toast(throwable.toString())
     }
 }
