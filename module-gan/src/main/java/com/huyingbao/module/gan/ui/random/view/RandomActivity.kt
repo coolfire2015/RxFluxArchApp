@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.appbar.AppBarLayout
 import com.huyingbao.core.base.flux.activity.BaseFluxFragActivity
+import com.huyingbao.module.common.app.CommonAppAction
 import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.common.utils.addFloatingActionButton
 import com.huyingbao.module.common.utils.setAppBarElevation
@@ -34,6 +35,7 @@ class RandomActivity : BaseFluxFragActivity<RandomStore>() {
         //添加FloatingActionButton
         find<CoordinatorLayout>(R.id.cdl_content)
                 .addFloatingActionButton(this, View.OnClickListener {
+                    baseActionCreator.postLocalChange(CommonAppAction.SCROLL_TO_TOP)
                 })
     }
 }

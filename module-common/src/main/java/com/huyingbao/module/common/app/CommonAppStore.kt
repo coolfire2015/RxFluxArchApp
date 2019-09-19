@@ -99,6 +99,10 @@ class CommonAppStore @Inject constructor(
 interface CommonAppAction {
     companion object {
         /**
+         * 滑动到顶部
+         */
+        const val SCROLL_TO_TOP = "scrollToTop"
+        /**
          * 需要获取下一页数据
          */
         const val GET_NEXT_PAGE = "getNextPage"

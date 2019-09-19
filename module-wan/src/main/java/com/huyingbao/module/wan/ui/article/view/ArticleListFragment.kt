@@ -17,6 +17,7 @@ import com.huyingbao.core.utils.RecyclerItemClickListener
 import com.huyingbao.module.common.app.CommonAppAction
 import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.common.ui.web.WebActivity
+import com.huyingbao.module.common.utils.scrollToTop
 import com.huyingbao.module.common.utils.showCommonError
 import com.huyingbao.module.wan.R
 import com.huyingbao.module.wan.ui.article.action.ArticleAction
@@ -122,6 +123,14 @@ class ArticleListFragment : BaseFluxFragment<ArticleStore>() {
         rxStore?.pageLiveData?.value?.let {
             articleActionCreator.getArticleList(it)
         }
+    }
+
+    /**
+     * 滑动到顶部
+     */
+    @Subscribe(tags = [CommonAppAction.SCROLL_TO_TOP], sticky = true)
+    fun scrollToTop(rxChange: RxChange) {
+        rvContent?.scrollToTop()
     }
 
     /**

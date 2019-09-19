@@ -4,7 +4,10 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.huyingbao.core.arch.model.RxChange
 import com.huyingbao.core.base.flux.fragment.BaseFluxFragment
+import com.huyingbao.module.common.app.CommonAppAction
+import com.huyingbao.module.common.utils.scrollToTop
 import com.huyingbao.module.github.R
 import com.huyingbao.module.github.ui.main.action.MainActionCreator
 import com.huyingbao.module.github.ui.main.adapter.ReposAdapter
@@ -12,6 +15,7 @@ import com.huyingbao.module.github.ui.main.store.MainStore
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
+import org.greenrobot.eventbus.Subscribe
 import org.jetbrains.anko.find
 import javax.inject.Inject
 
@@ -94,5 +98,13 @@ class TrendFragment : BaseFluxFragment<MainStore>() {
                 rflContent?.finishLoadMore()
             }
         })
+    }
+
+    /**
+     * 滑动到顶部
+     */
+    @Subscribe(tags = [CommonAppAction.SCROLL_TO_TOP], sticky = true)
+    fun scrollToTop(rxChange: RxChange) {
+        rvContent?.scrollToTop()
     }
 }

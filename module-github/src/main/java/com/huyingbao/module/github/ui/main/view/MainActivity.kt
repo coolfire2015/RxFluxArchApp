@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
@@ -20,11 +21,12 @@ import com.huyingbao.core.base.flux.activity.BaseFluxActivity
 import com.huyingbao.core.image.ImageLoader
 import com.huyingbao.core.image.ImageLoaderUtils
 import com.huyingbao.core.utils.LocalStorageUtils
+import com.huyingbao.module.common.app.CommonAppAction
 import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.common.ui.info.CommonInfo
 import com.huyingbao.module.common.ui.info.CommonInfoDialog
 import com.huyingbao.module.common.ui.info.CommonInfoDialogClickListener
-import com.huyingbao.module.common.utils.ViewUtils
+import com.huyingbao.module.common.utils.setAppBarScroll
 import com.huyingbao.module.github.BuildConfig
 import com.huyingbao.module.github.R
 import com.huyingbao.module.github.app.GithubAppStore
@@ -57,9 +59,8 @@ class MainActivity : BaseFluxActivity<MainStore>() {
     }
 
     override fun afterCreate(savedInstanceState: Bundle?) {
-        //设置联动
-        ViewUtils.setScroll(find(R.id.tlb_top))
         setTitle(R.string.app_label_github)
+        initScroll()
         initDrawerLayout()
         initNavigationView()
         initBottomNavigationView()
@@ -74,6 +75,17 @@ class MainActivity : BaseFluxActivity<MainStore>() {
             drawer_layout_main.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
+        }
+    }
+
+    /**
+     * 设置滑动联动，并设置滑动到顶部点击
+     */
+    private fun initScroll() {
+        //设置联动
+        find<Toolbar>(R.id.tlb_top).setAppBarScroll()
+        floating_action_main.setOnClickListener {
+            baseActionCreator.postLocalChange(CommonAppAction.SCROLL_TO_TOP)
         }
     }
 

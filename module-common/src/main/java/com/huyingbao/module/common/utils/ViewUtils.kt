@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.huyingbao.module.common.R
@@ -27,7 +29,7 @@ fun View.setAppBarElevation(elevation: Float) {
 }
 
 /**
- * 设置View滑动联动
+ * 设置View滑动联动[AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL]和[AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS]
  *
  * @param view 一般是[com.google.android.material.appbar.AppBarLayout]中的子布局。
  */
@@ -65,4 +67,17 @@ fun ViewGroup.addFloatingActionButton(context: Context, onClickListener: View.On
                 //设置滑动隐藏行为
                 behavior = ScaleDownShowBehavior(context, null)
             })
+}
+
+/**
+ * [RecyclerView]滑动到顶部
+ */
+fun RecyclerView.scrollToTop() {
+    if (layoutManager is LinearLayoutManager) {
+        if ((layoutManager as LinearLayoutManager).findFirstVisibleItemPosition() > 20) {
+            scrollToPosition(0)
+        } else {
+            smoothScrollToPosition(0)
+        }
+    }
 }
