@@ -1,6 +1,7 @@
 package com.huyingbao.module.common.utils
 
 import android.app.Activity
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.alibaba.android.arouter.launcher.ARouter
@@ -13,6 +14,7 @@ import com.huyingbao.module.common.R
 import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.common.ui.loading.CommonLoadingDialog
 import com.huyingbao.module.common.ui.loading.CommonLoadingDialogClickListener
+import com.huyingbao.module.common.ui.web.WebActivity
 import org.jetbrains.anko.toast
 import retrofit2.HttpException
 import java.net.SocketException
@@ -80,4 +82,11 @@ fun showCommonLoading(activity: Activity, rxLoading: RxLoading) {
             fragmentByTag.dismiss()
         }
     }
+}
+
+/**
+ * 跳转网页展示页面[WebActivity]
+ */
+fun Context.startWebActivity(url: String?, title: String?) {
+    startActivity(WebActivity.newIntent(this, url, title))
 }

@@ -11,9 +11,9 @@ import com.huyingbao.core.base.flux.fragment.BaseFluxFragment
 import com.huyingbao.core.utils.RecyclerItemClickListener
 import com.huyingbao.module.common.app.CommonAppAction
 import com.huyingbao.module.common.app.CommonAppConstants
-import com.huyingbao.module.common.ui.web.WebActivity
 import com.huyingbao.module.common.utils.scrollToTop
 import com.huyingbao.module.common.utils.showCommonError
+import com.huyingbao.module.common.utils.startWebActivity
 import com.huyingbao.module.gan.R
 import com.huyingbao.module.gan.ui.random.action.RandomAction
 import com.huyingbao.module.gan.ui.random.action.RandomActionCreator
@@ -36,16 +36,21 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
     /**
      * 列表类别
      */
-    private var category: String? = null
+    private var category: String = RandomStore.DEFAULT_CATEGORY
     /**
      * 列表页数
      */
     private var page = RandomStore.DEFAULT_PAGE
 
-    private var rvContent: RecyclerView? = null
-    private var refreshLayout: SmartRefreshLayout? = null
-
-    private var articleAdapter: ArticleAdapter? = null
+    private val rvContent by lazy {
+        view?.find<RecyclerView>(R.id.rv_content)
+    }
+    private val refreshLayout by lazy {
+        view?.find<SmartRefreshLayout>(R.id.rfl_content)
+    }
+    private val articleAdapter by lazy {
+        ArticleAdapter()
+    }
 
     companion object {
         fun newInstance(category: String) = ArticleListFragment().apply {
@@ -61,45 +66,39 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
 
     override fun afterCreate(savedInstanceState: Bundle?) {
         category = arguments?.getString(CommonAppConstants.Key.CATEGORY)
-        initAdapter()
+                ?: RandomStore.DEFAULT_CATEGORY
+        initView()
     }
 
     /**
-     * 设置Adapter
+     * 初始化View
      */
-    private fun initAdapter() {
-        rvContent = view?.find(R.id.rv_content)
-        //RecyclerView设置适配器
-        rvContent?.adapter = ArticleAdapter().apply { articleAdapter = this }
-        //RecyclerView设置点击事件
-        rvContent?.addOnItemTouchListener(RecyclerItemClickListener(context, rvContent,
-                object : RecyclerItemClickListener.OnItemClickListener {
-                    override fun onItemClick(view: View, position: Int) {
-                        context?.let {
-                            //跳转网页
-                            val intent = WebActivity.newIntent(it,
-                                    articleAdapter?.getItem(position)?.url,
-                                    articleAdapter?.getItem(position)?.desc)
-                            startActivity(intent)
+    private fun initView() {
+        //初始化列表
+        rvContent?.apply {
+            //RecyclerView设置适配器
+            adapter = articleAdapter
+            //RecyclerView设置点击事件
+            addOnItemTouchListener(RecyclerItemClickListener(context, this,
+                    object : RecyclerItemClickListener.OnItemClickListener {
+                        override fun onItemClick(view: View, position: Int) {
+                            context?.startWebActivity(articleAdapter.getItem(position)?.url,
+                                    articleAdapter.getItem(position)?.desc)
                         }
-                    }
-                }))
-        //显示数据
-        category?.let { category ->
-            rxStore?.getArticleLiveData(category)?.observe(this, Observer {
-                if (it.size > 0) {
-                    //适配器添加数据
-                    articleAdapter?.submitList(it)
-                }
-            })
+                    }))
         }
-        //初始化上下拉刷新View
-        refreshLayout = view?.find(R.id.rfl_content)
         //下拉刷新监听器，设置获取最新一页数据
         refreshLayout?.setOnRefreshListener {
             page = RandomStore.DEFAULT_PAGE
             getData(null)
         }
+        //显示数据
+        rxStore?.getArticleLiveData(category)?.observe(this@ArticleListFragment, Observer {
+            if (it.size > 0) {
+                //适配器添加数据
+                articleAdapter.submitList(it)
+            }
+        })
     }
 
     /**
@@ -144,9 +143,7 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
      */
     @Subscribe(tags = [CommonAppAction.GET_NEXT_PAGE], sticky = true)
     fun getData(rxChange: RxChange?) {
-        category?.let {
-            randomActionCreator.getDataList(it, CommonAppConstants.Config.PAGE_SIZE, page)
-        }
+        randomActionCreator.getDataList(category, CommonAppConstants.Config.PAGE_SIZE, page)
     }
 
     /**

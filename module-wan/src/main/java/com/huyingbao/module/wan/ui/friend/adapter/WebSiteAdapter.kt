@@ -8,8 +8,11 @@ import com.huyingbao.module.wan.ui.friend.model.WebSite
 /**
  * Created by liujunfeng on 2019/1/1.
  */
-class WebSiteAdapter(data: List<WebSite>?) : BaseQuickAdapter<WebSite, BaseViewHolder>(R.layout.wan_recycle_item_article, data) {
-
+class WebSiteAdapter(
+        data: List<WebSite>?
+) : BaseQuickAdapter<WebSite, BaseViewHolder>(
+        R.layout.wan_recycle_item_friend,
+        data) {
     override fun convert(helper: BaseViewHolder, item: WebSite) {
         helper.setText(R.id.tv_item_title, item.name)
     }

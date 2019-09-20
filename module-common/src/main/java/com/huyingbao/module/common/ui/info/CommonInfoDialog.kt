@@ -37,23 +37,26 @@ class CommonInfoDialog : BaseCommonDialog() {
     }
 
     override fun afterCreate(savedInstanceState: Bundle?) {
+        initView()
+    }
+
+    /**
+     * 初始化界面
+     */
+    private fun initView() {
         arguments?.let {
             if (it.containsKey(CommonAppConstants.Key.CONTENT)) {
                 commonInfo = it.getParcelable(CommonAppConstants.Key.CONTENT)
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
         if (commonInfo == null) {
             context?.toast("请设置初始参数！")
             dismiss()
         } else {
-            setTextView(commonInfo!!.title, tv_info_title)
-            setTextView(commonInfo!!.content, tv_info_content)
-            setTextView(commonInfo!!.editTitle, et_info_title)
-            setTextView(commonInfo!!.editContent, et_info_content)
+            setTextView(commonInfo?.title, tv_info_title)
+            setTextView(commonInfo?.content, tv_info_content)
+            setTextView(commonInfo?.editTitle, et_info_title)
+            setTextView(commonInfo?.editContent, et_info_content)
             tv_info_cancel.setOnClickListener { dismiss() }
             tv_info_ok.setOnClickListener { onOkClicked() }
         }

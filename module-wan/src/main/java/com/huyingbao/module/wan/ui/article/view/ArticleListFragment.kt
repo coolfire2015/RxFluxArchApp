@@ -16,9 +16,9 @@ import com.huyingbao.core.base.setTitle
 import com.huyingbao.core.utils.RecyclerItemClickListener
 import com.huyingbao.module.common.app.CommonAppAction
 import com.huyingbao.module.common.app.CommonAppConstants
-import com.huyingbao.module.common.ui.web.WebActivity
 import com.huyingbao.module.common.utils.scrollToTop
 import com.huyingbao.module.common.utils.showCommonError
+import com.huyingbao.module.common.utils.startWebActivity
 import com.huyingbao.module.wan.R
 import com.huyingbao.module.wan.ui.article.action.ArticleAction
 import com.huyingbao.module.wan.ui.article.action.ArticleActionCreator
@@ -36,10 +36,15 @@ class ArticleListFragment : BaseFluxFragment<ArticleStore>() {
     @Inject
     lateinit var articleActionCreator: ArticleActionCreator
 
-    private var rvContent: RecyclerView? = null
-    private var refreshLayout: SmartRefreshLayout? = null
-
-    private var articleAdapter: ArticleAdapter? = null
+    private val rvContent by lazy {
+        view?.find<RecyclerView>(R.id.rv_content)
+    }
+    private val refreshLayout by lazy {
+        view?.find<SmartRefreshLayout>(R.id.rfl_content)
+    }
+    private val articleAdapter by lazy {
+        ArticleAdapter()
+    }
 
     companion object {
         fun newInstance(): ArticleListFragment {
@@ -53,40 +58,34 @@ class ArticleListFragment : BaseFluxFragment<ArticleStore>() {
 
     override fun afterCreate(savedInstanceState: Bundle?) {
         setTitle(R.string.app_label_wan, true)
-        initAdapter()
+        initView()
     }
 
     /**
-     * 设置Adapter
+     * 初始化界面
      */
-    private fun initAdapter() {
-        rvContent = view?.find(R.id.rv_content)
-        //RecyclerView设置适配器
-        rvContent?.adapter = ArticleAdapter().apply { articleAdapter = this }
-        //RecyclerView设置点击事件
-        rvContent?.addOnItemTouchListener(RecyclerItemClickListener(context, rvContent,
-                object : RecyclerItemClickListener.OnItemClickListener {
-                    override fun onItemClick(view: View, position: Int) {
-                        context?.let {
-                            //跳转网页
-                            val intent = WebActivity.newIntent(it,
-                                    articleAdapter?.getItem(position)?.link,
-                                    articleAdapter?.getItem(position)?.title)
-                            startActivity(intent)
+    private fun initView() {
+        rvContent?.apply {
+            //RecyclerView设置适配器
+            adapter = articleAdapter
+            //RecyclerView设置点击事件
+            addOnItemTouchListener(RecyclerItemClickListener(context, this,
+                    object : RecyclerItemClickListener.OnItemClickListener {
+                        override fun onItemClick(view: View, position: Int) {
+                            context?.startWebActivity(articleAdapter.getItem(position)?.link,
+                                    articleAdapter.getItem(position)?.title)
                         }
-                    }
-                }))
-        //显示数据
-        rxStore?.articleLiveData?.observe(this, Observer {
-            articleAdapter?.submitList(it)
-        })
-        //初始化上下拉刷新View
-        refreshLayout = view?.find(R.id.rfl_content)
+                    }))
+        }
         //下拉刷新监听器，设置获取最新一页数据
         refreshLayout?.setOnRefreshListener {
             rxStore?.pageLiveData?.value = ArticleStore.DEFAULT_PAGE
             getData(null)
         }
+        //显示数据
+        rxStore?.articleLiveData?.observe(this@ArticleListFragment, Observer {
+            articleAdapter.submitList(it)
+        })
     }
 
     override fun onResume() {

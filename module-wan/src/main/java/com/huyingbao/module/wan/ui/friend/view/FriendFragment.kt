@@ -4,13 +4,18 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.huyingbao.core.arch.model.RxChange
 import com.huyingbao.core.base.flux.fragment.BaseFluxFragment
 import com.huyingbao.core.base.setTitle
+import com.huyingbao.module.common.app.CommonAppAction
+import com.huyingbao.module.common.utils.scrollToTop
 import com.huyingbao.module.wan.R
 import com.huyingbao.module.wan.ui.friend.action.FriendActionCreator
 import com.huyingbao.module.wan.ui.friend.adapter.WebSiteAdapter
 import com.huyingbao.module.wan.ui.friend.model.WebSite
 import com.huyingbao.module.wan.ui.friend.store.FriendStore
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import org.greenrobot.eventbus.Subscribe
 import java.util.*
 import javax.inject.Inject
 
@@ -21,8 +26,10 @@ class FriendFragment : BaseFluxFragment<FriendStore>() {
     @Inject
     lateinit var actionCreator: FriendActionCreator
 
-    private var adapter: WebSiteAdapter? = null
     private var rvContent: RecyclerView? = null
+    private var refreshLayout: SmartRefreshLayout? = null
+
+    private var webSiteAdapter: WebSiteAdapter? = null
 
     companion object {
         fun newInstance(): FriendFragment {
@@ -47,21 +54,30 @@ class FriendFragment : BaseFluxFragment<FriendStore>() {
     }
 
     /**
+     * 滑动到顶部
+     */
+    @Subscribe(tags = [CommonAppAction.SCROLL_TO_TOP], sticky = true)
+    fun scrollToTop(rxChange: RxChange) {
+        rvContent?.scrollToTop()
+    }
+
+    /**
      * 实例化adapter
      */
     private fun initAdapter() {
-        adapter = WebSiteAdapter(ArrayList())
+        rvContent = view?.findViewById(R.id.rv_content)
+        webSiteAdapter = WebSiteAdapter(ArrayList())
+        rvContent?.layoutManager = LinearLayoutManager(activity)
+        rvContent?.setHasFixedSize(true)
+        //view设置适配器
+        rvContent?.adapter = webSiteAdapter
     }
 
     /**
      * 实例化RecyclerView
      */
     private fun initRecyclerView() {
-        rvContent = view?.findViewById(R.id.rv_content)
-        rvContent?.layoutManager = LinearLayoutManager(activity)
-        rvContent?.setHasFixedSize(true)
-        //view设置适配器
-        rvContent?.adapter = adapter
+
     }
 
     /**
@@ -88,6 +104,6 @@ class FriendFragment : BaseFluxFragment<FriendStore>() {
      * @param data
      */
     private fun setData(data: List<WebSite>?) {
-        adapter?.setNewData(data)
+        webSiteAdapter?.setNewData(data)
     }
 }
