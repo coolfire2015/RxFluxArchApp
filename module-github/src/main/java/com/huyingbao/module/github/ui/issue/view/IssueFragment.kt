@@ -12,14 +12,10 @@ import com.huyingbao.module.github.ui.issue.store.IssueStore
  */
 class IssueFragment : BaseFluxFragment<IssueStore>() {
     companion object {
-        fun newInstance(): IssueFragment {
-            return IssueFragment()
-        }
+        fun newInstance()=IssueFragment()
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.github_fragment_issue
-    }
+    override fun getLayoutId() = R.layout.github_fragment_issue
 
     override fun afterCreate(savedInstanceState: Bundle?) {
     }

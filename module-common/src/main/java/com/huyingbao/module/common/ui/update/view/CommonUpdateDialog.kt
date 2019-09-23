@@ -55,9 +55,7 @@ class CommonUpdateDialog : BaseCommonDialog(), RxSubscriberView {
         }
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.common_dialog_update
-    }
+    override fun getLayoutId() = R.layout.common_dialog_update
 
     override fun afterCreate(savedInstanceState: Bundle?) {
         inject()

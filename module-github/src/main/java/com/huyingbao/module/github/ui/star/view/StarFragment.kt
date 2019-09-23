@@ -12,14 +12,10 @@ import com.huyingbao.module.github.ui.star.store.StarStore
  */
 class StarFragment : BaseFluxFragment<StarStore>() {
     companion object {
-        fun newInstance(): StarFragment {
-            return StarFragment()
-        }
+        fun newInstance()= StarFragment()
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.github_fragment_star
-    }
+    override fun getLayoutId() = R.layout.github_fragment_star
 
     override fun afterCreate(savedInstanceState: Bundle?) {
     }

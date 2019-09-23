@@ -47,14 +47,10 @@ class ArticleListFragment : BaseFluxFragment<ArticleStore>() {
     }
 
     companion object {
-        fun newInstance(): ArticleListFragment {
-            return ArticleListFragment()
-        }
+        fun newInstance() = ArticleListFragment()
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.common_fragment_list
-    }
+    override fun getLayoutId() = R.layout.common_fragment_list
 
     override fun afterCreate(savedInstanceState: Bundle?) {
         setTitle(R.string.app_label_wan, true)
@@ -65,6 +61,7 @@ class ArticleListFragment : BaseFluxFragment<ArticleStore>() {
      * 初始化界面
      */
     private fun initView() {
+        //设置RecyclerView
         rvContent?.apply {
             //RecyclerView设置适配器
             adapter = articleAdapter

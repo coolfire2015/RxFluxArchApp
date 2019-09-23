@@ -29,9 +29,7 @@ class WebFragment : BaseCommonFragment(), BaseView, RxSubscriberView {
         }
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.common_fragment_web
-    }
+    override fun getLayoutId() = R.layout.common_fragment_web
 
     override fun afterCreate(savedInstanceState: Bundle?) {
         initWebView()

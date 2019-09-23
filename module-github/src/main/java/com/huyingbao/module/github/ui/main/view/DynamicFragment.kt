@@ -38,14 +38,10 @@ class DynamicFragment : BaseFluxFragment<MainStore>() {
     private var rflContent: SmartRefreshLayout? = null
 
     companion object {
-        fun newInstance(): DynamicFragment {
-            return DynamicFragment()
-        }
+        fun newInstance()=DynamicFragment()
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.common_fragment_list
-    }
+    override fun getLayoutId() = R.layout.common_fragment_list
 
     override fun afterCreate(savedInstanceState: Bundle?) {
         initRefreshView()

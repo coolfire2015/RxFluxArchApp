@@ -12,14 +12,10 @@ import com.huyingbao.module.github.ui.search.store.SearchStore
  */
 class SearchFragment : BaseFluxFragment<SearchStore>() {
     companion object {
-        fun newInstance(): SearchFragment {
-            return SearchFragment()
-        }
+        fun newInstance() = SearchFragment()
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.github_fragment_search
-    }
+    override fun getLayoutId() = R.layout.github_fragment_search
 
     override fun afterCreate(savedInstanceState: Bundle?) {
     }

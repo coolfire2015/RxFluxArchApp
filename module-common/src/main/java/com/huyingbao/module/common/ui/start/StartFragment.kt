@@ -19,14 +19,10 @@ import java.util.concurrent.TimeUnit
  */
 class StartFragment : BaseCommonFragment() {
     companion object {
-        fun newInstance(): StartFragment {
-            return StartFragment()
-        }
+        fun newInstance() = StartFragment()
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.common_fragment_start
-    }
+    override fun getLayoutId() = R.layout.common_fragment_start
 
     override fun afterCreate(savedInstanceState: Bundle?) {
         //延迟1500mm，跳转

@@ -33,11 +33,12 @@ class ArticleActionCreator @Inject constructor(
 
     override fun getBannerList() {
         val rxAction = newRxAction(ArticleAction.GET_BANNER_LIST)
+        rxAction.isGlobalCatch = false
         //接口调用失败，自动重复调用5次，每次间隔3s
         val httpObservable = retrofit.create(ArticleApi::class.java)
                 .getBannerList()
                 .retryWhen(retryAction(5, 3))
                 .flatMap(verifyResponse())
-        postHttpAction(rxAction, httpObservable)
+        postHttpLoadingAction(rxAction, httpObservable)
     }
 }

@@ -20,17 +20,13 @@ class FriendStore @Inject constructor(
         rxDispatcher: RxDispatcher
 ) : RxFragmentStore(rxDispatcher) {
     val webSiteListData = MutableLiveData<WanResponse<ArrayList<WebSite>>>()
-    var isCreated = false
-        private set
 
     override fun onCleared() {
-        isCreated = false
         webSiteListData.value = null
     }
 
     @Subscribe(tags = [FriendAction.GET_FRIEND_LIST])
     fun setWebSiteListData(rxAction: RxAction) {
-        isCreated = true
         webSiteListData.value = rxAction.getResponse()
     }
 }

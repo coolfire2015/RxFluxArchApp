@@ -38,9 +38,7 @@ class LoginActivity : BaseFluxActivity<LoginStore>() {
     @Autowired(name = CommonAppConstants.Key.TO_LOGIN)
     var isToLogin: Boolean = false
 
-    override fun getLayoutId(): Int {
-        return R.layout.base_activity_frag
-    }
+    override fun getLayoutId() = R.layout.base_activity_frag
 
     override fun afterCreate(savedInstanceState: Bundle?) {
         //Arouter参数注入

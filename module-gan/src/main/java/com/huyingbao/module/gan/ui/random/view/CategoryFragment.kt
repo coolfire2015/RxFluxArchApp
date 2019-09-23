@@ -20,9 +20,7 @@ class CategoryFragment : BaseFluxFragment<RandomStore>() {
         fun newInstance() = CategoryFragment()
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.gan_fragment_category
-    }
+    override fun getLayoutId() = R.layout.gan_fragment_category
 
     override fun afterCreate(savedInstanceState: Bundle?) {
         setTitle(R.string.app_label_gan, true)

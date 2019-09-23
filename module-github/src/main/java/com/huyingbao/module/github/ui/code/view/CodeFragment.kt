@@ -12,14 +12,10 @@ import com.huyingbao.module.github.ui.code.store.CodeStore
  */
 class CodeFragment : BaseFluxFragment<CodeStore>() {
     companion object {
-        fun newInstance(): CodeFragment {
-            return CodeFragment()
-        }
+        fun newInstance()=CodeFragment()
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.github_fragment_code
-    }
+    override fun getLayoutId() = R.layout.github_fragment_code
 
     override fun afterCreate(savedInstanceState: Bundle?) {
     }

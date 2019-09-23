@@ -7,14 +7,10 @@ import com.huyingbao.module.github.ui.repos.store.ReposStore
 
 class ReposFragment : BaseFluxFragment<ReposStore>() {
     companion object {
-        fun newInstance(): ReposFragment {
-            return ReposFragment()
-        }
+        fun newInstance()= ReposFragment()
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.github_fragment_repos
-    }
+    override fun getLayoutId() = R.layout.github_fragment_repos
 
     override fun afterCreate(savedInstanceState: Bundle?) {
     }

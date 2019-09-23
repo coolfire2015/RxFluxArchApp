@@ -54,9 +54,7 @@ class MainActivity : BaseFluxActivity<MainStore>() {
     @Inject
     lateinit var localStorageUtils: LocalStorageUtils
 
-    override fun getLayoutId(): Int {
-        return R.layout.github_activity_main
-    }
+    override fun getLayoutId() = R.layout.github_activity_main
 
     override fun afterCreate(savedInstanceState: Bundle?) {
         setTitle(R.string.app_label_github)

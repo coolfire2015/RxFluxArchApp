@@ -21,14 +21,10 @@ class CommonLoadingDialog : BaseCommonDialog() {
     private var messageInt: Int = 0
 
     companion object {
-        fun newInstance(): CommonLoadingDialog {
-            return CommonLoadingDialog()
-        }
+        fun newInstance() = CommonLoadingDialog()
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.common_dialog_loading
-    }
+    override fun getLayoutId() = R.layout.common_dialog_loading
 
     override fun afterCreate(savedInstanceState: Bundle?) {
         dialog?.setCanceledOnTouchOutside(false)

@@ -12,14 +12,10 @@ import com.huyingbao.module.github.ui.person.store.PersonStore
  */
 class PersonFragment : BaseFluxFragment<PersonStore>() {
     companion object {
-        fun newInstance(): PersonFragment {
-            return PersonFragment()
-        }
+        fun newInstance()=PersonFragment()
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.github_fragment_person
-    }
+    override fun getLayoutId() = R.layout.github_fragment_person
 
     override fun afterCreate(savedInstanceState: Bundle?) {
     }

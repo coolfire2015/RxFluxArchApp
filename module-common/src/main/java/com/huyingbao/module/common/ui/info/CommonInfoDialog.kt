@@ -32,9 +32,7 @@ class CommonInfoDialog : BaseCommonDialog() {
         }
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.common_dialog_info
-    }
+    override fun getLayoutId() = R.layout.common_dialog_info
 
     override fun afterCreate(savedInstanceState: Bundle?) {
         initView()

@@ -20,6 +20,7 @@ class FriendActionCreator @Inject constructor(
 ) : RxActionCreator(rxDispatcher, rxActionManager), FriendAction {
     override fun getFriendList() {
         val rxAction = newRxAction(FriendAction.GET_FRIEND_LIST)
-        postHttpRetryAction(rxAction, retrofit.create(FriendApi::class.java).getFriendList())
+        rxAction.isGlobalCatch = false
+        postHttpRetryAndLoadingAction(rxAction, retrofit.create(FriendApi::class.java).getFriendList())
     }
 }
