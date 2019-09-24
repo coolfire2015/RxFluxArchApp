@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.huyingbao.core.arch.model.RxChange
 import com.huyingbao.core.arch.model.RxError
 import com.huyingbao.core.arch.model.RxLoading
+import com.huyingbao.core.arch.model.RxRetry
 import com.huyingbao.core.base.flux.fragment.BaseFluxFragment
 import com.huyingbao.core.base.setTitle
 import com.huyingbao.core.utils.RecyclerItemClickListener
 import com.huyingbao.module.common.app.CommonAppAction
 import com.huyingbao.module.common.utils.scrollToTop
 import com.huyingbao.module.common.utils.showCommonError
+import com.huyingbao.module.common.utils.showCommonRetry
 import com.huyingbao.module.common.utils.startWebActivity
 import com.huyingbao.module.wan.R
 import com.huyingbao.module.wan.ui.friend.action.FriendAction
@@ -99,6 +101,14 @@ class FriendFragment : BaseFluxFragment<FriendStore>() {
         if (!rxLoading.isLoading) {
             refreshLayout?.finishRefresh()
         }
+    }
+
+    /**
+     * 接收[RxRetry]，粘性
+     */
+    @Subscribe(tags = [FriendAction.GET_FRIEND_LIST], sticky = true)
+    fun onRxRetry(rxRetry: RxRetry<*>) {
+        activity?.let { showCommonRetry(it, rxRetry) }
     }
 
     /**
