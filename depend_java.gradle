@@ -80,7 +80,6 @@ dependencies {
     testImplementation "com.github.andrzejchm.RESTMock:android:${TEST_REST_MOCK}"
     //编译时生成
     annotationProcessor "androidx.room:room-compiler:${X_ROOM}"
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:${X_LIFECYCLE}"
     annotationProcessor "com.android.tools.build.jetifier:jetifier-core:${JETIFIER}"
     annotationProcessor "com.google.dagger:dagger-compiler:${DAGGER}"
     annotationProcessor "com.google.dagger:dagger-android-processor:${DAGGER}"
@@ -89,7 +88,6 @@ dependencies {
     annotationProcessor "com.github.coolfire2015.RxFluxArchitecture:core-arch-processor:${RX_FLUX_ARCHITECTURE}"
     //单元测试编译时生成
     testAnnotationProcessor "androidx.room:room-compiler:${X_ROOM}"
-    testAnnotationProcessor "androidx.lifecycle:lifecycle-compiler:${X_LIFECYCLE}"
     testAnnotationProcessor "com.android.tools.build.jetifier:jetifier-core:${JETIFIER}"
     testAnnotationProcessor "com.google.dagger:dagger-compiler:${DAGGER}"
     testAnnotationProcessor "com.google.dagger:dagger-android-processor:${DAGGER}"

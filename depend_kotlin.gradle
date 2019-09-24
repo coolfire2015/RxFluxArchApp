@@ -94,7 +94,6 @@ dependencies {
     testImplementation "com.github.andrzejchm.RESTMock:android:${TEST_REST_MOCK}"
     //编译时生成
     kapt "androidx.room:room-compiler:${X_ROOM}"
-    kapt "androidx.lifecycle:lifecycle-compiler:${X_LIFECYCLE}"
     kapt "com.android.tools.build.jetifier:jetifier-core:${JETIFIER}"
     kapt "com.google.dagger:dagger-compiler:${DAGGER}"
     kapt "com.google.dagger:dagger-android-processor:${DAGGER}"
@@ -103,7 +102,6 @@ dependencies {
     kapt "com.github.coolfire2015.RxFluxArchitecture:core-arch-processor:${RX_FLUX_ARCHITECTURE}"
     //单元测试编译时生成
     kaptTest "androidx.room:room-compiler:${X_ROOM}"
-    kaptTest "androidx.lifecycle:lifecycle-compiler:${X_LIFECYCLE}"
     kaptTest "com.android.tools.build.jetifier:jetifier-core:${JETIFIER}"
     kaptTest "com.google.dagger:dagger-compiler:${DAGGER}"
     kaptTest "com.google.dagger:dagger-android-processor:${DAGGER}"
