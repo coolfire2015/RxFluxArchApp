@@ -18,5 +18,5 @@ import com.huyingbao.module.gan.ui.random.model.ArticleDao
         exportSchema = false
 )
 abstract class GanAppDatabase : RoomDatabase() {
-    abstract fun reposDao(): ArticleDao
+    abstract fun articleDao(): ArticleDao
 }

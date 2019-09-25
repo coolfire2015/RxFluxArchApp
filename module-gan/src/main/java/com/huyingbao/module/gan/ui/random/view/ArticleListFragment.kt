@@ -91,7 +91,7 @@ class ArticleListFragment : BaseFluxFragment<RandomStore>() {
             getData(null)
         }
         //显示数据
-        rxStore?.getArticleLiveData(category)?.observe(this@ArticleListFragment, Observer {
+        rxStore?.getArticleLiveData(category)?.observe(this, Observer {
             if (it.size > 0) {
                 //适配器添加数据
                 articleAdapter.submitList(it)

@@ -2,6 +2,8 @@ package com.huyingbao.module.github.app
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.huyingbao.module.github.ui.main.model.Event
+import com.huyingbao.module.github.ui.main.model.EventDao
 import com.huyingbao.module.github.ui.main.model.Repos
 import com.huyingbao.module.github.ui.main.model.ReposDao
 
@@ -13,10 +15,11 @@ import com.huyingbao.module.github.ui.main.model.ReposDao
  *包含一个具有0个参数的抽象方法，并返回用@Dao注释的类。
  */
 @Database(
-        entities = [Repos::class],
-        version = 3,
+        entities = [Repos::class, Event::class],
+        version = 4,
         exportSchema = false
 )
 abstract class GithubAppDatabase : RoomDatabase() {
     abstract fun reposDao(): ReposDao
+    abstract fun eventDao(): EventDao
 }

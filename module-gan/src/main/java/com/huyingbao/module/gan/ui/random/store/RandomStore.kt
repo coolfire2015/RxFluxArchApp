@@ -58,13 +58,13 @@ class RandomStore @Inject constructor(
             ganAppDatabase.runInTransaction {
                 //如果是刷新，先清除数据库缓存
                 if (rxAction[CommonAppConstants.Key.PAGE] ?: DEFAULT_PAGE == DEFAULT_PAGE) {
-                    ganAppDatabase.reposDao().deleteAll(
+                    ganAppDatabase.articleDao().deleteAll(
                             rxAction[CommonAppConstants.Key.CATEGORY] ?: DEFAULT_CATEGORY
                     )
                 }
                 //如果有数据，添加到数据库缓存中
                 rxAction.getResponse<GanResponse<ArrayList<Article>>>()?.results?.let {
-                    ganAppDatabase.reposDao().insertAll(it)
+                    ganAppDatabase.articleDao().insertAll(it)
                 }
             }
         }
@@ -77,7 +77,7 @@ class RandomStore @Inject constructor(
      * 每个Fragment实例化一个绑定数据库的LiveData。
      */
     fun getArticleLiveData(category: String): LiveData<PagedList<Article>> =
-            ganAppDatabase.reposDao().getArticleList(category).toLiveData(
+            ganAppDatabase.articleDao().getArticleList(category).toLiveData(
                     config = Config(
                             //每次加载多少数据
                             pageSize = CommonAppConstants.Config.PAGE_SIZE,

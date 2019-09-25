@@ -14,20 +14,17 @@ import androidx.room.*
  * 而返回[LiveData]或者[io.reactivex.Flowable]实例的异步查询可免除此规则，因为它们在需要时异步地在后台线程上运行查询。
  */
 @Dao
-interface ReposDao {
+interface EventDao {
     /**
      * SQLite处理@Insert(onConflict = OnConflictStrategy.REPLACE)作为一套REMOVE和REPLACE操作而不是单一的更新操作。
      * 本替换冲突值的方法有可能影响外键约束
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(list: List<Repos>)
+    fun insertAll(list: ArrayList<Event>)
 
-    /**
-     * 返回Paging中的DataSource
-     */
-    @Query("SELECT * FROM repos")
-    fun getAll(): DataSource.Factory<Int, Repos>
+    @Query("SELECT * FROM event ORDER BY id DESC")
+    fun getAll(): DataSource.Factory<Int, Event>
 
-    @Query("DELETE FROM repos")
+    @Query("DELETE FROM event")
     fun deleteAll()
 }

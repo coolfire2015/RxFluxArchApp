@@ -5,6 +5,7 @@ import com.huyingbao.core.arch.dispatcher.RxDispatcher
 import com.huyingbao.core.arch.scope.ActivityScope
 import com.huyingbao.core.utils.FlatMapResponse2Result
 import com.huyingbao.core.utils.FlatMapResult2Response
+import com.huyingbao.module.common.app.CommonAppConstants
 import com.huyingbao.module.common.ui.update.action.AppAction
 import com.huyingbao.module.common.ui.update.action.FirApi
 import com.huyingbao.module.github.BuildConfig
@@ -49,8 +50,10 @@ class MainActionCreator @Inject constructor(
     }
 
     override fun getNewsEvent(user: String, page: Int) {
-        val rxAction = newRxAction(MainAction.GET_NEWS_EVENT)
-        postHttpAction(rxAction, retrofit.create(MainApi::class.java).getNewsEvent(user, page))
+        val rxAction = newRxAction(MainAction.GET_NEWS_EVENT,
+                CommonAppConstants.Key.PAGE, page)
+        rxAction.isGlobalCatch = false
+        postHttpLoadingAction(rxAction, retrofit.create(MainApi::class.java).getNewsEvent(user, page))
     }
 
     override fun getTrendData(languageType: String, since: String) {
