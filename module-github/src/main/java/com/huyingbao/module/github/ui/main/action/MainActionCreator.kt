@@ -10,7 +10,7 @@ import com.huyingbao.module.common.ui.update.action.AppAction
 import com.huyingbao.module.common.ui.update.action.FirApi
 import com.huyingbao.module.github.BuildConfig
 import com.huyingbao.module.github.app.GithubActionCreator
-import com.huyingbao.module.github.ui.issue.model.Issue
+import com.huyingbao.module.github.ui.main.model.Issue
 import com.huyingbao.module.github.ui.main.model.Repos
 import com.huyingbao.module.github.ui.main.model.ReposConversion
 import com.huyingbao.module.github.ui.main.model.TrendConversion

@@ -1,12 +1,10 @@
 package com.huyingbao.module.github.ui.main.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import com.huyingbao.module.github.ui.login.model.User
-import com.huyingbao.module.github.ui.repos.model.Repository
-import java.util.*
 
 /**
  * 事件类
@@ -18,17 +16,48 @@ data class Event(
         @PrimaryKey
         var id: String = "",
         var type: String? = null,
-        @Ignore
-        var actor: User? = null,
-        @Ignore
-        var repo: Repository? = null,
-        @Ignore
-        var org: User? = null,
+        @Embedded
+        var actor: Actor? = null,
+        @Embedded
+        var repo: Repo? = null,
+        @Embedded
+        var payload: Payload? = null,
         @SerializedName("public")
         var isPublic: Boolean = false,
-        @Ignore
-        @SerializedName("created_at")
-        var createdAt: Date? = null,
-        @Ignore //不想持久的字段
-        var payload: EventPayload? = null
+        var created_at: String? = null,
+        @Embedded
+        var org: Org? = null
+)
+
+data class Actor(
+        @ColumnInfo(name = "actor_avatar")
+        var avatar_url: String,
+        @ColumnInfo(name = "actor_gravatar")
+        var gravatar_id: String,
+        @ColumnInfo(name = "actor_login")
+        var login: String,
+        @ColumnInfo(name = "actor_url")
+        var url: String
+)
+
+data class Org(
+        @ColumnInfo(name = "org_avatar")
+        var avatar_url: String,
+        @ColumnInfo(name = "org_gravatar")
+        var gravatar_id: String,
+        @ColumnInfo(name = "org_login")
+        var login: String,
+        @ColumnInfo(name = "org_url")
+        var url: String
+)
+
+data class Payload(
+        var action: String
+)
+
+data class Repo(
+        @ColumnInfo(name = "repo_name")
+        var name: String,
+        @ColumnInfo(name = "repo_url")
+        var url: String
 )

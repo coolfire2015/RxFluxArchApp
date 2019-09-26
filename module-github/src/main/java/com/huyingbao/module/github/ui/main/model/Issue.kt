@@ -1,4 +1,4 @@
-package com.huyingbao.module.github.ui.issue.model
+package com.huyingbao.module.github.ui.main.model
 
 
 import com.google.gson.annotations.SerializedName

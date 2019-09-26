@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.huyingbao.core.image.ImageLoader
 import com.huyingbao.core.image.ImageLoaderUtils
-import com.huyingbao.core.utils.TimeUtils
+import com.huyingbao.module.common.utils.TimeUtils.formatUTCTime
 import com.huyingbao.module.github.R
 import com.huyingbao.module.github.ui.main.model.Event
 import org.jetbrains.anko.find
@@ -65,11 +65,11 @@ class EventViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         article?.let {
             itemView.run {
                 find<TextView>(R.id.tv_event_action).text = it.type + "    " + it.repo?.name
-                find<TextView>(R.id.tv_event_user_name).text = it.actor?.login ?: it.org?.name
-                find<TextView>(R.id.tv_event_time).text = TimeUtils.getNewsTimeStr(it.createdAt)
+                find<TextView>(R.id.tv_event_user_name).text = it.actor?.login ?: it.org?.login
+                find<TextView>(R.id.tv_event_time).text = formatUTCTime(it.created_at ?: "")
                 val imageLoader = ImageLoader.Builder<String>()
                 imageLoader.isCircle = true
-                imageLoader.resource = it.actor?.avatarUrl ?: it.org?.avatarUrl
+                imageLoader.resource = it.actor?.avatar_url ?: it.org?.avatar_url
                 imageLoader.errorHolder = android.R.drawable.ic_menu_camera
                 imageLoader.imgView = find(R.id.iv_event_user_head)
                 ImageLoaderUtils.loadImage(context, imageLoader.build())

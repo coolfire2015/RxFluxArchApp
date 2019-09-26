@@ -1,8 +1,8 @@
 package com.huyingbao.module.github.ui.main.action
 
 import com.huyingbao.module.common.app.CommonAppConstants
-import com.huyingbao.module.github.ui.issue.model.Issue
 import com.huyingbao.module.github.ui.main.model.Event
+import com.huyingbao.module.github.ui.main.model.Issue
 import io.reactivex.Observable
 import retrofit2.Response
 import retrofit2.http.*
