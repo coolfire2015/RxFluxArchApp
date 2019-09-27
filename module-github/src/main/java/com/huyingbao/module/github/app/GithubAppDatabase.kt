@@ -16,7 +16,7 @@ import com.huyingbao.module.github.ui.main.model.ReposDao
  */
 @Database(
         entities = [Repos::class, Event::class],
-        version = 4,
+        version = 5,
         exportSchema = false
 )
 abstract class GithubAppDatabase : RoomDatabase() {

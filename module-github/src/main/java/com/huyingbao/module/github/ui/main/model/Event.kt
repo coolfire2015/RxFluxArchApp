@@ -52,12 +52,17 @@ data class Org(
 )
 
 data class Payload(
-        var action: String
+        var description: String? = null,
+        var master_branch: String? = null,
+        var pusher_type: String? = null,
+        var ref: String? = null,
+        var ref_type: String? = null,
+        var action: String? = null
 )
 
 data class Repo(
         @ColumnInfo(name = "repo_name")
-        var name: String,
+        var name: String? = null,
         @ColumnInfo(name = "repo_url")
-        var url: String
+        var url: String? = null
 )

@@ -3,7 +3,6 @@ package com.huyingbao.module.github.ui.main.adapter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.huyingbao.core.image.ImageLoader
-import com.huyingbao.core.image.ImageLoaderUtils
 import com.huyingbao.module.github.R
 import com.huyingbao.module.github.ui.main.model.Repos
 
@@ -16,8 +15,7 @@ class ReposAdapter(
         data: List<Repos>?
 ) : BaseQuickAdapter<Repos, BaseViewHolder>(
         R.layout.github_layout_item_repos,
-        data
-) {
+        data) {
 
     override fun convert(helper: BaseViewHolder, item: Repos) {
         helper.setText(R.id.tv_repos_owner, item.ownerName)
@@ -31,7 +29,7 @@ class ReposAdapter(
         imageLoader.isCircle = true
         imageLoader.resource = item.ownerPic
         imageLoader.errorHolder = android.R.drawable.ic_menu_camera
-        imageLoader.imgView = helper.getView(R.id.iv_repos_user_img)
-        ImageLoaderUtils.loadImage(mContext, imageLoader.build())
+//        imageLoader.imgView = helper.getView(R.id.iv_repos_user_img)
+//        ImageLoaderUtils.loadImage(mContext, imageLoader.build())
     }
 }

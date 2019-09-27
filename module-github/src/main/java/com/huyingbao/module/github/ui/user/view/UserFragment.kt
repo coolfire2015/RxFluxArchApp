@@ -33,7 +33,7 @@ class UserFragment : BaseFluxBindFragment<UserStore, GithubFragmentUserBinding>(
     lateinit var githubAppStore: GithubAppStore
 
     companion object {
-        fun newInstance()=UserFragment()
+        fun newInstance() = UserFragment()
     }
 
     override fun getLayoutId() = R.layout.github_fragment_user

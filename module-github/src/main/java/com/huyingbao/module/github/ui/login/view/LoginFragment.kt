@@ -24,7 +24,7 @@ class LoginFragment : BaseFluxFragment<LoginStore>() {
     lateinit var githubAppStore: GithubAppStore
 
     companion object {
-        fun newInstance()=LoginFragment()
+        fun newInstance() = LoginFragment()
     }
 
     override fun getLayoutId() = R.layout.github_fragment_login

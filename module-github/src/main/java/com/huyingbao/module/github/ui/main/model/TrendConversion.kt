@@ -2,8 +2,6 @@ package com.huyingbao.module.github.ui.main.model
 
 /**
  * Html String 到 趋势相关实体转换
- * Created by guoshuyu
- * Date: 2018-10-29
  */
 val TAGS = hashMapOf(
         Pair("meta", hashMapOf(Pair("start", "<span class=\"d-inline-block float-sm-right\""), Pair("end", "</span>"))),
@@ -24,13 +22,12 @@ object TrendConversion {
         var splitWithH3 = responseData.split("<article")
         splitWithH3 = splitWithH3.subList(1, splitWithH3.size)
 
-        for (i in 0 until splitWithH3.size) {
+        for (element in splitWithH3) {
             val repo = Trend()
-            val html = splitWithH3[i]
 
-            parseRepoBaseInfo(repo, html)
+            parseRepoBaseInfo(repo, element)
 
-            val metaNoteContent = parseContentWithNote(html, "class=\"f6 text-gray mt-2\">", "</div>")
+            val metaNoteContent = parseContentWithNote(element, "class=\"f6 text-gray mt-2\">", "</div>")
             repo.meta = parseRepoLabelWithTag(repo, metaNoteContent, TAGS["meta"]!!)
             repo.starCount = parseRepoLabelWithTag(repo, metaNoteContent, TAGS["starCount"]!!)
             repo.forkCount = parseRepoLabelWithTag(repo, metaNoteContent, TAGS["forkCount"]!!)
@@ -82,7 +79,7 @@ object TrendConversion {
         val startFlag = if (TAGS["starCount"] == tag || TAGS["forkCount"] == tag) {
             tag["start"] + " href=\"/" + repo.fullName + tag["flag"]
         } else {
-            tag["start"]!!
+            tag["start"] ?: error("")
         }
         val content = parseContentWithNote(noteContent, startFlag, tag["end"]!!)
         return if (content.indexOf("</svg>") != -1 && (content.indexOf("</svg>") + "</svg>".length <= content.length)) {
@@ -108,10 +105,9 @@ object TrendConversion {
         repo.contributorsUrl = splitWitSemicolon[1]
         val contributors = ArrayList<String>()
 
-        for (i in 0 until splitWitSemicolon.size) {
-            val url = splitWitSemicolon[i]
-            if (url.indexOf("http") != -1) {
-                contributors.add(url)
+        for (element in splitWitSemicolon) {
+            if (element.indexOf("http") != -1) {
+                contributors.add(element)
             }
         }
         repo.contributors = contributors

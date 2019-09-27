@@ -64,7 +64,7 @@ class EventViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     fun bindTo(article: Event?) {
         article?.let {
             itemView.run {
-                find<TextView>(R.id.tv_event_action).text = it.type + "    " + it.repo?.name
+                find<TextView>(R.id.tv_event_action).text = getType(it)
                 find<TextView>(R.id.tv_event_user_name).text = it.actor?.login ?: it.org?.login
                 find<TextView>(R.id.tv_event_time).text = formatUTCTime(it.created_at ?: "")
                 val imageLoader = ImageLoader.Builder<String>()
@@ -73,6 +73,76 @@ class EventViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
                 imageLoader.errorHolder = android.R.drawable.ic_menu_camera
                 imageLoader.imgView = find(R.id.iv_event_user_head)
                 ImageLoaderUtils.loadImage(context, imageLoader.build())
+            }
+        }
+    }
+
+    private fun getType(event: Event): String {
+        return when (event.type) {
+            "CommitCommentEvent" -> {
+                "Commit comment at " + event.repo?.name
+            }
+            "CreateEvent" -> {
+                if (event.payload?.ref_type == "repository") {
+                    "Created repository " + event.repo?.name
+                } else {
+                    "Created " + event.payload?.ref_type + " " + event.payload?.ref + " at " + event.repo?.name
+                }
+            }
+            "DeleteEvent" -> {
+                "Delete " + event.payload?.ref_type + " " + event.payload?.ref + " at " + event.repo?.name
+            }
+            "ForkEvent" -> {
+                val oriRepo = event.repo?.name
+                val newRepo = event.actor?.login + "/" + event.repo?.name
+                "Forked $oriRepo to $newRepo"
+
+            }
+            "GollumEvent" -> {
+                event.actor?.login + " a wiki page "
+            }
+
+            "InstallationEvent" -> {
+                event.payload?.action + " an GitHub App "
+            }
+            "InstallationRepositoriesEvent" -> {
+                event.payload?.action + " repository from an installation "
+            }
+            "MarketplacePurchaseEvent" -> {
+                event.payload?.action + " marketplace plan "
+            }
+            "MemberEvent" -> {
+                event.payload?.action + " member to " + event.repo?.name
+            }
+            "OrgBlockEvent" -> {
+                event.payload?.action + " a user "
+            }
+            "ProjectCardEvent" -> {
+                event.payload?.action + " a project "
+            }
+            "ProjectColumnEvent" -> {
+                event.payload?.action + " a project "
+            }
+            "ProjectEvent" -> {
+                event.payload?.action + " a project "
+            }
+            "PublicEvent" -> {
+                "Made " + event.repo?.name + " public"
+            }
+            "PullRequestEvent" -> {
+                event.payload?.action + " pull request " + event.repo?.name
+            }
+            "PullRequestReviewEvent" -> {
+                event.payload?.action + " pull request review at" + event.repo?.name
+            }
+            "PullRequestReviewCommentEvent" -> {
+                event.payload?.action + " pull request review comment at" + event.repo?.name
+            }
+            "WatchEvent" -> {
+                event.payload?.action + " " + event.repo?.name
+            }
+            else -> {
+                event.payload?.action + " " + event.repo?.name
             }
         }
     }

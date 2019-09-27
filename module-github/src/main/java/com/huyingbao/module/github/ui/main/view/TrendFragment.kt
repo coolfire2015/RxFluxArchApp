@@ -33,7 +33,7 @@ class TrendFragment : BaseFluxFragment<MainStore>() {
     private var rflContent: SmartRefreshLayout? = null
 
     companion object {
-        fun newInstance()=TrendFragment()
+        fun newInstance() = TrendFragment()
     }
 
     override fun getLayoutId() = R.layout.common_fragment_list

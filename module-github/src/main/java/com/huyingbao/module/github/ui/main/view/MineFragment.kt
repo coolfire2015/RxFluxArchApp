@@ -12,7 +12,7 @@ import com.huyingbao.module.github.ui.main.store.MainStore
  */
 class MineFragment : BaseFluxFragment<MainStore>() {
     companion object {
-        fun newInstance()=MineFragment()
+        fun newInstance() = MineFragment()
     }
 
     override fun getLayoutId() = R.layout.github_fragment_mine
