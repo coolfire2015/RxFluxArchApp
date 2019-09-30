@@ -18,13 +18,11 @@ class ReposAdapter(
         data) {
 
     override fun convert(helper: BaseViewHolder, item: Repos) {
-        helper.setText(R.id.tv_repos_owner, item.ownerName)
         helper.setText(R.id.tv_repos_name, item.repositoryName)
         helper.setText(R.id.tv_repos_des, item.repositoryDes)
         helper.setText(R.id.tv_repos_language, item.repositoryType)
         helper.setText(R.id.tv_repos_star, item.repositoryStar)
         helper.setText(R.id.tv_repos_fork, item.repositoryFork)
-        helper.setText(R.id.tv_repos_watch, item.repositoryWatch)
         val imageLoader = ImageLoader.Builder<String>()
         imageLoader.isCircle = true
         imageLoader.resource = item.ownerPic

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/CommonCardView">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_10">
@@ -12,49 +14,60 @@
             android:id="@+id/iv_event_user_head"
             android:layout_width="@dimen/dp_32"
             android:layout_height="@dimen/dp_32"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@mipmap/ic_launcher" />
 
         <TextView
             android:id="@+id/tv_event_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/iv_event_user_head"
-            android:layout_marginStart="@dimen/dp_10"
-            android:layout_toEndOf="@+id/iv_event_user_head"
+            android:layout_marginStart="64dp"
             android:singleLine="true"
             android:textSize="@dimen/sp_16"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_event_time"
+            app:layout_constraintStart_toEndOf="@+id/iv_event_user_head"
             tools:text="CoolFire2015" />
 
         <TextView
             android:id="@+id/tv_event_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:singleLine="true"
             android:textColor="?android:attr/textColorSecondary"
             android:textSize="@dimen/sp_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="3天前" />
 
         <TextView
             android:id="@+id/tv_event_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/iv_event_user_head"
-            android:layout_margin="@dimen/dp_6"
+            android:layout_marginStart="@dimen/dp_6"
+            android:layout_marginTop="@dimen/dp_6"
+            android:layout_marginEnd="@dimen/dp_6"
+            android:layout_marginBottom="@dimen/dp_6"
             android:textSize="@dimen/sp_14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_event_user_head"
             tools:text="stared coolfire2015/RxFluxArchitecture" />
 
         <TextView
             android:id="@+id/tv_event_des"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_event_action"
-            android:layout_margin="@dimen/dp_6"
+            android:layout_marginStart="@dimen/dp_6"
+            android:layout_marginTop="@dimen/dp_6"
+            android:layout_marginEnd="@dimen/dp_6"
+            android:layout_marginBottom="@dimen/dp_6"
             android:maxLines="3"
             android:textColor="?android:attr/textColorSecondary"
             android:textSize="@dimen/sp_14"
             android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_event_action"
             tools:text="see"
             tools:visibility="visible" />
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
