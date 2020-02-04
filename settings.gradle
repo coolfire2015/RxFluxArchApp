@@ -1,5 +1,6 @@
 //include ':module-app'
 include ':module-common'
+include ':module-epidemic'
 //include ':module-github'
 include ':module-wan'
 include ':module-gan'

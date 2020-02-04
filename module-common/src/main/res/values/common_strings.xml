@@ -3,6 +3,7 @@
     <string name="app_label_app">RxFluxApp</string>
     <string name="app_label_common">引导</string>
     <string name="app_label_wan">玩安卓</string>
+    <string name="app_label_epidemic">疫情</string>
     <string name="app_label_gan">干货集中营</string>
     <string name="app_label_github">Github</string>
 
