@@ -123,6 +123,8 @@ class CommonAppConstants {
         const val StarActivity = "/github/star/StarActivity"
         const val SearchActivity = "/github/search/SearchActivity"
 
+        const val EpidemicMainActivity = "/epidemic/main/MainActivity"
+
         init {
             RxApp.application?.let {
                 routerMap[it.getString(R.string.app_label_app)] = LoginActivity
@@ -130,6 +132,7 @@ class CommonAppConstants {
                 routerMap[it.getString(R.string.app_label_github)] = LoginActivity
                 routerMap[it.getString(R.string.app_label_wan)] = ArticleActivity
                 routerMap[it.getString(R.string.app_label_gan)] = RandomActivity
+                routerMap[it.getString(R.string.app_label_epidemic)]= EpidemicMainActivity
             }
         }
 

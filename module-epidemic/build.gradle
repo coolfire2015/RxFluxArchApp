@@ -74,7 +74,7 @@ android {
     kapt {
         arguments {
             arg("AROUTER_MODULE_NAME", project.getName())
-            arg('eventBusIndex', 'com.huyingbao.module.EpidemicEventBusIndex')
+            arg('eventBusIndex', 'com.huyingbao.module.epidemic.EpidemicEventBusIndex')
         }
     }
     //代码目录设置

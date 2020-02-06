@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!--一定要使用明文通信-->
     <application
         android:name="com.huyingbao.module.wan.WanApplication"
         android:allowBackup="false"
