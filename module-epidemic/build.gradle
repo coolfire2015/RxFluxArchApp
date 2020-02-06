@@ -115,4 +115,5 @@ android {
 dependencies {
     //通用库
     api project(":module-common")
+    implementation "com.github.PhilJay:MPAndroidChart:${MP_ANDROID_CHART}"
 }

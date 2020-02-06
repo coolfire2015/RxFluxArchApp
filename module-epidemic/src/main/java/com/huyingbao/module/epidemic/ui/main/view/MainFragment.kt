@@ -1,51 +1,40 @@
 package com.huyingbao.module.epidemic.ui.main.view
 
+import android.graphics.Color
 import android.os.Bundle
-import android.view.View
-import androidx.recyclerview.widget.RecyclerView
-import com.huyingbao.core.arch.model.RxChange
+import com.github.mikephil.charting.components.*
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.huyingbao.core.arch.model.RxError
 import com.huyingbao.core.arch.model.RxLoading
 import com.huyingbao.core.base.flux.fragment.BaseFluxFragment
 import com.huyingbao.core.base.setTitle
-import com.huyingbao.core.utils.RecyclerItemClickListener
-import com.huyingbao.module.common.app.CommonAppAction
-import com.huyingbao.module.common.utils.scrollToTop
 import com.huyingbao.module.common.utils.showCommonError
 import com.huyingbao.module.epidemic.R
 import com.huyingbao.module.epidemic.ui.main.action.MainAction
 import com.huyingbao.module.epidemic.ui.main.action.MainActionCreator
-import com.huyingbao.module.epidemic.ui.main.adapter.ProvinceAdapter
 import com.huyingbao.module.epidemic.ui.main.store.MainStore
-import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import kotlinx.android.synthetic.main.epidemic_fragment_main.*
 import org.greenrobot.eventbus.Subscribe
-import org.jetbrains.anko.find
-import java.util.*
+import java.text.DecimalFormat
 import javax.inject.Inject
 
-class MainFragment : BaseFluxFragment<MainStore>() {
+
+class MainFragment : BaseFluxFragment<MainStore>(), OnChartValueSelectedListener {
     @Inject
     lateinit var mainActionCreator: MainActionCreator
-
-    private val rvContent by lazy {
-        view?.find<RecyclerView>(R.id.rv_content)
-    }
-    private val refreshLayout by lazy {
-        view?.find<SmartRefreshLayout>(R.id.rfl_content)
-    }
-
-    private val epidemicAdapter by lazy {
-        ProvinceAdapter(ArrayList())
-    }
 
     companion object {
         fun newInstance() = MainFragment()
     }
 
-    override fun getLayoutId() = R.layout.common_fragment_list
+    override fun getLayoutId() = R.layout.epidemic_fragment_main
 
     override fun afterCreate(savedInstanceState: Bundle?) {
         setTitle("省", true)
+        initBarChart()
         initView()
     }
 
@@ -53,24 +42,13 @@ class MainFragment : BaseFluxFragment<MainStore>() {
      * 初始化界面
      */
     private fun initView() {
-        //设置RecyclerView
-        rvContent?.apply {
-            //RecyclerView设置适配器
-            adapter = epidemicAdapter
-            //RecyclerView设置点击事件
-            addOnItemTouchListener(RecyclerItemClickListener(context, this,
-                    object : RecyclerItemClickListener.OnItemClickListener {
-                        override fun onItemClick(view: View, position: Int) {
-                        }
-                    }))
-        }
         //下拉刷新监听器，设置获取最新一页数据
-        refreshLayout?.setOnRefreshListener {
+        epidemic_rfl_content?.setOnRefreshListener {
             mainActionCreator.getDingData()
         }
         //显示数据
         rxStore?.provinceLiveData?.observe(this, androidx.lifecycle.Observer {
-            epidemicAdapter.setNewData(it)
+
         })
     }
 
@@ -78,7 +56,7 @@ class MainFragment : BaseFluxFragment<MainStore>() {
         super.onResume()
         //如果store已经创建并获取到数据，说明是横屏等操作导致的Fragment重建，不需要重新获取数据
         if (rxStore?.provinceLiveData?.value == null) {
-            refreshLayout?.autoRefresh()
+            epidemic_rfl_content?.autoRefresh()
         }
     }
 
@@ -88,7 +66,7 @@ class MainFragment : BaseFluxFragment<MainStore>() {
     @Subscribe(tags = [MainAction.GET_DING_DATA], sticky = true)
     fun onRxLoading(rxLoading: RxLoading) {
         if (!rxLoading.isLoading) {
-            refreshLayout?.finishRefresh()
+            epidemic_rfl_content?.finishRefresh()
         }
     }
 
@@ -101,10 +79,77 @@ class MainFragment : BaseFluxFragment<MainStore>() {
     }
 
     /**
-     * 滑动到顶部
+     * 初始化柱形图控件属性
      */
-    @Subscribe(tags = [CommonAppAction.SCROLL_TO_TOP], sticky = true)
-    fun scrollToTop(rxChange: RxChange) {
-        rvContent?.scrollToTop()
+    private fun initBarChart() {
+        bar_chart_province.apply {
+            setDrawBarShadow(false)
+            setDrawValueAboveBar(true)
+            description.isEnabled = false
+            setMaxVisibleValueCount(60)
+            // scaling can now only be done on x- and y-axis separately
+            setPinchZoom(false)
+            setDrawGridBackground(false)
+            //X轴
+            xAxis.apply {
+                position = XAxis.XAxisPosition.BOTTOM
+                setDrawAxisLine(false)
+                granularity = 1f
+                valueFormatter = XAxisValueFormatter()
+            }
+            //获取到图形左边的Y轴
+            axisLeft.apply {
+                //设置限制临界线
+                addLimitLine(LimitLine(3f, "临界点").apply {
+                    lineColor = Color.GREEN
+                    lineWidth = 1f
+                    textColor = Color.GREEN
+                })
+                setLabelCount(8, false)
+                valueFormatter = MyAxisValueFormatter()
+                setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
+                spaceTop = 15f
+                axisMinimum = 0f
+            }
+            //获取到图形右边的Y轴，并设置为不显示
+            axisRight.isEnabled = false
+            //图例设置
+            legend.apply {
+                verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
+                horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
+                orientation = Legend.LegendOrientation.HORIZONTAL
+                setDrawInside(false)
+                form = Legend.LegendForm.SQUARE
+                formSize = 9f
+                textSize = 11f
+                xEntrySpace = 4f
+            }
+        }
+    }
+
+    class MyAxisValueFormatter : ValueFormatter() {
+        private val mFormat: DecimalFormat = DecimalFormat("###,###,###,##0.000")
+        override fun getFormattedValue(value: Float, axis: AxisBase): String {
+            return mFormat.format(value).toString() + " $"
+        }
+
+    }
+
+    class XAxisValueFormatter : ValueFormatter() {
+        private val xStrs = arrayOf("春", "夏", "秋", "冬")
+
+        override fun getFormattedValue(value: Float, axis: AxisBase?): String? {
+            var position = value.toInt()
+            if (position >= 4) {
+                position = 0
+            }
+            return xStrs[position]
+        }
+    }
+
+    override fun onNothingSelected() {
+    }
+
+    override fun onValueSelected(e: Entry?, h: Highlight?) {
     }
 }

@@ -6,4 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.view.MainFragment">
 
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/epidemic_rfl_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srlEnablePreviewInEditMode="true"
+        app:srlPrimaryColor="?android:attr/colorPrimary">
+        <!--srlAccentColor srlPrimaryColor 将会改变 Header 和 Footer 的主题颜色-->
+        <!--srlEnablePreviewInEditMode 可以开启和关闭预览功能-->
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/bar_chart_province"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/dp_24"
+            tools:ignore="MissingConstraints" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
