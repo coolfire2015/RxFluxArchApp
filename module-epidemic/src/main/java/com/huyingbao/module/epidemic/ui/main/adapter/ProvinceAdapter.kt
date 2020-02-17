@@ -14,6 +14,12 @@ class ProvinceAdapter(
         R.layout.epidemic_recycle_item,
         data) {
     override fun convert(helper: BaseViewHolder, item: AreaProvinceStat?) {
-        helper.setText(R.id.tv_item_title, item?.provinceName)
+        helper
+                .setText(R.id.tv_item_name, item?.provinceShortName)
+                .setText(R.id.tv_item_confirmed, item?.confirmedCount?.toString())
+                .setText(R.id.tv_item_current, item?.currentConfirmedCount?.toString())
+                .setText(R.id.tv_item_cured, item?.curedCount?.toString())
+                .setText(R.id.tv_item_dead, item?.deadCount?.toString())
+                .setText(R.id.tv_item_suspected, item?.suspectedCount?.toString())
     }
 }

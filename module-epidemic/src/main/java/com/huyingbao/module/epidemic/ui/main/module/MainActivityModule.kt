@@ -1,7 +1,7 @@
 package com.huyingbao.module.epidemic.ui.main.module
 
 import com.huyingbao.core.arch.scope.FragmentScope
-import com.huyingbao.module.epidemic.ui.main.view.MainFragment
+import com.huyingbao.module.epidemic.ui.main.view.ProvinceFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -9,6 +9,6 @@ import dagger.android.ContributesAndroidInjector
 abstract class MainActivityModule {
     @FragmentScope
     @ContributesAndroidInjector
-    abstract fun injectMainFragment(): MainFragment
+    abstract fun injectProvinceFragment(): ProvinceFragment
 }
 
