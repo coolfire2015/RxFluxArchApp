@@ -53,7 +53,7 @@ class ArticleListFragment : BaseFluxFragment<ArticleStore>() {
     override fun getLayoutId() = R.layout.common_fragment_list
 
     override fun afterCreate(savedInstanceState: Bundle?) {
-        setTitle(R.string.app_label_wan, true)
+        setTitle(R.string.app_label_wan, false)
         initView()
     }
 

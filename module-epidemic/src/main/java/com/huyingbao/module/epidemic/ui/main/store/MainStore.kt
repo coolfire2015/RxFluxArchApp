@@ -28,9 +28,9 @@ class MainStore @Inject constructor(
     }
 
     @Subscribe(tags = [MainAction.GET_DING_DATA])
-    fun onGetDingData(rxAction: RxAction){
-        val dingResponse=rxAction.getResponse<DingResponse>()
-        provinceLiveData.value=dingResponse?.data?.getAreaStat
+    fun onGetDingData(rxAction: RxAction) {
+        val dingResponse = rxAction.getResponse<DingResponse>()
+        provinceLiveData.value = dingResponse?.data?.getAreaStat
     }
 }
 

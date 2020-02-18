@@ -44,6 +44,7 @@ abstract class EpidemicAppModule {
          * Api根路径
          */
         const val BASE_API = "https://service-0gg71fu4-1252957949.gz.apigw.tencentcs.com/"
+
         /**
          * 提供[Retrofit]单例对象
          *

@@ -42,11 +42,11 @@ class ArticleActivity : BaseFluxFragActivity<ArticleStore>() {
 
     @Subscribe(tags = [ArticleAction.TO_FRIEND], sticky = true)
     fun toFriend(rxChange: RxChange) {
-        setFragment(R.id.fl_container, FriendFragment.newInstance(), FragmentOp.OP_HIDE)
+        setFragment(getFragmentContainerId(), FriendFragment.newInstance(), FragmentOp.OP_HIDE)
     }
 
     @Subscribe(tags = [ArticleAction.TO_BANNER], sticky = true)
     fun toBanner(rxChange: RxChange) {
-        setFragment(R.id.fl_container, BannerFragment.newInstance(), FragmentOp.OP_HIDE)
+        setFragment(getFragmentContainerId(), BannerFragment.newInstance(), FragmentOp.OP_HIDE)
     }
 }
