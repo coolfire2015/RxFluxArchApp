@@ -41,16 +41,19 @@ abstract class BaseFluxNavActivity<T : RxActivityStore> :
     override fun onSupportNavigateUp() = findNavController(getFragmentContainerId()).navigateUp()
 
     /**
-     * [Toolbar]Menu点击事件，拦截返回按钮，如果Fragment回退栈不为空，先弹出Fragment
+     * [Toolbar]Menu点击事件，拦截返回按钮，[androidx.navigation.NavController.navigateUp]弹出 Fragment
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
+        when (item.itemId) {
             // 点击返回图标事件
             android.R.id.home -> {
-                findNavController(getFragmentContainerId()).navigateUp()
-                true
+                if (findNavController(getFragmentContainerId()).navigateUp()) {
+                    return true
+                }
+                finish()
+                return true
             }
-            else -> super.onOptionsItemSelected(item)
+            else -> return super.onOptionsItemSelected(item)
         }
     }
 }

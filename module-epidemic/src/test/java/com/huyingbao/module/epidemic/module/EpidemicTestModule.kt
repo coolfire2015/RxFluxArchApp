@@ -3,16 +3,11 @@ package com.huyingbao.module.epidemic.module
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.GsonBuilder
 import com.huyingbao.module.common.app.CommonAppModule
-import com.huyingbao.module.epidemic.BuildConfig
 import com.huyingbao.module.epidemic.app.EpidemicAppModule
 import com.huyingbao.module.epidemic.ui.main.store.MainStore
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import io.appflate.restmock.JVMFileParser
-import io.appflate.restmock.RESTMockServer
-import io.appflate.restmock.RESTMockServerStarter
-import io.appflate.restmock.utils.RequestMatchers
 import it.cosenonjaviste.daggermock.DaggerMock
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

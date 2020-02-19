@@ -16,6 +16,4 @@ class MainActivity : BaseFluxNavActivity<MainStore>() {
 
     override fun afterCreate(savedInstanceState: Bundle?) {
     }
-
-
 }
