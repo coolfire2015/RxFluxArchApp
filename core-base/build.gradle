@@ -1,0 +1,107 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = "com.github.coolfire2015"
+
+android {
+    //编译版本
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    //默认配置
+    defaultConfig {
+        //Sdk版本
+        minSdkVersion MIN_SDK_VERSION as int
+        targetSdkVersion TARGET_SDK_VERSION as int
+        //版本信息
+        versionCode rootProject.gitGitVersionCode()
+        versionName rootProject.getGitVersionName()
+    }
+    //构建过程
+    buildTypes {
+        //自定义buildType.name
+        release {
+            //混淆开关
+            minifyEnabled false
+            //混淆文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    //lint设置
+    lintOptions {
+        //lint 不被终止
+        abortOnError false
+        //打Release版本时,不进行检测
+        checkReleaseBuilds false
+        //关闭检索的功能
+        disable 'GoogleAppIndexingWarning'
+    }
+    //数据绑定
+    dataBinding {
+        enabled = true
+    }
+    //Dex分包
+    dexOptions {
+        jumboMode = true
+        javaMaxHeapSize "4g"//增加java堆内存大小
+    }
+    //Java1.8支持
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    //Kotlin Java1.8支持
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    //Kotlin 实验功能
+    androidExtensions {
+        experimental = true
+    }
+}
+
+//将源代码打包进aar
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.javaDirectories
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+//仓库
+repositories {
+    //本地仓库,添加aar支持
+    flatDir { dirs 'libs' }
+}
+
+dependencies {
+    //内核
+//    api project(':core-arch')
+    api "com.github.coolfire2015.RxFluxArchitecture:core-arch:${RX_FLUX_ARCHITECTURE}"
+
+    //工具
+    api "com.github.coolfire2015:RxFluxUtils:${RX_FLUX_UTILS}"
+    //X-Core
+    api "androidx.core:core-ktx:${X_CORE}"
+    //X-Fragment
+    api "androidx.fragment:fragment:${X_FRAGMENT}"
+    api "androidx.fragment:fragment-ktx:${X_FRAGMENT}"
+    //X-Lifecycle
+    api "androidx.lifecycle:lifecycle-livedata-ktx:${X_LIFECYCLE}"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:${X_LIFECYCLE}"
+    //X-Navigation
+    api "androidx.navigation:navigation-ui-ktx:${X_NAVIGATION}"
+    api "androidx.navigation:navigation-fragment-ktx:${X_NAVIGATION}"
+    //X-MultiDex
+    api "androidx.multidex:multidex:${X_MULTIDEX}"
+    //X-Material
+    api "com.google.android.material:material:${X_MATERIAL}"
+    //Dagger编译时生成
+    kapt "com.google.dagger:dagger-compiler:${DAGGER}"
+    kapt "com.google.dagger:dagger-android-processor:${DAGGER}"
+    //AndroidX迁移
+    kapt "com.android.tools.build.jetifier:jetifier-core:${JETIFIER}"
+}

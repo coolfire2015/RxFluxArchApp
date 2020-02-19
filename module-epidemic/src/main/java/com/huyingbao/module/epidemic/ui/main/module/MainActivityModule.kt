@@ -25,26 +25,26 @@ abstract class MainActivityModule {
 
     @FragmentScope
     @ContributesAndroidInjector
-    abstract fun injectEntriesFragment():EntriesFragment
+    abstract fun injectEntriesFragment(): EntriesFragment
 
     @FragmentScope
     @ContributesAndroidInjector
-    abstract fun injectGoodsFragment():GoodsFragment
+    abstract fun injectGoodsFragment(): GoodsFragment
 
     @FragmentScope
     @ContributesAndroidInjector
-    abstract fun injectRecommendFragment():RecommendFragment
+    abstract fun injectRecommendFragment(): RecommendFragment
 
     @FragmentScope
     @ContributesAndroidInjector
-    abstract fun injectRumorFragment():RumorFragment
+    abstract fun injectRumorFragment(): RumorFragment
 
     @FragmentScope
     @ContributesAndroidInjector
-    abstract fun injectTimelinFragment():TimelinFragment
+    abstract fun injectTimelinFragment(): TimelinFragment
 
     @FragmentScope
     @ContributesAndroidInjector
-    abstract fun injectWikiFragment():WikiFragment
+    abstract fun injectWikiFragment(): WikiFragment
 }
 

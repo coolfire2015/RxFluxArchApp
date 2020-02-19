@@ -1,4 +1,5 @@
 //include ':module-app'
+include ':core-base'
 include ':module-common'
 include ':module-epidemic'
 //include ':module-github'

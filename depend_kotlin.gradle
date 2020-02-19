@@ -67,7 +67,8 @@ configurations.all {
 
 dependencies {
     //通用Base库
-    implementation "com.github.coolfire2015.RxFluxArchitecture:core-base:${RX_FLUX_ARCHITECTURE}"
+    implementation project(':core-base')
+//    implementation "com.github.coolfire2015.RxFluxArchitecture:core-base:${RX_FLUX_ARCHITECTURE}"
     //测试Android
     testImplementation "androidx.test:runner:${TEST_X_RUNNER}"
     testImplementation "androidx.test.ext:junit:${TEST_X_JUNIT}"
