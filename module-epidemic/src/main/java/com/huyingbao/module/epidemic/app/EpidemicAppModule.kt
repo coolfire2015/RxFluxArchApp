@@ -40,27 +40,30 @@ abstract class EpidemicAppModule {
 
     @Module
     companion object {
-        /**
-         * Api根路径
-         */
-        const val BASE_API = "https://service-0gg71fu4-1252957949.gz.apigw.tencentcs.com/"
-
-        /**
-         * 提供[Retrofit]单例对象
-         *
-         * 每个子模块的Module中都提供[Retrofit]单例对象，使用[Named]注解，子模块提供的单例对象。
-         */
         @JvmStatic
         @Singleton
         @Provides
-        @Named(BuildConfig.MODULE_NAME)
-        fun provideRetrofit(builder: OkHttpClient.Builder): Retrofit {
+        fun provideDingApi(builder: OkHttpClient.Builder): DingApi {
             return Retrofit.Builder()
-                    .baseUrl(BASE_API)
+                    .baseUrl(DingApi.DING_API)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(builder.build())
                     .build()
+                    .create(DingApi::class.java)
+        }
+
+        @JvmStatic
+        @Singleton
+        @Provides
+        fun provideNewsApi(builder: OkHttpClient.Builder): NewsApi {
+            return Retrofit.Builder()
+                    .baseUrl(NewsApi.NEWS_API)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .client(builder.build())
+                    .build()
+                    .create(NewsApi::class.java)
         }
     }
 }

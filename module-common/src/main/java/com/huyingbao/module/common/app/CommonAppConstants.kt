@@ -132,7 +132,7 @@ class CommonAppConstants {
                 routerMap[it.getString(R.string.app_label_github)] = LoginActivity
                 routerMap[it.getString(R.string.app_label_wan)] = ArticleActivity
                 routerMap[it.getString(R.string.app_label_gan)] = RandomActivity
-                routerMap[it.getString(R.string.app_label_epidemic)]= EpidemicMainActivity
+                routerMap[it.getString(R.string.app_label_epidemic)] = EpidemicMainActivity
             }
         }
 

@@ -77,9 +77,9 @@
         tools:layout="@layout/epidemic_fragment_rumor" />
     <fragment
         android:id="@+id/timelinFragment"
-        android:name="com.huyingbao.module.epidemic.ui.main.view.TimelinFragment"
+        android:name="com.huyingbao.module.epidemic.ui.main.view.TimelineFragment"
         android:label="epidemic_fragment_timelin"
-        tools:layout="@layout/epidemic_fragment_timelin" />
+        tools:layout="@layout/epidemic_fragment_timeline" />
     <fragment
         android:id="@+id/wikiFragment"
         android:name="com.huyingbao.module.epidemic.ui.main.view.WikiFragment"

@@ -17,11 +17,3 @@ interface MainAction {
      */
     fun getDingData()
 }
-
-interface MainApi {
-    /**
-     * 获取丁香园数据
-     */
-    @GET("release/dingxiangyuan")
-    fun getDingData(): Observable<DingResponse>
-}

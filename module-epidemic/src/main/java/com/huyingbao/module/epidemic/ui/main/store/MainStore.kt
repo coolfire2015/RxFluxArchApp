@@ -5,7 +5,7 @@ import com.huyingbao.core.arch.dispatcher.RxDispatcher
 import com.huyingbao.core.arch.model.RxAction
 import com.huyingbao.core.arch.store.RxActivityStore
 import com.huyingbao.module.epidemic.ui.main.action.MainAction
-import com.huyingbao.module.epidemic.ui.main.model.AreaProvinceStat
+import com.huyingbao.module.epidemic.ui.main.model.AreaProvince
 import com.huyingbao.module.epidemic.ui.main.model.DingResponse
 import org.greenrobot.eventbus.Subscribe
 import javax.inject.Inject
@@ -19,7 +19,7 @@ class MainStore @Inject constructor(
      * 省数据
      */
     val provinceLiveData by lazy {
-        MutableLiveData<ArrayList<AreaProvinceStat>>()
+        MutableLiveData<ArrayList<AreaProvince>>()
     }
 
     override fun onCleared() {
@@ -29,8 +29,7 @@ class MainStore @Inject constructor(
 
     @Subscribe(tags = [MainAction.GET_DING_DATA])
     fun onGetDingData(rxAction: RxAction) {
-        val dingResponse = rxAction.getResponse<DingResponse>()
-        provinceLiveData.value = dingResponse?.data?.getAreaStat
+        provinceLiveData.value = rxAction.getResponse<DingResponse<ArrayList<AreaProvince>>>()?.results
     }
 }
 

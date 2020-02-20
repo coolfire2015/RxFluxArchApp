@@ -2,7 +2,7 @@
     <!--Theme.AppCompat:黑色主题-->
     <!--Theme.AppCompat.Light:浅色主题-->
     <!--Theme.AppCompat.Light.DarkActionBar:带黑色工具栏的浅色主题-->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!--应用中图标颜色-->
         <item name="colorIcon">@color/common_icon</item>
         <!--应用的主要色调,actionBar默认使用该颜色,Toolbar导航栏的底色 -->

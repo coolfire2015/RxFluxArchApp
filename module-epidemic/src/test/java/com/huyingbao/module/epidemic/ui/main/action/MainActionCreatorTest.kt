@@ -34,7 +34,7 @@ class MainActionCreatorTest : BaseSubscriberTest() {
 
     @Before
     fun setUp() {
-        mainActionCreator = MainActionCreator(rxDispatcher, rxActionManager, EpidemicMockUtils.epidemicTestComponent!!.retrofit)
+        mainActionCreator = MainActionCreator(rxDispatcher, rxActionManager, EpidemicMockUtils.epidemicTestComponent!!.dingApi)
     }
 
     @Test

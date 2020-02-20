@@ -41,7 +41,7 @@ abstract class MainActivityModule {
 
     @FragmentScope
     @ContributesAndroidInjector
-    abstract fun injectTimelinFragment(): TimelinFragment
+    abstract fun injectTimelinFragment(): TimelineFragment
 
     @FragmentScope
     @ContributesAndroidInjector

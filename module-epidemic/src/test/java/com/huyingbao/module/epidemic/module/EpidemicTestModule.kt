@@ -1,18 +1,14 @@
 package com.huyingbao.module.epidemic.module
 
 import androidx.lifecycle.ViewModelProvider
-import com.google.gson.GsonBuilder
 import com.huyingbao.module.common.app.CommonAppModule
+import com.huyingbao.module.epidemic.app.DingApi
 import com.huyingbao.module.epidemic.app.EpidemicAppModule
 import com.huyingbao.module.epidemic.ui.main.store.MainStore
 import dagger.Component
 import dagger.Module
 import dagger.Provides
 import it.cosenonjaviste.daggermock.DaggerMock
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 /**
@@ -33,7 +29,7 @@ interface EpidemicTestComponent {
     /**
      * 提供实际创建的工具对象
      */
-    val retrofit: Retrofit
+    val dingApi: DingApi
 }
 
 /**
@@ -55,22 +51,6 @@ class EpidemicTestModule {
     @Provides
     fun provideMainStore(rxStoreFactory: ViewModelProvider.Factory): MainStore {
         return rxStoreFactory.create(MainStore::class.java)
-    }
-
-    /**
-     * 初始化Retrofit，覆盖[EpidemicAppModule.provideRetrofit]方法
-     *
-     * @param builder 来自[CommonAppModule]
-     */
-    @Singleton
-    @Provides
-    fun provideRetrofit(builder: OkHttpClient.Builder): Retrofit {
-        val retrofitBuilder = Retrofit.Builder()
-                .baseUrl(EpidemicAppModule.BASE_API)
-                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().serializeNulls().create()))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(builder.build())
-        return retrofitBuilder.build()
     }
 }
 

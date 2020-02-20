@@ -3,7 +3,7 @@ package com.huyingbao.module.common.widget
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import androidx.cardview.widget.CardView
+import com.google.android.material.card.MaterialCardView
 import com.huyingbao.module.common.R
 import kotlinx.android.synthetic.main.common_cardview_info.view.*
 
@@ -16,7 +16,7 @@ class CommonInfoCardView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0)
-    : CardView(context, attrs, defStyleAttr) {
+    : MaterialCardView(context, attrs, defStyleAttr) {
 
     var infoTitle: CharSequence? = null
         set(value) {

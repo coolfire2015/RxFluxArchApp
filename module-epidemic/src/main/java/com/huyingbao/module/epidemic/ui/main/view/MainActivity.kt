@@ -1,7 +1,6 @@
 package com.huyingbao.module.epidemic.ui.main.view
 
 import android.os.Bundle
-import androidx.navigation.findNavController
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.huyingbao.core.arch.model.RxError
 import com.huyingbao.core.arch.model.RxLoading

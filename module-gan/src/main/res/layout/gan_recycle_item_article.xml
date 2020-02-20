@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/CommonCardView">
@@ -13,7 +13,7 @@
         android:paddingEnd="@dimen/dp_16"
         android:paddingBottom="@dimen/dp_10">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_item_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="coolfirecoolfirecoolfirecoolfirecoolfirecoolfirecoolfire" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_item_author"
             tools:text="ArchArchArchArchArchArchArchArchArchArchArchArchArchArchArchArchArchArchArchArchArchArchArchArch" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_item_chapter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_item_title"
             tools:text="Jetpack/Arch" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_item_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,4 +63,4 @@
             app:layout_constraintTop_toTopOf="@+id/tv_item_author"
             tools:text="2019-07-29" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

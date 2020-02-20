@@ -5,12 +5,15 @@ import com.huyingbao.core.base.flux.fragment.BaseFluxFragment
 import com.huyingbao.module.epidemic.R
 import com.huyingbao.module.epidemic.ui.main.store.MainStore
 
-class TimelinFragment : BaseFluxFragment<MainStore>() {
+/**
+ * 时间线
+ */
+class TimelineFragment : BaseFluxFragment<MainStore>() {
     companion object {
-        fun newInstance() = TimelinFragment()
+        fun newInstance() = TimelineFragment()
     }
 
-    override fun getLayoutId() = R.layout.epidemic_fragment_timelin
+    override fun getLayoutId() = R.layout.epidemic_fragment_timeline
 
     override fun afterCreate(savedInstanceState: Bundle?) {
     }
