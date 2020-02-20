@@ -4,10 +4,10 @@ import androidx.lifecycle.ViewModel
 import com.huyingbao.core.arch.scope.ActivityScope
 import com.huyingbao.core.arch.store.RxStoreKey
 import com.huyingbao.module.common.app.CommonAppModule
-import com.huyingbao.module.epidemic.BuildConfig
 import com.huyingbao.module.epidemic.ui.main.module.MainActivityModule
 import com.huyingbao.module.epidemic.ui.main.store.MainStore
 import com.huyingbao.module.epidemic.ui.main.view.MainActivity
+import com.huyingbao.module.epidemic.ui.news.module.NewsActivityModule
 import com.huyingbao.module.epidemic.ui.news.store.NewsStore
 import com.huyingbao.module.epidemic.ui.news.view.NewsActivity
 import dagger.Binds
@@ -19,7 +19,6 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Named
 import javax.inject.Singleton
 
 /**
@@ -41,7 +40,7 @@ abstract class EpidemicAppModule {
     abstract fun bindMainStore(mainStore: MainStore): ViewModel
 
     @ActivityScope
-    @ContributesAndroidInjector(modules = [NewsActivity::class])
+    @ContributesAndroidInjector(modules = [NewsActivityModule::class])
     abstract fun injectNewsActivity(): NewsActivity
 
     @Singleton

@@ -1,9 +1,9 @@
 package com.huyingbao.module.epidemic.ui.main.model
 
 /**
- * 地域数据父类
+ * 患者数据
  */
-open class AreaBase {
+open class Count {
     /**
      * 累计确诊
      */

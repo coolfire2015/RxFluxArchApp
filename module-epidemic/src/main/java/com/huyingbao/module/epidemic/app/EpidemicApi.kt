@@ -2,6 +2,9 @@ package com.huyingbao.module.epidemic.app
 
 import com.huyingbao.module.epidemic.ui.main.model.AreaProvince
 import com.huyingbao.module.epidemic.ui.main.model.DingResponse
+import com.huyingbao.module.epidemic.ui.main.model.OverAll
+import com.huyingbao.module.epidemic.ui.main.model.Rumor
+import com.huyingbao.module.epidemic.ui.news.model.NewsResponse
 import io.reactivex.Observable
 import retrofit2.http.GET
 
@@ -13,8 +16,14 @@ interface DingApi {
         const val DING_API = "http://lab.isaaclin.cn/"
     }
 
+    @GET("nCoV/api/overall")
+    fun getOverAll(): Observable<DingResponse<ArrayList<OverAll>>>
+
     @GET("nCoV/api/area")
-    fun getArea(): Observable<DingResponse<ArrayList<AreaProvince>>>
+    fun getAreaData(): Observable<DingResponse<ArrayList<AreaProvince>>>
+
+    @GET("nCoV/api/rumors")
+    fun getRumors(): Observable<DingResponse<ArrayList<Rumor>>>
 }
 
 /**
@@ -25,4 +34,6 @@ interface NewsApi {
         const val NEWS_API = "http://ncov.news.dragon-yuan.me/"
     }
 
+    @GET("api/news")
+    fun getNews(): Observable<NewsResponse>
 }

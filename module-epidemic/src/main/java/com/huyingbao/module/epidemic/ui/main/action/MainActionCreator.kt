@@ -13,8 +13,18 @@ class MainActionCreator @Inject constructor(
         rxActionManager: RxActionManager,
         private val dingApi: DingApi
 ) : RxActionCreator(rxDispatcher, rxActionManager), MainAction {
-    override fun getDingData() {
-        val rxAction = newRxAction(MainAction.GET_DING_DATA).apply { isGlobalCatch = false }
-        postHttpLoadingAction(rxAction, dingApi.getArea())
+    override fun getOverAll() {
+        val rxAction = newRxAction(MainAction.GET_OVER_ALL).apply { isGlobalCatch = false }
+        postHttpLoadingAction(rxAction, dingApi.getOverAll())
+    }
+
+    override fun getAreaData(province: String?) {
+        val rxAction = newRxAction(MainAction.GET_AREA_DATA).apply { isGlobalCatch = false }
+        postHttpLoadingAction(rxAction, dingApi.getAreaData())
+    }
+
+    override fun getRumors() {
+        val rxAction = newRxAction(MainAction.GET_AREA_DATA).apply { isGlobalCatch = false }
+        postHttpLoadingAction(rxAction, dingApi.getRumors())
     }
 }

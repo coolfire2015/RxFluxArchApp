@@ -29,14 +29,14 @@ class MainActivity : BaseFluxNavActivity<MainStore>() {
     override fun afterCreate(savedInstanceState: Bundle?) {
         //设置刷新监听器,刷新获取数据
         main_rfl_content?.setOnRefreshListener {
-            mainActionCreator.getDingData()
+            mainActionCreator.getAreaData(null)
         }
     }
 
     override fun onResume() {
         super.onResume()
         //如果store已经创建并获取到数据，说明是横屏等操作导致的 Activity 重建，不需要重新获取数据
-        if (rxStore?.provinceLiveData?.value == null) {
+        if (rxStore?.areaLiveData?.value == null) {
             main_rfl_content?.autoRefresh()
         }
     }
@@ -44,7 +44,7 @@ class MainActivity : BaseFluxNavActivity<MainStore>() {
     /**
      * 显示进度对话框，接收[RxLoading]，粘性，该方法不经过RxStore，由RxFluxView直接处理
      */
-    @Subscribe(tags = [MainAction.GET_DING_DATA], sticky = true)
+    @Subscribe(tags = [MainAction.GET_AREA_DATA], sticky = true)
     fun onRxLoading(rxLoading: RxLoading) {
         if (!rxLoading.isLoading) {
             main_rfl_content?.finishRefresh()
@@ -54,7 +54,7 @@ class MainActivity : BaseFluxNavActivity<MainStore>() {
     /**
      * 接收[RxError]，粘性
      */
-    @Subscribe(tags = [MainAction.GET_DING_DATA], sticky = true)
+    @Subscribe(tags = [MainAction.GET_AREA_DATA], sticky = true)
     fun onRxError(rxError: RxError) {
         showCommonError(this, rxError)
     }

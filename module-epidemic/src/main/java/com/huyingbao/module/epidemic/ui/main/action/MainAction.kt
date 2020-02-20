@@ -1,19 +1,33 @@
 package com.huyingbao.module.epidemic.ui.main.action
 
-import com.huyingbao.module.epidemic.ui.main.model.DingResponse
-import io.reactivex.Observable
-import retrofit2.http.GET
-
 interface MainAction {
     companion object {
         /**
-         * 获取丁香园数据
+         * 获取疫情概览
          */
-        const val GET_DING_DATA = "getDingData"
+        const val GET_OVER_ALL = "getOverAll"
+        /**
+         * 获取地域数据
+         */
+        const val GET_AREA_DATA = "getAreaData"
+        /**
+         * 获取谣言
+         */
+        const val GET_RUMORS = "getRumors"
     }
 
     /**
-     * 获取丁香园数据
+     * 获取疫情概览
      */
-    fun getDingData()
+    fun getOverAll()
+
+    /**
+     * 获取地域数据
+     */
+    fun getAreaData(province: String?)
+
+    /**
+     * 获取谣言
+     */
+    fun getRumors()
 }

@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.huyingbao.module.common.app.CommonAppModule
 import com.huyingbao.module.epidemic.app.DingApi
 import com.huyingbao.module.epidemic.app.EpidemicAppModule
+import com.huyingbao.module.epidemic.app.NewsApi
 import com.huyingbao.module.epidemic.ui.main.store.MainStore
+import com.huyingbao.module.epidemic.ui.news.store.NewsStore
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -30,6 +32,7 @@ interface EpidemicTestComponent {
      * 提供实际创建的工具对象
      */
     val dingApi: DingApi
+    val newsApi: NewsApi
 }
 
 /**
@@ -51,6 +54,12 @@ class EpidemicTestModule {
     @Provides
     fun provideMainStore(rxStoreFactory: ViewModelProvider.Factory): MainStore {
         return rxStoreFactory.create(MainStore::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideNewsStore(rxStoreFactory: ViewModelProvider.Factory): NewsStore {
+        return rxStoreFactory.create(NewsStore::class.java)
     }
 }
 

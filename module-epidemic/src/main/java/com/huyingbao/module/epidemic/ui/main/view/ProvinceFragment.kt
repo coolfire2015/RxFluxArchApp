@@ -58,7 +58,7 @@ class ProvinceFragment : BaseFluxFragment<MainStore>() {
                     }))
         }
         //显示数据
-        rxStore?.provinceLiveData?.observe(this, androidx.lifecycle.Observer {
+        rxStore?.areaLiveData?.observe(this, androidx.lifecycle.Observer {
             epidemicAdapter.setNewData(it)
         })
     }
@@ -66,7 +66,7 @@ class ProvinceFragment : BaseFluxFragment<MainStore>() {
     /**
      * 接收[RxError]，粘性
      */
-    @Subscribe(tags = [MainAction.GET_DING_DATA], sticky = true)
+    @Subscribe(tags = [MainAction.GET_AREA_DATA], sticky = true)
     fun onRxError(rxError: RxError) {
         activity?.let { showCommonError(it, rxError) }
     }

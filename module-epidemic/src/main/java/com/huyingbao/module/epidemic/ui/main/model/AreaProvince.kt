@@ -12,4 +12,4 @@ data class AreaProvince(
         val provinceName: String,
         val provinceShortName: String,
         val updateTime: Long
-) : AreaBase()
+) : Count()

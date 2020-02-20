@@ -4,4 +4,4 @@ data class AreaCity(
         val cityEnglishName: String,
         val cityName: String,
         val locationId: Int
-) : AreaBase()
+) : Count()

@@ -38,12 +38,29 @@ class MainActionCreatorTest : BaseSubscriberTest() {
     }
 
     @Test
-    fun getDingDataTest() {
+    fun getOverAll() {
         //调用接口
-        mainActionCreator?.getDingData()
+        mainActionCreator?.getOverAll()
         //验证接口调用成功，发送数据
         verify(rxDispatcher).postRxAction(any())
         //验证RxStore接收到数据，因为RxStore是mock的，故该方法并不会通知View更新数据
-        verify(mainStore).onGetDingData(any())
+        verify(mainStore).onGetOverAll(any())
+    }
+
+    @Test
+    fun getAreaData() {
+        //调用接口
+        mainActionCreator?.getAreaData(null)
+        //验证接口调用成功，发送数据
+        verify(rxDispatcher).postRxAction(any())
+        //验证RxStore接收到数据，因为RxStore是mock的，故该方法并不会通知View更新数据
+        verify(mainStore).onGetAreaData(any())
+    }
+
+    @Test
+    fun getRumors() {
+        mainActionCreator?.getRumors()
+        verify(rxDispatcher).postRxAction(any())
+        verify(mainStore).onGetRumors(any())
     }
 }
