@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup,android:label">
-        <activity android:name="com.huyingbao.module.epidemic.ui.main.view.MainActivity" />
+        <activity android:name=".ui.news.view.NewsActivity" />
+        <activity android:name=".ui.main.view.MainActivity" />
     </application>
 
 </manifest>

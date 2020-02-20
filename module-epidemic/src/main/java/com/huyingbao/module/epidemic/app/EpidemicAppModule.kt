@@ -8,6 +8,8 @@ import com.huyingbao.module.epidemic.BuildConfig
 import com.huyingbao.module.epidemic.ui.main.module.MainActivityModule
 import com.huyingbao.module.epidemic.ui.main.store.MainStore
 import com.huyingbao.module.epidemic.ui.main.view.MainActivity
+import com.huyingbao.module.epidemic.ui.news.store.NewsStore
+import com.huyingbao.module.epidemic.ui.news.view.NewsActivity
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -37,6 +39,16 @@ abstract class EpidemicAppModule {
     @IntoMap
     @RxStoreKey(MainStore::class)
     abstract fun bindMainStore(mainStore: MainStore): ViewModel
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = [NewsActivity::class])
+    abstract fun injectNewsActivity(): NewsActivity
+
+    @Singleton
+    @Binds
+    @IntoMap
+    @RxStoreKey(NewsStore::class)
+    abstract fun bindNewsStore(newsStore: NewsStore): ViewModel
 
     @Module
     companion object {
