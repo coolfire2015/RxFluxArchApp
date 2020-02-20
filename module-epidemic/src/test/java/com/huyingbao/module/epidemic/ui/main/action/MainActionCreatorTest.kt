@@ -48,12 +48,16 @@ class MainActionCreatorTest : BaseSubscriberTest() {
     }
 
     @Test
-    fun getAreaData() {
-        //调用接口
-        mainActionCreator?.getAreaData(null)
-        //验证接口调用成功，发送数据
+    fun getProvinceName() {
+        mainActionCreator?.getProvinceName()
         verify(rxDispatcher).postRxAction(any())
-        //验证RxStore接收到数据，因为RxStore是mock的，故该方法并不会通知View更新数据
+        verify(mainStore).onGetProvinceName(any())
+    }
+
+    @Test
+    fun getAreaData() {
+        mainActionCreator?.getAreaData(null)
+        verify(rxDispatcher).postRxAction(any())
         verify(mainStore).onGetAreaData(any())
     }
 

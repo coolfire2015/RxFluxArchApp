@@ -7,6 +7,10 @@ interface MainAction {
          */
         const val GET_OVER_ALL = "getOverAll"
         /**
+         * 获取地域列表
+         */
+        const val GET_PROVINCE_NAME = "getProvinceName"
+        /**
          * 获取地域数据
          */
         const val GET_AREA_DATA = "getAreaData"
@@ -20,6 +24,11 @@ interface MainAction {
      * 获取疫情概览
      */
     fun getOverAll()
+
+    /**
+     * 获取地域列表
+     */
+    fun getProvinceName()
 
     /**
      * 获取地域数据

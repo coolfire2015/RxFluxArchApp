@@ -19,6 +19,9 @@ interface DingApi {
     @GET("nCoV/api/overall")
     fun getOverAll(): Observable<DingResponse<ArrayList<OverAll>>>
 
+    @GET("nCoV/api/provinceName")
+    fun getProvinceName(): Observable<DingResponse<ArrayList<String>>>
+
     @GET("nCoV/api/area")
     fun getAreaData(): Observable<DingResponse<ArrayList<AreaProvince>>>
 

@@ -20,6 +20,9 @@ class MainStore @Inject constructor(
     val overAllLiveData by lazy {
         MutableLiveData<OverAll>()
     }
+    val provinceNamesLiveData by lazy {
+        MutableLiveData<ArrayList<String>>()
+    }
     val areaLiveData by lazy {
         MutableLiveData<ArrayList<AreaProvince>>()
     }
@@ -35,6 +38,11 @@ class MainStore @Inject constructor(
     @Subscribe(tags = [MainAction.GET_OVER_ALL])
     fun onGetOverAll(rxAction: RxAction) {
         overAllLiveData.value = rxAction.getResponse<DingResponse<ArrayList<OverAll>>>()?.results?.get(0)
+    }
+
+    @Subscribe(tags = [MainAction.GET_PROVINCE_NAME])
+    fun onGetProvinceName(rxAction: RxAction) {
+        provinceNamesLiveData.value = rxAction.getResponse<DingResponse<ArrayList<String>>>()?.results
     }
 
     @Subscribe(tags = [MainAction.GET_AREA_DATA])

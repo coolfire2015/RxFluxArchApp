@@ -18,6 +18,11 @@ class MainActionCreator @Inject constructor(
         postHttpLoadingAction(rxAction, dingApi.getOverAll())
     }
 
+    override fun getProvinceName() {
+        val rxAction = newRxAction(MainAction.GET_PROVINCE_NAME).apply { isGlobalCatch = false }
+        postHttpLoadingAction(rxAction, dingApi.getProvinceName())
+    }
+
     override fun getAreaData(province: String?) {
         val rxAction = newRxAction(MainAction.GET_AREA_DATA).apply { isGlobalCatch = false }
         postHttpLoadingAction(rxAction, dingApi.getAreaData())
