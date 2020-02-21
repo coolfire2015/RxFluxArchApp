@@ -2,8 +2,11 @@ package com.huyingbao.module.epidemic.ui.main.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import com.huyingbao.core.arch.model.RxChange
 import com.huyingbao.core.arch.model.RxError
+import com.huyingbao.core.arch.model.RxLoading
 import com.huyingbao.core.base.flux.fragment.BaseFluxFragment
 import com.huyingbao.core.base.setTitle
 import com.huyingbao.core.utils.RecyclerItemClickListener
@@ -15,8 +18,10 @@ import com.huyingbao.module.epidemic.ui.main.action.MainAction
 import com.huyingbao.module.epidemic.ui.main.action.MainActionCreator
 import com.huyingbao.module.epidemic.ui.main.adapter.ProvinceAdapter
 import com.huyingbao.module.epidemic.ui.main.store.MainStore
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.epidemic_fragment_province.*
 import org.greenrobot.eventbus.Subscribe
+import org.jetbrains.anko.find
 import javax.inject.Inject
 
 
@@ -27,6 +32,13 @@ class ProvinceFragment : BaseFluxFragment<MainStore>() {
     @Inject
     lateinit var mainActionCreator: MainActionCreator
 
+    private val rvContent by lazy {
+        view?.find<RecyclerView>(R.id.rv_content)
+    }
+    private val refreshLayout by lazy {
+        view?.find<SmartRefreshLayout>(R.id.rfl_content)
+    }
+
     private val epidemicAdapter by lazy {
         ProvinceAdapter(ArrayList())
     }
@@ -35,7 +47,7 @@ class ProvinceFragment : BaseFluxFragment<MainStore>() {
         fun newInstance() = ProvinceFragment()
     }
 
-    override fun getLayoutId() = R.layout.epidemic_fragment_province
+    override fun getLayoutId() = R.layout.common_fragment_list
 
     override fun afterCreate(savedInstanceState: Bundle?) {
         setTitle("省", true)
@@ -47,7 +59,7 @@ class ProvinceFragment : BaseFluxFragment<MainStore>() {
      */
     private fun initView() {
         //设置RecyclerView
-        rv_content?.apply {
+        rvContent?.apply {
             //RecyclerView设置适配器
             adapter = epidemicAdapter
             //RecyclerView设置点击事件
@@ -57,10 +69,32 @@ class ProvinceFragment : BaseFluxFragment<MainStore>() {
                         }
                     }))
         }
+        //下拉刷新监听器，设置获取最新一页数据
+        refreshLayout?.setOnRefreshListener {
+            mainActionCreator.getAreaData(null)
+        }
         //显示数据
-        rxStore?.areaLiveData?.observe(this, androidx.lifecycle.Observer {
+        rxStore?.areaLiveData?.observe(this, Observer {
             epidemicAdapter.setNewData(it)
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //如果store已经创建并获取到数据，说明是横屏等操作导致的Fragment重建，不需要重新获取数据
+        if (rxStore?.areaLiveData?.value == null) {
+            refreshLayout?.autoRefresh()
+        }
+    }
+
+    /**
+     * 显示进度对话框，接收[RxLoading]，粘性，该方法不经过RxStore，由RxFluxView直接处理
+     */
+    @Subscribe(tags = [MainAction.GET_AREA_DATA], sticky = true)
+    fun onRxLoading(rxLoading: RxLoading) {
+        if (!rxLoading.isLoading) {
+            refreshLayout?.finishRefresh()
+        }
     }
 
     /**

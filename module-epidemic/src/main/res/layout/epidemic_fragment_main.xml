@@ -1,105 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_rfl_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.view.MainFragment">
+    app:srlEnablePreviewInEditMode="true"
+    app:srlPrimaryColor="?android:attr/colorPrimary">
+    <!--srlAccentColor srlPrimaryColor 将会改变 Header 和 Footer 的主题颜色-->
+    <!--srlEnablePreviewInEditMode 可以开启和关闭预览功能-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.view.MainFragment">
 
-    <Button
-        android:id="@+id/bt_province"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="68dp"
-        android:text="省数据"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_editor_absoluteX="83dp"
-        app:layout_editor_absoluteY="41dp" />
+        <Button
+            android:id="@+id/bt_province"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="76dp"
+            android:layout_marginTop="68dp"
+            android:text="省数据"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_editor_absoluteX="83dp"
+            app:layout_editor_absoluteY="41dp" />
 
-    <Button
-        android:id="@+id/bt_city"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:text="市数据"
-        app:layout_constraintStart_toStartOf="@+id/bt_province"
-        app:layout_constraintTop_toBottomOf="@+id/bt_province"
-        app:layout_editor_absoluteX="86dp"
-        app:layout_editor_absoluteY="121dp" />
+        <Button
+            android:id="@+id/bt_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:text="市数据"
+            app:layout_constraintStart_toStartOf="@+id/bt_province"
+            app:layout_constraintTop_toBottomOf="@+id/bt_province"
+            app:layout_editor_absoluteX="86dp"
+            app:layout_editor_absoluteY="121dp" />
 
-    <Button
-        android:id="@+id/bt_country"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:text="全球数据"
-        app:layout_constraintStart_toStartOf="@+id/bt_city"
-        app:layout_constraintTop_toBottomOf="@+id/bt_city"
-        app:layout_editor_absoluteX="89dp"
-        app:layout_editor_absoluteY="204dp" />
+        <Button
+            android:id="@+id/bt_country"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:text="全球数据"
+            app:layout_constraintStart_toStartOf="@+id/bt_city"
+            app:layout_constraintTop_toBottomOf="@+id/bt_city"
+            app:layout_editor_absoluteX="89dp"
+            app:layout_editor_absoluteY="204dp" />
 
-    <Button
-        android:id="@+id/bt_entries"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:text="功能条目"
-        app:layout_constraintStart_toStartOf="@+id/bt_country"
-        app:layout_constraintTop_toBottomOf="@+id/bt_country"
-        app:layout_editor_absoluteX="93dp"
-        app:layout_editor_absoluteY="282dp" />
+        <Button
+            android:id="@+id/bt_entries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:text="功能条目"
+            app:layout_constraintStart_toStartOf="@+id/bt_country"
+            app:layout_constraintTop_toBottomOf="@+id/bt_country"
+            app:layout_editor_absoluteX="93dp"
+            app:layout_editor_absoluteY="282dp" />
 
-    <Button
-        android:id="@+id/bt_recommend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:text="建议知识"
-        app:layout_constraintStart_toStartOf="@+id/bt_entries"
-        app:layout_constraintTop_toBottomOf="@+id/bt_entries"
-        app:layout_editor_absoluteX="95dp"
-        app:layout_editor_absoluteY="353dp" />
+        <Button
+            android:id="@+id/bt_recommend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:text="建议知识"
+            app:layout_constraintStart_toStartOf="@+id/bt_entries"
+            app:layout_constraintTop_toBottomOf="@+id/bt_entries"
+            app:layout_editor_absoluteX="95dp"
+            app:layout_editor_absoluteY="353dp" />
 
-    <Button
-        android:id="@+id/bt_rumor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
-        android:text="谣言"
-        app:layout_constraintStart_toEndOf="@+id/bt_province"
-        app:layout_constraintTop_toTopOf="@+id/bt_province" />
+        <Button
+            android:id="@+id/bt_rumor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="76dp"
+            android:text="谣言"
+            app:layout_constraintStart_toEndOf="@+id/bt_province"
+            app:layout_constraintTop_toTopOf="@+id/bt_province" />
 
-    <Button
-        android:id="@+id/bt_goods"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="商品指南"
-        app:layout_constraintStart_toStartOf="@+id/bt_rumor"
-        app:layout_constraintTop_toTopOf="@+id/bt_city" />
+        <Button
+            android:id="@+id/bt_goods"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="商品指南"
+            app:layout_constraintStart_toStartOf="@+id/bt_rumor"
+            app:layout_constraintTop_toTopOf="@+id/bt_city" />
 
-    <Button
-        android:id="@+id/bt_statistics"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="统计数据"
-        app:layout_constraintStart_toStartOf="@+id/bt_goods"
-        app:layout_constraintTop_toTopOf="@+id/bt_country" />
+        <Button
+            android:id="@+id/bt_statistics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="统计数据"
+            app:layout_constraintStart_toStartOf="@+id/bt_goods"
+            app:layout_constraintTop_toTopOf="@+id/bt_country" />
 
-    <Button
-        android:id="@+id/bt_timeline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="时间线"
-        app:layout_constraintStart_toStartOf="@+id/bt_statistics"
-        app:layout_constraintTop_toTopOf="@+id/bt_entries" />
+        <Button
+            android:id="@+id/bt_timeline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="时间线"
+            app:layout_constraintStart_toStartOf="@+id/bt_statistics"
+            app:layout_constraintTop_toTopOf="@+id/bt_entries" />
 
-    <Button
-        android:id="@+id/bt_wiki"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="百科知识"
-        app:layout_constraintStart_toStartOf="@+id/bt_timeline"
-        app:layout_constraintTop_toTopOf="@+id/bt_recommend" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/bt_wiki"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="百科知识"
+            app:layout_constraintStart_toStartOf="@+id/bt_timeline"
+            app:layout_constraintTop_toTopOf="@+id/bt_recommend" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>
