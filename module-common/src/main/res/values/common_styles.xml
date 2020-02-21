@@ -53,8 +53,21 @@
         <item name="android:layout_marginTop">@dimen/dp_10</item>
         <item name="android:layout_marginBottom">@dimen/dp_10</item>
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
-        <item name="cardCornerRadius">@dimen/dp_4</item>
-        <item name="cardElevation">@dimen/dp_6</item>
+        <item name="cardCornerRadius">@dimen/dp_4</item><!--圆角半径-->
+        <item name="cardElevation">@dimen/dp_6</item><!--阴影-->
+        <item name="cardPreventCornerOverlap">false</item>
+    </style>
+
+    <style name="CommonItemCardView" parent="CardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_120</item>
+        <item name="android:layout_marginStart">@dimen/dp_24</item>
+        <item name="android:layout_marginEnd">@dimen/dp_24</item>
+        <item name="android:layout_marginTop">@dimen/dp_12</item>
+        <item name="android:layout_marginBottom">@dimen/dp_12</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="cardCornerRadius">@dimen/dp_32</item><!--圆角半径-->
+        <item name="cardElevation">@dimen/dp_6</item><!--立体高度-->
         <item name="cardPreventCornerOverlap">false</item>
     </style>
     <!--横线样式-->

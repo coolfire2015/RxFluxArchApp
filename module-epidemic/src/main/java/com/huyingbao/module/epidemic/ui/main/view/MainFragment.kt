@@ -33,14 +33,14 @@ class MainFragment : BaseFluxFragment<MainStore>() {
     override fun afterCreate(savedInstanceState: Bundle?) {
         setTitle("肺炎疫情", false)
         initView()
-        bt_province.setOnClickListener { Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_provinceFragment) }
-        bt_country.setOnClickListener { Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_countryFragment) }
-        bt_entries.setOnClickListener { Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_entriesFragment) }
-        bt_recommend.setOnClickListener { Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_recommendFragment) }
-        bt_rumor.setOnClickListener { Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_rumorFragment) }
-        bt_goods.setOnClickListener { Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_goodsFragment) }
-        bt_timeline.setOnClickListener { Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_timelinFragment) }
-        bt_wiki.setOnClickListener { Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_wikiFragment) }
+//        bt_province.setOnClickListener { Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_provinceFragment) }
+//        bt_country.setOnClickListener { Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_countryFragment) }
+//        bt_entries.setOnClickListener { Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_entriesFragment) }
+//        bt_recommend.setOnClickListener { Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_recommendFragment) }
+//        bt_rumor.setOnClickListener { Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_rumorFragment) }
+//        bt_goods.setOnClickListener { Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_goodsFragment) }
+//        bt_timeline.setOnClickListener { Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_timelinFragment) }
+//        bt_wiki.setOnClickListener { Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_wikiFragment) }
     }
 
     private fun initView() {

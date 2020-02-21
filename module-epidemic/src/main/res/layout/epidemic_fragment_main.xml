@@ -1,114 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_rfl_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:srlEnablePreviewInEditMode="true"
     app:srlPrimaryColor="?android:attr/colorPrimary">
-    <!--srlAccentColor srlPrimaryColor 将会改变 Header 和 Footer 的主题颜色-->
-    <!--srlEnablePreviewInEditMode 可以开启和关闭预览功能-->
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.view.MainFragment">
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/bt_province"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="76dp"
-            android:layout_marginTop="68dp"
-            android:text="省数据"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_editor_absoluteX="83dp"
-            app:layout_editor_absoluteY="41dp" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/main_card_rumor"
+            style="@style/CommonItemCardView">
 
-        <Button
-            android:id="@+id/bt_city"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="44dp"
-            android:text="市数据"
-            app:layout_constraintStart_toStartOf="@+id/bt_province"
-            app:layout_constraintTop_toBottomOf="@+id/bt_province"
-            app:layout_editor_absoluteX="86dp"
-            app:layout_editor_absoluteY="121dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/Red"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/bt_country"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="44dp"
-            android:text="全球数据"
-            app:layout_constraintStart_toStartOf="@+id/bt_city"
-            app:layout_constraintTop_toBottomOf="@+id/bt_city"
-            app:layout_editor_absoluteX="89dp"
-            app:layout_editor_absoluteY="204dp" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/dp_72"
+                    android:layout_height="@dimen/dp_72"
+                    android:layout_marginStart="@dimen/dp_24"
+                    android:background="@drawable/ic_function"
+                    android:padding="@dimen/dp_20"
+                    app:srcCompat="@drawable/ic_rumor" />
 
-        <Button
-            android:id="@+id/bt_entries"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="44dp"
-            android:text="功能条目"
-            app:layout_constraintStart_toStartOf="@+id/bt_country"
-            app:layout_constraintTop_toBottomOf="@+id/bt_country"
-            app:layout_editor_absoluteX="93dp"
-            app:layout_editor_absoluteY="282dp" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_24"
+                    android:orientation="vertical">
 
-        <Button
-            android:id="@+id/bt_recommend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="44dp"
-            android:text="建议知识"
-            app:layout_constraintStart_toStartOf="@+id/bt_entries"
-            app:layout_constraintTop_toBottomOf="@+id/bt_entries"
-            app:layout_editor_absoluteX="95dp"
-            app:layout_editor_absoluteY="353dp" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/epidemic_title_rumor"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/sp_18" />
 
-        <Button
-            android:id="@+id/bt_rumor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="76dp"
-            android:text="谣言"
-            app:layout_constraintStart_toEndOf="@+id/bt_province"
-            app:layout_constraintTop_toTopOf="@+id/bt_province" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="@string/epidemic_info_rumor"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/sp_16" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-        <Button
-            android:id="@+id/bt_goods"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="商品指南"
-            app:layout_constraintStart_toStartOf="@+id/bt_rumor"
-            app:layout_constraintTop_toTopOf="@+id/bt_city" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/main_card_area"
+            style="@style/CommonItemCardView">
 
-        <Button
-            android:id="@+id/bt_statistics"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="统计数据"
-            app:layout_constraintStart_toStartOf="@+id/bt_goods"
-            app:layout_constraintTop_toTopOf="@+id/bt_country" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/common_primary_dark"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/bt_timeline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="时间线"
-            app:layout_constraintStart_toStartOf="@+id/bt_statistics"
-            app:layout_constraintTop_toTopOf="@+id/bt_entries" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/dp_72"
+                    android:layout_height="@dimen/dp_72"
+                    android:layout_marginStart="@dimen/dp_24"
+                    android:background="@drawable/ic_function"
+                    android:padding="@dimen/dp_20"
+                    app:srcCompat="@drawable/ic_area" />
 
-        <Button
-            android:id="@+id/bt_wiki"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="百科知识"
-            app:layout_constraintStart_toStartOf="@+id/bt_timeline"
-            app:layout_constraintTop_toTopOf="@+id/bt_recommend" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_24"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/epidemic_title_area"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/sp_18" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="@string/epidemic_info_area"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/sp_16" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/main_card_news"
+            style="@style/CommonItemCardView">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/Green"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/dp_72"
+                    android:layout_height="@dimen/dp_72"
+                    android:layout_marginStart="@dimen/dp_24"
+                    android:background="@drawable/ic_function"
+                    android:padding="@dimen/dp_20"
+                    app:srcCompat="@drawable/ic_news" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_24"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/epidemic_title_news"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/sp_18" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="@string/epidemic_info_news"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/sp_16" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
 </com.scwang.smartrefresh.layout.SmartRefreshLayout>

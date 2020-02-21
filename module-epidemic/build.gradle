@@ -117,4 +117,5 @@ dependencies {
     api project(":module-common")
     implementation "com.github.PhilJay:MPAndroidChart:${MP_ANDROID_CHART}"
     implementation "com.github.vipulasri:timelineview:${TIME_LINE_VIEW}"
+    implementation 'me.jessyan:autosize:1.2.0'
 }
