@@ -2,6 +2,6 @@
 include ':core-base'
 include ':module-common'
 include ':module-ncov'
-//include ':module-github'
+include ':module-github'
 include ':module-wan'
 include ':module-gan'

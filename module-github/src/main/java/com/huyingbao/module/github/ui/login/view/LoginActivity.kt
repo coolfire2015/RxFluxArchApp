@@ -48,7 +48,7 @@ class LoginActivity : BaseFluxActivity<LoginStore>() {
             localStorageUtils.setValue(CommonAppConstants.Key.ACCESS_TOKEN, "")
         }
         if (TextUtils.isEmpty(githubAppStore.getAccessToken())) {//未登录，显示登录页面
-            setFragment(R.id.fl_container, LoginFragment.newInstance(), FragmentOp.OP_NULL)
+            setFragment(getFragmentContainerId(), LoginFragment.newInstance(), FragmentOp.OP_NULL)
         } else {//已登录，获取当前登录用户信息，跳转主页面
             //获取当前登录用户信息
             loginActionCreator.getLoginUserInfo()

@@ -6,4 +6,10 @@
     <string name="ncov_info_news">最新疫情新闻</string>
     <string name="ncov_title_rumor">谣言与防护</string>
     <string name="ncov_info_rumor">不信谣,不传谣,做好防护</string>
+    <string name="ncov_count_current">现存确诊</string>
+    <string name="ncov_count_dead">累计死亡</string>
+    <string name="ncov_count_confirmed">累计确诊</string>
+    <string name="ncov_count_suspected">现存疑似</string>
+    <string name="ncov_count_serious">现存重症</string>
+    <string name="ncov_count_cured">累计治愈</string>
 </resources>

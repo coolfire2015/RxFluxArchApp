@@ -1,7 +1,7 @@
 package com.huyingbao.module.github.ui.main.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.huyingbao.core.image.ImageLoader
 import com.huyingbao.module.github.R
 import com.huyingbao.module.github.ui.main.model.Repos
@@ -12,20 +12,20 @@ import com.huyingbao.module.github.ui.main.model.Repos
  * Created by liujunfeng on 2019/6/15.
  */
 class ReposAdapter(
-        data: List<Repos>?
+        data: MutableList<Repos>?
 ) : BaseQuickAdapter<Repos, BaseViewHolder>(
         R.layout.github_layout_item_repos,
         data) {
 
-    override fun convert(helper: BaseViewHolder, item: Repos) {
-        helper.setText(R.id.tv_repos_name, item.repositoryName)
-        helper.setText(R.id.tv_repos_des, item.repositoryDes)
-        helper.setText(R.id.tv_repos_language, item.repositoryType)
-        helper.setText(R.id.tv_repos_star, item.repositoryStar)
-        helper.setText(R.id.tv_repos_fork, item.repositoryFork)
+    override fun convert(helper: BaseViewHolder, item: Repos?) {
+        helper.setText(R.id.tv_repos_name, item?.repositoryName)
+        helper.setText(R.id.tv_repos_des, item?.repositoryDes)
+        helper.setText(R.id.tv_repos_language, item?.repositoryType)
+        helper.setText(R.id.tv_repos_star, item?.repositoryStar)
+        helper.setText(R.id.tv_repos_fork, item?.repositoryFork)
         val imageLoader = ImageLoader.Builder<String>()
         imageLoader.isCircle = true
-        imageLoader.resource = item.ownerPic
+        imageLoader.resource = item?.ownerPic
         imageLoader.errorHolder = android.R.drawable.ic_menu_camera
 //        imageLoader.imgView = helper.getView(R.id.iv_repos_user_img)
 //        ImageLoaderUtils.loadImage(mContext, imageLoader.build())

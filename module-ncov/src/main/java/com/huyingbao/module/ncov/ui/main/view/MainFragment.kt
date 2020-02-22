@@ -2,7 +2,6 @@ package com.huyingbao.module.ncov.ui.main.view
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
 import com.huyingbao.core.arch.model.RxError
 import com.huyingbao.core.arch.model.RxLoading
 import com.huyingbao.core.base.flux.fragment.BaseFluxFragment
@@ -14,7 +13,6 @@ import com.huyingbao.module.ncov.ui.main.action.MainActionCreator
 import com.huyingbao.module.ncov.ui.main.store.MainStore
 import kotlinx.android.synthetic.main.ncov_fragment_main.*
 import org.greenrobot.eventbus.Subscribe
-import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 /**
@@ -49,14 +47,26 @@ class MainFragment : BaseFluxFragment<MainStore>() {
             mainActionCreator.getOverAll()
         }
         //数据变化显示数据
+
         rxStore?.overAllLiveData?.observe(this, Observer {
-            context?.toast(it.toString())
+            main_tv_note1.text = it.note1
+            main_tv_note2.text = it.note2
+            main_tv_note3.text = it.note3
+//            main_tv_remark1.text = it.remark1
+//            main_tv_remark2.text = it.remark2
+//            main_tv_remark3.text = it.remark3
+            main_tv_current.text = getString(R.string.ncov_count_current) + "\n" + it.currentConfirmedCount.toString()
+            main_tv_suspected.text = getString(R.string.ncov_count_suspected) + "\n" + it.suspectedCount.toString()
+            main_tv_serious.text = getString(R.string.ncov_count_serious) + "\n" + it.seriousCount.toString()
+            main_tv_confirmed.text = getString(R.string.ncov_count_confirmed) + "\n" + it.confirmedCount.toString()
+            main_tv_dead.text = getString(R.string.ncov_count_dead) + "\n" + it.deadCount.toString()
+            main_tv_cured.text = getString(R.string.ncov_count_cured) + "\n" + it.curedCount.toString()
         })
     }
 
     override fun onResume() {
         super.onResume()
-        if(rxStore?.overAllLiveData?.value==null){
+        if (rxStore?.overAllLiveData?.value == null) {
             main_rfl_content.autoRefresh()
         }
     }

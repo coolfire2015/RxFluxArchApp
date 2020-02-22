@@ -6,59 +6,114 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:srlEnablePreviewInEditMode="true"
-    app:srlPrimaryColor="?android:attr/colorPrimary">
+    app:srlPrimaryColor="?android:attr/colorPrimary"
+    tools:context=".ui.main.view.MainFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.google.android.material.card.MaterialCardView style="@style/CommonItemCardView">
+        <com.google.android.material.card.MaterialCardView
+            style="@style/CommonCardView"
+            android:layout_height="@dimen/dp_320">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_height="match_parent"
+                android:background="@color/White"
                 android:paddingStart="@dimen/dp_16"
-                android:paddingTop="@dimen/dp_10"
-                android:paddingEnd="@dimen/dp_16"
-                android:paddingBottom="@dimen/dp_10">
+                android:paddingEnd="@dimen/dp_16">
 
-                <AutoCompleteTextView
-                    android:id="@+id/main_tv_current"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="@string/e" />
-
-                <AutoCompleteTextView
-                    android:id="@+id/main_tv_dead"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <AutoCompleteTextView
-                    android:id="@+id/main_tv_confirmed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <AutoCompleteTextView
-                    android:id="@+id/main_tv_suspected"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <AutoCompleteTextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/main_tv_serious"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    style="@style/CommonTextAppearanceInfo"
+                    android:text="@string/ncov_count_serious"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/main_tv_suspected"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/main_tv_suspected" />
 
-                <AutoCompleteTextView
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/main_tv_suspected"
+                    style="@style/CommonTextAppearanceInfo"
+                    android:text="@string/ncov_count_suspected"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/main_tv_current"
+                    app:layout_constraintEnd_toStartOf="@+id/main_tv_serious"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/main_tv_current" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/main_tv_confirmed"
+                    style="@style/CommonTextAppearanceInfo"
+                    android:layout_marginBottom="@dimen/dp_16"
+                    android:text="@string/ncov_count_confirmed"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/main_tv_dead"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/main_tv_current"
+                    style="@style/CommonTextAppearanceInfo"
+                    android:layout_marginBottom="@dimen/dp_16"
+                    android:text="@string/ncov_count_current"
+                    app:layout_constraintBottom_toTopOf="@+id/main_tv_confirmed"
+                    app:layout_constraintEnd_toStartOf="@+id/main_tv_suspected"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/main_tv_cured"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    style="@style/CommonTextAppearanceInfo"
+                    android:text="@string/ncov_count_cured"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/main_tv_dead"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/main_tv_dead" />
 
-                <AutoCompleteTextView
-                    android:id="@+id/main_tv_"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/main_tv_dead"
+                    style="@style/CommonTextAppearanceInfo"
+                    android:text="@string/ncov_count_dead"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/main_tv_confirmed"
+                    app:layout_constraintEnd_toStartOf="@+id/main_tv_cured"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/main_tv_confirmed" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/main_tv_note1"
+                    style="@style/CommonTextAppearanceInfo"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:textColor="@color/Black"
+                    android:textSize="@dimen/sp_18"
+                    android:textStyle="bold"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/ncov_count_confirmed" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/main_tv_note3"
+                    style="@style/CommonTextAppearanceInfo"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:textColor="@color/Black"
+                    android:textSize="@dimen/sp_18"
+                    app:layout_constraintStart_toStartOf="@+id/main_tv_note2"
+                    app:layout_constraintTop_toBottomOf="@+id/main_tv_note2"
+                    tools:text="@string/ncov_count_confirmed" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/main_tv_note2"
+                    style="@style/CommonTextAppearanceInfo"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:textColor="@color/Black"
+                    android:textSize="@dimen/sp_18"
+                    app:layout_constraintStart_toStartOf="@+id/main_tv_note1"
+                    app:layout_constraintTop_toBottomOf="@+id/main_tv_note1"
+                    tools:text="基于Flux架构的模块化框架基于Flux架构的模块化框架基于Flux架构的模块化框架基于Flux架构的模块化框架基于Flux架构的模块化框架基于Flux架构的模块化框架基于Flux架构的模块化框架基于Flux架构的模块化框架基于Flux架构的模块化框架基于Flux架构的模块化框架基于Flux架构的模块化框架基于Flux架构的模块化框架基于Flux架构的模块化框架基于Flux架构的模块化框架" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
