@@ -21,12 +21,16 @@
         <item name="android:textColorSecondary">@color/common_text_secondary</item>
         <!--窗口背景颜色-->
         <item name="android:colorBackground">@color/common_background_primary</item>
+        <!--页面背景 -->
+        <item name="android:windowBackground">@drawable/bg_app</item>
         <!--Button,textView的文字颜色-->
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <!--默认按钮的背景颜色-->
         <item name="colorButtonNormal">?attr/colorPrimary</item>
         <!--系统通用Button样式-->
         <item name="buttonStyle">@style/CommonButtonStyle</item>
+        <!--Toolbar 高度-->
+        <item name="actionBarSize">@dimen/dp_100</item>
     </style>
     <!--主题默认Button样式-->
     <style name="CommonButtonStyle" parent="Widget.AppCompat.Button">

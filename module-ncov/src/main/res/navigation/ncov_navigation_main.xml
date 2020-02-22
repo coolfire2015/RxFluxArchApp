@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ncov_navigation_main"
+    app:startDestination="@id/mainFragment"
+    tools:ignore="MissingDefaultResource">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.huyingbao.module.ncov.ui.main.view.MainFragment"
+        android:label="ncov_fragment_main"
+        tools:layout="@layout/ncov_fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_provinceFragment"
+            app:destination="@id/provinceFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_countryFragment"
+            app:destination="@id/countryFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_entriesFragment"
+            app:destination="@id/entriesFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_rumorFragment"
+            app:destination="@id/rumorFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_goodsFragment"
+            app:destination="@id/goodsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_recommendFragment"
+            app:destination="@id/recommendFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_wikiFragment"
+            app:destination="@id/wikiFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_timelinFragment"
+            app:destination="@id/timelinFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cityFragment"
+        android:name="com.huyingbao.module.ncov.ui.main.view.CityFragment"
+        android:label="ncov_fragment_city"
+        tools:layout="@layout/ncov_fragment_city" />
+    <fragment
+        android:id="@+id/provinceFragment"
+        android:name="com.huyingbao.module.ncov.ui.main.view.ProvinceFragment"
+        android:label="ncov_fragment_province"
+        tools:layout="@layout/ncov_fragment_province">
+        <action
+            android:id="@+id/action_provinceFragment_to_cityFragment"
+            app:destination="@id/cityFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/countryFragment"
+        android:name="com.huyingbao.module.ncov.ui.main.view.CountryFragment"
+        android:label="ncov_fragment_country"
+        tools:layout="@layout/ncov_fragment_country" />
+    <fragment
+        android:id="@+id/entriesFragment"
+        android:name="com.huyingbao.module.ncov.ui.main.view.EntriesFragment"
+        android:label="ncov_fragment_entries"
+        tools:layout="@layout/ncov_fragment_entries" />
+    <fragment
+        android:id="@+id/goodsFragment"
+        android:name="com.huyingbao.module.ncov.ui.main.view.GoodsFragment"
+        android:label="ncov_fragment_goods"
+        tools:layout="@layout/ncov_fragment_goods" />
+    <fragment
+        android:id="@+id/recommendFragment"
+        android:name="com.huyingbao.module.ncov.ui.main.view.RecommendFragment"
+        android:label="ncov_fragment_recommend"
+        tools:layout="@layout/ncov_fragment_recommend" />
+    <fragment
+        android:id="@+id/rumorFragment"
+        android:name="com.huyingbao.module.ncov.ui.main.view.RumorFragment"
+        android:label="ncov_fragment_rumor"
+        tools:layout="@layout/ncov_fragment_rumor" />
+    <fragment
+        android:id="@+id/timelinFragment"
+        android:name="com.huyingbao.module.ncov.ui.main.view.TimelineFragment"
+        android:label="ncov_fragment_timelin"
+        tools:layout="@layout/ncov_fragment_timeline" />
+    <fragment
+        android:id="@+id/wikiFragment"
+        android:name="com.huyingbao.module.ncov.ui.main.view.WikiFragment"
+        android:label="ncov_fragment_wiki"
+        tools:layout="@layout/ncov_fragment_wiki" />
+</navigation>

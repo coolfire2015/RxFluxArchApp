@@ -1,8 +1,0 @@
-<resources>
-    <string name="epidemic_title_area">各地数据</string>
-    <string name="epidemic_info_area">数据来源:国家及各省市地区卫健委</string>
-    <string name="epidemic_title_news">实时新闻</string>
-    <string name="epidemic_info_news">最新疫情新闻</string>
-    <string name="epidemic_title_rumor">谣言与防护</string>
-    <string name="epidemic_info_rumor">不信谣,不传谣,做好防护</string>
-</resources>

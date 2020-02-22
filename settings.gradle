@@ -1,7 +1,7 @@
 //include ':module-app'
 include ':core-base'
 include ':module-common'
-include ':module-epidemic'
+include ':module-ncov'
 //include ':module-github'
 include ':module-wan'
 include ':module-gan'
